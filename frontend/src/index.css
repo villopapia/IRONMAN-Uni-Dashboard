@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* This app is dark-only, but without telling the browser that, native form
+   controls - <select> dropdown popups, <input type="date"> calendar picker,
+   scrollbars - render with the OS's light-theme chrome regardless of our own
+   CSS, since author styles can't reach into that native UI. This is why the
+   Study hours module dropdown showed a bright white popup against the dark
+   page. color-scheme fixes every native control app-wide, not just this one. */
+:root {
+  color-scheme: dark;
+}
