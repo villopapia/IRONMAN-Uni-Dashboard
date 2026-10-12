@@ -1,15 +1,12 @@
 from datetime import date
 
 from fastapi import APIRouter, Depends, HTTPException
-from pydantic import BaseModel, Field, field_validator
 from sqlalchemy.orm import Session
 
 from ..database import get_db
 from ..models.garmin import GarminDailyMetric
-from ..models.performance import RecoveryBaseline
 from ..schemas.garmin import GarminDailyMetricOut
 from ..services.garmin_sync import backfill_rhr, sync_estimates, sync_recent
-from ..services.recovery_trend import recovery_trend
 
 router = APIRouter()
 
@@ -66,82 +63,3 @@ def metric_range(start: date, end: date | None = None, db: Session = Depends(get
         .all()
     )
 
-
-# --- HRV / RHR rolling trend -------------------------------------------------
-
-
-class TrendPoint(BaseModel):
-    date: date
-    hrv: float | None
-    rhr: float | None
-    hrv_7d: float | None
-    rhr_7d: float | None
-
-
-class Baseline(BaseModel):
-    value: float | None
-    method: str  # manual / snapshot_28d / auto_28d / insufficient_history
-    effective_from: date | None
-    sd: float | None
-    n: int
-
-
-class MetricTrend(BaseModel):
-    unit: str
-    rolling_7d: float | None
-    baseline: Baseline
-    deviation_pct: float | None
-    flag: str | None  # normal / below_normal / above_normal / null (not enough data)
-    readings: int
-    first_reading: date | None
-
-
-class RecoveryTrend(BaseModel):
-    series: list[TrendPoint]
-    metrics: dict[str, MetricTrend]
-
-
-@router.get("/trend", response_model=RecoveryTrend)
-def trend(days: int = 42, db: Session = Depends(get_db)):
-    return recovery_trend(db, max(14, min(days, 180)))
-
-
-class BaselineCreate(BaseModel):
-    metric: str
-    value: float | None = Field(default=None, gt=0)  # omitted -> snapshot the current auto baseline
-    note: str | None = None
-
-    @field_validator("metric")
-    @classmethod
-    def _m(cls, v: str) -> str:
-        if v not in ("hrv", "rhr"):
-            raise ValueError("metric must be hrv or rhr")
-        return v
-
-
-@router.post("/baselines")
-def set_baseline(payload: BaselineCreate, db: Session = Depends(get_db)):
-    value, method = payload.value, "manual"
-    if value is None:
-        auto = recovery_trend(db, 42)["metrics"][payload.metric]["baseline"]
-        if auto["method"] != "auto_28d" or auto["value"] is None:
-            raise HTTPException(
-                400,
-                "Not enough history for an automatic baseline yet (needs 14+ readings "
-                "in the 28-day window) - enter a value instead.",
-            )
-        value, method = auto["value"], "snapshot_28d"
-    row = RecoveryBaseline(
-        metric=payload.metric, value=value, method=method, effective_from=date.today(), note=payload.note
-    )
-    db.add(row)
-    db.commit()
-    return {"metric": row.metric, "value": row.value, "method": row.method, "effective_from": row.effective_from}
-
-
-@router.delete("/baselines/{metric}")
-def clear_baselines(metric: str, db: Session = Depends(get_db)):
-    """Back to the automatic 28-day baseline."""
-    n = db.query(RecoveryBaseline).filter(RecoveryBaseline.metric == metric).delete()
-    db.commit()
-    return {"deleted": n}

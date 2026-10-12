@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Mountain } from "lucide-react";
 import { api, Longest } from "@/lib/api";
 import { fmtWeekRange } from "@/lib/format";
@@ -11,6 +12,8 @@ const SPORTS = [
   { key: "bike", label: "Longest ride" },
   { key: "run", label: "Longest run" },
 ] as const;
+
+const DEFAULT_WEEKS = 6;
 
 // Value, % of the race target, and a bar that fills to the target (capped at
 // 100% wide; the number carries any overshoot).
@@ -33,10 +36,17 @@ function Cell({ longest, unit, color }: { longest: Longest; unit: string; color:
 
 export default function Durability() {
   const { data, error } = usePolling(() => api.getDurability());
-  const weeks = [...(data?.weeks ?? [])].reverse();
+  const [showAll, setShowAll] = useState(false);
+  const all = [...(data?.weeks ?? [])].reverse();
+  const weeks = showAll ? all : all.slice(0, DEFAULT_WEEKS);
 
   return (
-    <Card icon={Mountain} title="Durability" meta="longest session per week vs race distance">
+    <Card
+      icon={Mountain}
+      title="Durability"
+      info="Longest single session each week as a share of the race distance. Rides are measured in minutes because they are indoor and record no distance. The current week is still in progress."
+      meta="longest session per week vs race distance"
+    >
       {error && <p className="mb-2 text-sm text-red-400">Couldn't refresh ({error}){data ? " — showing last known data." : ""}</p>}
       {!data && !error && <Skeleton className="h-56 w-full" />}
 
@@ -77,10 +87,11 @@ export default function Durability() {
               </tbody>
             </table>
           </div>
-          <p className="mt-3 text-xs leading-relaxed text-neutral-500">
-            Longest single session each week as a share of the race distance. Rides are measured in minutes because they are indoor
-            and record no distance. The current week is still in progress.
-          </p>
+          {all.length > DEFAULT_WEEKS && (
+            <button className="mt-2 text-xs text-neutral-500 hover:text-neutral-300" onClick={() => setShowAll(!showAll)}>
+              {showAll ? `Show last ${DEFAULT_WEEKS} weeks` : `Show all ${all.length} weeks`}
+            </button>
+          )}
         </>
       )}
     </Card>

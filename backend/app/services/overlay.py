@@ -283,6 +283,7 @@ def load_vs_deadlines(db: Session, weeks_back: int = 6, weeks_ahead: int = 10, t
     return {
         "weeks": weeks,
         "load_source": load_source,
+        "any_deadlines": db.query(AcademicDeadline).first() is not None,  # anywhere, not just in this window
         "load_per_hour_by_discipline": {k: v for k, v in rates.items() if not k.startswith("_")},
         "load_per_hour_fallback": rate_fallback,
         "current_ctl": latest_ctl,

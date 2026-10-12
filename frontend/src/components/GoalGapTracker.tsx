@@ -47,6 +47,7 @@ export default function GoalGapTracker() {
     <Card
       icon={Target}
       title="Race goal gap"
+      info={data ? `${data.note} Bar = projected, white tick = budget.` : undefined}
       meta={data?.race_date ? `70.3 Jönköping · ${data.days_to_race}d` : undefined}
     >
       {error && <p className="mb-2 text-sm text-red-400">Couldn't refresh ({error}){data ? " — showing last known data." : ""}</p>}
@@ -127,9 +128,6 @@ export default function GoalGapTracker() {
             </div>
           </div>
 
-          <p className="mt-3 text-xs leading-relaxed text-neutral-500">
-            {data.note} Bar = projected, white tick = budget.
-          </p>
         </>
       )}
     </Card>

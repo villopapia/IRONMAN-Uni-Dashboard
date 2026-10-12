@@ -131,6 +131,13 @@ export default function LoadDeadlineOverlay() {
   // missing field must not take the whole page down.
   const rateFallback = data?.load_per_hour_fallback ?? [];
   const rates = Object.entries(data?.load_per_hour_by_discipline ?? {}).filter(([k]) => ["swim", "bike", "run", "gym"].includes(k));
+  // The pill is about whether deadlines have been entered at all, not whether this window happens to hold one.
+  const anyDeadlines = data?.any_deadlines ?? !noDeadlines;
+  const info = data
+    ? `${data.note} Load/hour used for projection: ${rates.map(([k, v]) => `${k} ${v}${rateFallback.includes(k) ? "*" : ""}`).join(", ")} load/h.${
+        rates.some(([k]) => rateFallback.includes(k)) ? " * all-history fallback." : ""
+      }`
+    : undefined;
 
   const trainingFill = (w: OverlayWeek, projected: boolean) =>
     w.training_elevated ? (projected ? `${status.warning}a6` : status.warning) : projected ? ink.muted : ink.secondary;
@@ -139,11 +146,12 @@ export default function LoadDeadlineOverlay() {
     <Card
       icon={Layers}
       title="Training load vs academic deadlines"
+      info={info}
       meta={
         data ? (
           riskCount > 0 ? (
             <StatusBadge tone="critical" label={`${riskCount} risk week${riskCount > 1 ? "s" : ""}`} />
-          ) : noDeadlines ? (
+          ) : !anyDeadlines ? (
             <StatusBadge tone="neutral" label="No deadlines entered — can't check for overlap" />
           ) : (
             <StatusBadge tone="good" label="No overlapping spikes" />
@@ -273,13 +281,6 @@ export default function LoadDeadlineOverlay() {
             <span className="inline-flex items-center gap-1"><Flame size={12} style={{ color: status.warning }} /> 4+ hard weeks, no lighter week</span>
             <span className="inline-flex items-center gap-1"><CalendarClock size={12} style={{ color: status.warning }} /> deadlines elevated</span>
           </div>
-
-          <p className="mt-3 text-xs leading-relaxed text-neutral-500">
-            {data.note} Load/hour used for projection:{" "}
-            {rates.map(([k, v]) => `${k} ${v}${rateFallback.includes(k) ? "*" : ""}`).join(", ")}
-            {" "}load/h.
-            {rates.some(([k]) => rateFallback.includes(k)) && " * all-history fallback."}
-          </p>
 
           <ChartTable
             columns={["Week", "Load", "Plan", "Usual week", "Planned h", "Deadlines", "Flag"]}

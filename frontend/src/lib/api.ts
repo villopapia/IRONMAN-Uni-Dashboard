@@ -446,33 +446,16 @@ export interface GoalGap {
   note: string;
 }
 
-export interface RecoveryTrendPoint {
-  date: string;
-  hrv: number | null;
-  rhr: number | null;
-  hrv_7d: number | null;
-  rhr_7d: number | null;
-}
-
-export interface RecoveryMetricTrend {
-  unit: string;
-  rolling_7d: number | null;
-  baseline: {
-    value: number | null;
-    method: "manual" | "snapshot_28d" | "auto_28d" | "insufficient_history";
-    effective_from: string | null;
-    sd: number | null;
-    n: number;
-  };
-  deviation_pct: number | null;
-  flag: "normal" | "below_normal" | "above_normal" | null;
-  readings: number;
-  first_reading: string | null;
-}
+// Status, value, band and basis are the Readiness service's own, so this view cannot disagree with it.
+export type TrendMetric = Pick<ReadinessMetric, "status" | "value" | "unit" | "basis" | "band">;
 
 export interface RecoveryTrend {
-  series: RecoveryTrendPoint[];
-  metrics: { hrv: RecoveryMetricTrend; rhr: RecoveryMetricTrend };
+  series: { date: string; hrv: number | null; rhr: number | null; rhr_7d: number | null }[];
+  hrv: TrendMetric;
+  rhr: TrendMetric;
+  rhr_amber_from: number;
+  rhr_red_from: number;
+  note: string;
 }
 
 // --- Academic trajectory ------------------------------------------------------
@@ -597,6 +580,7 @@ export interface OverlayWeek {
 export interface Overlay {
   weeks: OverlayWeek[];
   load_source: string;
+  any_deadlines: boolean;
   load_per_hour_by_discipline: Record<string, number>;
   load_per_hour_fallback: string[];
   current_ctl: number;
@@ -614,7 +598,7 @@ const json = (method: string, body: unknown): RequestInit => ({
 export const api = {
   getDisciplineWeeks: (weeks = 12) =>
     request<WeekDisciplineRollup[]>(`/training/weeks?weeks=${weeks}`),
-  getCompliance: (weeksBack = 6, weeksAhead = 1) =>
+  getCompliance: (weeksBack = 7, weeksAhead = 0) =>
     request<ComplianceRange>(`/compliance/weeks?weeks_back=${weeksBack}&weeks_ahead=${weeksAhead}`),
   setSessionStatus: (ids: number[], manualStatus: "done" | "skipped" | null) =>
     request("/compliance/sessions", json("PATCH", { ids, manual_status: manualStatus })),
@@ -661,11 +645,7 @@ export const api = {
   togglePrepItem: (id: number, done: boolean) =>
     request<PrepItem>(`/academic/prep/${id}?done=${done}`, { method: "PATCH" }),
   deletePrepItem: (id: number) => request(`/academic/prep/${id}`, { method: "DELETE" }),
-  getRecoveryTrend: (days = 42) => request<RecoveryTrend>(`/garmin/trend?days=${days}`),
-  setRecoveryBaseline: (metric: "hrv" | "rhr", value?: number) =>
-    request("/garmin/baselines", json("POST", { metric, value: value ?? null })),
-  clearRecoveryBaseline: (metric: "hrv" | "rhr") =>
-    request(`/garmin/baselines/${metric}`, { method: "DELETE" }),
+  getRecoveryTrend: (days = 42) => request<RecoveryTrend>(`/readiness/trend?days=${days}`),
 
   getGates: () => request<Gate[]>("/performance/gates"),
   updateGateItem: (key: string, update: GateItemUpdate) =>

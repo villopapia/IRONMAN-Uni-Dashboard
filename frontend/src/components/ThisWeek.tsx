@@ -20,12 +20,12 @@ export default function ThisWeek() {
   const { data, error } = usePolling(() => api.getThisWeek());
 
   return (
-    <Card icon={CalendarDays} title="This week" meta={data ? fmtWeekRange(data.week_start) : undefined} className="lg:col-span-2">
+    <Card icon={CalendarDays} title="This week" meta={data ? fmtWeekRange(data.week_start) : undefined}>
       {error && <p className="mb-2 text-sm text-red-400">Couldn't refresh ({error}){data ? " — showing last known data." : ""}</p>}
       {!data && !error && <Skeleton className="h-32 w-full" />}
 
       {data && (
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+        <div className="grid grid-cols-1 gap-5">
           <div>
             <div className="text-xs font-semibold uppercase tracking-wide text-neutral-500">Key sessions</div>
             <ul className="mt-1 divide-y divide-white/[0.05]">

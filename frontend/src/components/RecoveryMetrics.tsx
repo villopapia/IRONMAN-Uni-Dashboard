@@ -1,5 +1,5 @@
 import { HeartPulse } from "lucide-react";
-import { api, GarminDailyMetric, RecoveryTrend } from "@/lib/api";
+import { api, GarminDailyMetric, Readiness } from "@/lib/api";
 import { timeAgo, todayIso } from "@/lib/format";
 import { status } from "@/lib/palette";
 import { usePolling } from "@/lib/usePolling";
@@ -28,7 +28,7 @@ interface Note {
 // Thresholds are Garmin's published bands (sleep score, body battery, training
 // readiness) and its own 8h sleep target; HRV/RHR are judged against YOUR
 // baseline, never an absolute number - HRV ms varies too much between people.
-function recoveryNotes(m: GarminDailyMetric, trend: RecoveryTrend | null): Note[] {
+function recoveryNotes(m: GarminDailyMetric, ready: Readiness | null): Note[] {
   const notes: Note[] = [];
   const hrs = m.sleep_duration_min != null ? m.sleep_duration_min / 60 : null;
   if (hrs != null && hrs < 7) {
@@ -52,23 +52,12 @@ function recoveryNotes(m: GarminDailyMetric, trend: RecoveryTrend | null): Note[
     notes.push({ tone: "warn", text: `Body battery only peaked at ${m.body_battery_high} — you didn't fully recharge overnight.` });
   }
 
-  const hrv = trend?.metrics.hrv;
-  if (m.hrv_value != null && hrv?.rolling_7d != null) {
-    const dev = ((m.hrv_value - hrv.rolling_7d) / hrv.rolling_7d) * 100;
-    const building = hrv.baseline.value == null ? " (baseline still building)" : "";
-    if (hrv.flag === "below_normal" || dev <= -15) {
-      notes.push({ tone: "bad", text: `HRV ${Math.round(m.hrv_value)} ms is ${Math.abs(Math.round(dev))}% below your 7-day average (${hrv.rolling_7d} ms)${building} — a sign of accumulated fatigue; ease off.` });
-    } else {
-      notes.push({ tone: "good", text: `HRV ${Math.round(m.hrv_value)} ms is in line with your 7-day average (${hrv.rolling_7d} ms)${building}.` });
-    }
-  }
-
-  const rhr = trend?.metrics.rhr;
-  if (m.resting_hr != null && rhr?.baseline.value != null) {
-    const diff = m.resting_hr - rhr.baseline.value;
-    if (diff >= Math.max(3, 2 * (rhr.baseline.sd ?? 0))) {
-      notes.push({ tone: "bad", text: `Resting HR ${m.resting_hr} is ${Math.round(diff)} bpm above your usual ${rhr.baseline.value} — possible fatigue, stress or illness.` });
-    }
+  // HRV and resting HR are judged by the Readiness service - one rule on every card.
+  for (const key of ["hrv", "rhr"] as const) {
+    const r = ready?.metrics?.find((x) => x.key === key);
+    if (!r || r.status === "no_data" || r.value == null) continue;
+    const verdict = r.status === "pass" ? "in range" : r.status === "amber" ? "amber, keep an eye on it" : "red, ease off";
+    notes.push({ tone: r.status === "red" ? "bad" : r.status === "amber" ? "warn" : "good", text: `${r.label} ${r.value} ${r.unit} (${r.basis}): ${verdict}.` });
   }
   return notes;
 }
@@ -77,8 +66,8 @@ const TONE_COLOR = { good: status.good, warn: status.warning, bad: status.critic
 
 export default function RecoveryMetrics() {
   const { data: metric, error, loaded } = usePolling(() => api.getGarminToday());
-  // Trend is optional context for the notes - if it fails there are just fewer notes.
-  const { data: trend } = usePolling(() => api.getRecoveryTrend());
+  // Readiness is optional context for the notes - if it fails there are just fewer notes.
+  const { data: ready } = usePolling(() => api.getReadiness());
 
   const tiles: Tile[] = metric
     ? [
@@ -162,7 +151,7 @@ export default function RecoveryMetrics() {
 
       {metric && (
         <ul className="mt-5 space-y-2 border-t border-white/[0.06] pt-4 text-sm text-neutral-300">
-          {recoveryNotes(metric, trend).map((n) => (
+          {recoveryNotes(metric, ready).map((n) => (
             <li key={n.text} className="flex gap-2">
               <span className="mt-1.5 h-2 w-2 shrink-0 rounded-full" style={{ background: TONE_COLOR[n.tone] }} />
               {n.text}

@@ -10,6 +10,7 @@ import ExamPrepCoverage from "@/components/ExamPrepCoverage";
 import GoalGapTracker from "@/components/GoalGapTracker";
 import InjuryLog from "@/components/InjuryLog";
 import IntensityDistribution from "@/components/IntensityDistribution";
+import KpiStrip from "@/components/KpiStrip";
 import LoadDeadlineOverlay from "@/components/LoadDeadlineOverlay";
 import NutritionSupplements from "@/components/NutritionSupplements";
 import PhaseGateChecklist from "@/components/PhaseGateChecklist";
@@ -18,7 +19,6 @@ import RecoveryMetrics from "@/components/RecoveryMetrics";
 import RecoveryTrend from "@/components/RecoveryTrend";
 import RunGuard from "@/components/RunGuard";
 import SeasonHeader from "@/components/SeasonHeader";
-import SportFitness from "@/components/SportFitness";
 import StudyHours from "@/components/StudyHours";
 import ThisWeek from "@/components/ThisWeek";
 import ThresholdTrends from "@/components/ThresholdTrends";
@@ -67,12 +67,17 @@ export default function App() {
   return (
     <div className="min-h-screen bg-[#0d0d0d]">
       <header className="border-b border-white/[0.06] bg-[#0d0d0d]/80 px-6 pt-5 backdrop-blur">
-        <div className="mx-auto flex max-w-6xl items-center justify-between">
-          <div className="flex items-center gap-2.5">
+        {/* Three columns: title, countdown, date. Narrow screens: title and date share a
+            row and the countdown sits centred beneath them, above the tabs. */}
+        <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-x-4 gap-y-3">
+          <div className="order-1 flex items-center gap-2.5 md:flex-1">
             <Flame size={22} className="text-orange-500" strokeWidth={2} />
             <h1 className="text-xl font-bold text-white">Fitness Dashboard</h1>
           </div>
-          <SeasonHeader fallback={today} />
+          <div className="order-3 w-full md:order-2 md:w-auto">
+            <SeasonHeader />
+          </div>
+          <span className="order-2 text-xs text-neutral-500 md:order-3 md:flex-1 md:text-right">{today}</span>
         </div>
         <nav className="mx-auto mt-4 flex max-w-6xl gap-1 overflow-x-auto" role="tablist">
           {TABS.map((t) => (
@@ -96,19 +101,13 @@ export default function App() {
       <main className="mx-auto max-w-6xl px-6 py-6">
         {tab === "overview" && (
           <>
-            <section className="mb-8">
-              <SectionLabel>This week</SectionLabel>
+            <section className="mb-8 space-y-5">
+              <KpiStrip />
               <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
                 <ThisWeek />
                 <Readiness />
               </div>
-            </section>
-
-            <section className="mb-8">
-              <SectionLabel>Burnout watch</SectionLabel>
-              <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
-                <LoadDeadlineOverlay />
-              </div>
+              <LoadDeadlineOverlay />
             </section>
 
             <section>
@@ -131,25 +130,17 @@ export default function App() {
 
         {tab === "training" && (
           <section>
-            <SectionLabel>Load, volume & compliance</SectionLabel>
             <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
               <TrainingLoadChart />
               <DisciplineVolume />
               <ComplianceTracker />
               <IntensityDistribution />
               <RunGuard />
-              <SportFitness />
               <Durability />
-            </div>
-          </section>
-        )}
-
-        {tab === "training" && (
-          <section className="mt-8">
-            <SectionLabel>Recovery & niggles</SectionLabel>
-            <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
-              <RecoveryTrend />
-              <InjuryLog />
+              <div className="flex flex-col gap-5">
+                <RecoveryTrend />
+                <InjuryLog />
+              </div>
             </div>
           </section>
         )}

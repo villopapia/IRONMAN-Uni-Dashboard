@@ -1,5 +1,13 @@
 """Run from backend/: python -m tests.test_readiness (also pytest-compatible)."""
 
+from datetime import date, timedelta
+
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
+
+import app.models  # noqa: F401 - registers every table on Base
+from app.database import Base
+from app.models.intervals import IntervalsWellness
 from app.services.readiness import (
     ACTIONS,
     average,
@@ -7,6 +15,8 @@ from app.services.readiness import (
     hrv_status,
     hrv_windows,
     overall_action,
+    readiness,
+    recovery_trend,
     rhr_status,
     sleep_status,
     weight_status,
@@ -87,6 +97,25 @@ def test_overall_action():
     assert overall_action(["no_data", "pass", "pass"]) == go  # missing data is not a red
     assert overall_action(["red", "no_data", "no_data"]) == fix_one
     assert overall_action(["no_data", "no_data", "no_data"]) == "No data"  # ...and never a pass
+
+
+def test_recovery_trend_reports_the_readiness_statuses():
+    engine = create_engine("sqlite:///:memory:")
+    Base.metadata.create_all(engine)
+    db = sessionmaker(bind=engine)()
+    today = date(2026, 10, 12)
+    for i in range(45):  # last 7 days at 60 bpm, last 3 days of HRV far under a 45/55 baseline
+        hrv = 30.0 if i < 3 else 45.0 + 10 * (i % 2)
+        db.add(IntervalsWellness(date=today - timedelta(days=i), resting_hr=60.0 if i < 7 else 50.0, hrv=hrv, sleep_secs=8 * 3600))
+    db.commit()
+    ready = {m["key"]: m for m in readiness(db, today)["metrics"]}
+    trend = recovery_trend(db, 42, today)
+    assert trend["rhr"]["status"] == ready["rhr"]["status"] == "red"
+    assert trend["hrv"]["status"] == ready["hrv"]["status"] == "red"
+    assert trend["hrv"]["band"] == ready["hrv"]["band"] and trend["rhr"]["value"] == ready["rhr"]["value"] == 60.0
+    assert len(trend["series"]) == 42
+    assert trend["series"][-1] == {"date": today, "hrv": 30.0, "rhr": 60.0, "rhr_7d": 60.0}
+    assert trend["series"][-8]["rhr_7d"] == 50.0  # the day before the jump: its own trailing 7 days
 
 
 if __name__ == "__main__":

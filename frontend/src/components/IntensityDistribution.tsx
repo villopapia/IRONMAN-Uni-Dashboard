@@ -53,7 +53,7 @@ export default function IntensityDistribution() {
   const agg = data?.aggregate;
 
   return (
-    <Card icon={Gauge} title="Intensity distribution" meta="last 8 weeks, % of HR-zone time">
+    <Card icon={Gauge} title="Intensity distribution" info={data ? `${(data.caveats ?? []).join(". ")}.` : undefined} meta="last 8 weeks, % of HR-zone time">
       {error && <p className="mb-2 text-sm text-red-400">Couldn't refresh ({error}){data ? " — showing last known data." : ""}</p>}
       {!data && !error && <Skeleton className="h-48 w-full" />}
 
@@ -78,8 +78,6 @@ export default function IntensityDistribution() {
               <SportChart key={s} sport={s} weeks={weeks} />
             ))}
           </div>
-
-          <p className="mt-3 text-xs leading-relaxed text-neutral-500">{(data.caveats ?? []).join(". ")}.</p>
 
           <ChartTable
             columns={["Week", "Bike low / mid / high", "Run low / mid / high"]}

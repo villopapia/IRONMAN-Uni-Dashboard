@@ -3,6 +3,14 @@ import { ink, status as statusColors } from "@/lib/palette";
 
 export type BadgeTone = "good" | "warning" | "serious" | "critical" | "neutral";
 
+/** The PASS / AMBER / RED / NO DATA badge every status panel uses. */
+export const FLAG_BADGE: Record<"pass" | "amber" | "red" | "no_data", [BadgeTone, string]> = {
+  pass: ["good", "PASS"],
+  amber: ["warning", "AMBER"],
+  red: ["critical", "RED"],
+  no_data: ["neutral", "NO DATA"],
+};
+
 const TONE_COLOR: Record<BadgeTone, string> = {
   good: statusColors.good,
   warning: statusColors.warning,

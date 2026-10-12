@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { TrendingUp } from "lucide-react";
 import {
-  Bar,
   CartesianGrid,
   ComposedChart,
   Legend,
@@ -14,7 +13,7 @@ import {
   YAxis,
 } from "recharts";
 import { api, PmcPoint } from "@/lib/api";
-import { fmtShortDate, fmtWeekRange, weekStartIso } from "@/lib/format";
+import { fmtShortDate } from "@/lib/format";
 import { ink, LOAD_COLORS, SPORT_COLORS, status } from "@/lib/palette";
 import { usePolling } from "@/lib/usePolling";
 import Card from "@/components/ui/Card";
@@ -31,6 +30,13 @@ const RANGES = [
   { id: "season", label: "Season", days: 180 },
 ] as const;
 type RangeId = (typeof RANGES)[number]["id"];
+
+// Total = overall fitness and fatigue; By sport = the fitness line split into swim, bike and run.
+const VIEWS = [
+  { id: "total", label: "Total" },
+  { id: "sport", label: "By sport" },
+] as const;
+const CTL_SPORTS = ["swim", "bike", "run"] as const;
 
 // Form bands as TrainingPeaks defines them (for its TSS scale; Relative Effort
 // is a different scale, so treat them as a guide, not a verdict).
@@ -56,13 +62,14 @@ function formNote(tsb: number, ramp: number | null): string {
   return `${form} ${r}`;
 }
 
-// Same margins on all three charts so syncId lines the days up; the right
-// margin leaves room for the value labels at the end of each line.
+// Same margins on both charts so syncId lines the days up; the right margin
+// leaves room for the value labels at the end of each line.
 const MARGIN = { top: 4, right: 40, left: -8, bottom: 0 };
-const SPORTS = ["swim", "bike", "run", "gym", "walk", "other"];
 const SPARK_DAYS = 28;
+const DAY_MS = 86_400_000;
 const MARKER_LABEL = { position: "insideTopLeft", fill: ink.secondary, fontSize: 10, dy: 12 } as const;
 const signed = (v: number) => `${v > 0 ? "+" : ""}${v.toFixed(1)}`;
+const cap = (s: string) => s[0].toUpperCase() + s.slice(1);
 
 // The current value, written at the end of its line (the last real data point).
 type PointLabel = { x?: number; y?: number; index?: number; value?: number | string };
@@ -92,55 +99,44 @@ function Toggle<T extends string>({ options, value, onChange }: { options: reado
   );
 }
 
-const LOAD_VIEWS = [
-  { id: "weekly", label: "Weekly" },
-  { id: "daily", label: "Daily" },
-] as const;
-
 export default function TrainingLoadChart() {
   const [range, setRange] = useState<RangeId>("6m");
-  const [loadView, setLoadView] = useState<(typeof LOAD_VIEWS)[number]["id"]>("weekly");
+  const [view, setView] = useState<(typeof VIEWS)[number]["id"]>("total");
   const { data: season } = usePolling(() => api.getSeason());
   // Until the season config has loaded, "Season" falls back to the 6m window.
   const seasonView = range === "season" && !!season;
+  const rangeDays =
+    seasonView && season
+      ? Math.round((Date.parse(season.today) - Date.parse(season.season_start)) / DAY_MS) + 1
+      : RANGES.find((r) => r.id === range)!.days;
   const { data, error } = usePolling(
-    () =>
-      seasonView && season
-        ? api.getPmc({ since: season.season_start, projectTo: season.race.date })
-        : api.getPmc({ days: RANGES.find((r) => r.id === range)!.days }),
+    () => (seasonView && season ? api.getPmc({ since: season.season_start, projectTo: season.race.date }) : api.getPmc({ days: rangeDays })),
     [range, seasonView],
   );
+  const { data: sport } = usePolling(() => api.getSportCtl(rangeDays), [rangeDays]);
 
   const actual: PmcPoint[] = data?.series ?? [];
   const cur = data?.current;
   const lastIdx = actual.length - 1;
   const projection = seasonView ? (data?.projection ?? []) : [];
-  // Flatten per-sport load into columns (undefined when absent so the tooltip
-  // only lists sports trained that day); the projection continues the CTL line
-  // from today's value.
+  const sportByDate = new Map((sport?.series ?? []).map((p) => [p.date, p]));
+  // One row per day; the projection continues the CTL line from today's value.
   const rows = [
-    ...actual.map((p, i) => ({
-      date: p.date,
-      load: p.load,
-      ctl: p.ctl,
-      atl: p.atl,
-      tsb: p.tsb,
-      proj: i === lastIdx && projection.length > 0 ? p.ctl : undefined,
-      ...p.by_sport,
-    })),
+    ...actual.map((p, i) => {
+      const s = sportByDate.get(p.date);
+      return {
+        date: p.date,
+        ctl: p.ctl,
+        atl: p.atl,
+        tsb: p.tsb,
+        proj: i === lastIdx && projection.length > 0 ? p.ctl : undefined,
+        swim: s?.swim,
+        bike: s?.bike,
+        run: s?.run,
+      };
+    }),
     ...projection.map((p) => ({ date: p.date, proj: p.ctl })),
   ];
-  const weeks = Object.values(
-    rows.reduce<Record<string, Record<string, number | string>>>((acc, r) => {
-      const start = weekStartIso(r.date);
-      const week = (acc[start] ??= { date: start });
-      for (const s of SPORTS) {
-        const v = (r as Record<string, unknown>)[s];
-        if (typeof v === "number") week[s] = ((week[s] as number | undefined) ?? 0) + v;
-      }
-      return acc;
-    }, {}),
-  );
 
   // Gates, race day and phases only draw where they fall inside the charted range.
   const first = rows[0]?.date;
@@ -167,6 +163,8 @@ export default function TrainingLoadChart() {
           : "",
         `CTL ramp: normal ${data.ramp_normal_from} to ${data.ramp_amber_above} a week, amber above ${data.ramp_amber_above}, red above ${data.ramp_red_above}.`,
         "The dotted line in the Season view is fitness projected from the calendar plan: planned session length x your current load per hour for that sport.",
+        sport?.starts_on ? `By sport: 42-day fitness per sport, same decay as intervals.icu, each line starting from 0 on ${fmtShortDate(sport.starts_on)}.` : "",
+        sport?.check ? `Swim + bike + run is within ${sport.check.max_deviation_pct}% of the total over the last ${sport.check.days} days (gym and walk load are not in the per-sport lines).` : "",
       ]
         .filter(Boolean)
         .join(" ")
@@ -177,7 +175,12 @@ export default function TrainingLoadChart() {
       icon={TrendingUp}
       title="Fitness, fatigue & form"
       info={info}
-      meta={<Toggle options={RANGES} value={range} onChange={setRange} />}
+      meta={
+        <span className="inline-flex flex-wrap items-center justify-end gap-2">
+          <Toggle options={VIEWS} value={view} onChange={setView} />
+          <Toggle options={RANGES} value={range} onChange={setRange} />
+        </span>
+      }
       className="lg:col-span-2"
     >
       {error && <p className="mb-2 text-sm text-red-400">Couldn't refresh ({error}){data ? " — showing last known data." : ""}</p>}
@@ -204,16 +207,14 @@ export default function TrainingLoadChart() {
           </div>
           <p className="mt-3 text-sm text-neutral-200">{formNote(cur.tsb, data.ctl_ramp_7d)}</p>
 
-          {/* Small multiples sharing the x-axis: daily-load spikes (single
-              sessions up to ~300) would otherwise set the y-scale and flatten
-              the fitness/fatigue lines, and form (which swings around 0) needs
-              its own scale and zones. */}
-          <div className="mt-4 h-56">
+          {/* Two small multiples sharing the x-axis: form swings around 0 and
+              needs its own scale and zones. */}
+          <div className="mt-4 h-60">
             <ResponsiveContainer width="100%" height="100%">
               <ComposedChart data={rows} syncId="pmc" margin={MARGIN}>
                 <CartesianGrid {...gridProps} />
                 <XAxis dataKey="date" {...xAxisProps} tickFormatter={fmtShortDate} minTickGap={40} hide />
-                <YAxis {...yAxisProps} domain={[0, (m: number) => Math.ceil(m / 20) * 20]} tickCount={5} />
+                <YAxis {...yAxisProps} domain={[0, (m: number) => Math.ceil(m / (view === "sport" ? 5 : 20)) * (view === "sport" ? 5 : 20)]} tickCount={5} />
                 {bands.map((b) => (
                   <ReferenceArea key={b.name} x1={b.x1} x2={b.x2} fill="rgba(255,255,255,0.05)" label={{ value: b.name, position: "insideTop", fill: ink.muted, fontSize: 10 }} />
                 ))}
@@ -226,9 +227,13 @@ export default function TrainingLoadChart() {
                   formatter={(v: number, name: string) => [v.toFixed(1), name]}
                 />
                 <Legend {...legendProps} verticalAlign="top" height={28} />
-                <Line type="monotone" dataKey="ctl" name="Fitness (CTL)" stroke={LOAD_COLORS.ctl} strokeWidth={2} dot={false} isAnimationActive={false} label={endLabel(lastIdx)} />
-                <Line type="monotone" dataKey="atl" name="Fatigue (ATL)" stroke={LOAD_COLORS.atl} strokeWidth={2} dot={false} isAnimationActive={false} label={endLabel(lastIdx)} />
-                {projection.length > 0 && (
+                {view === "total" && (
+                  <Line type="monotone" dataKey="ctl" name="Fitness (CTL)" stroke={LOAD_COLORS.ctl} strokeWidth={2} dot={false} isAnimationActive={false} label={endLabel(lastIdx)} />
+                )}
+                {view === "total" && (
+                  <Line type="monotone" dataKey="atl" name="Fatigue (ATL)" stroke={LOAD_COLORS.atl} strokeWidth={2} dot={false} isAnimationActive={false} label={endLabel(lastIdx)} />
+                )}
+                {view === "total" && projection.length > 0 && (
                   <Line
                     type="monotone"
                     dataKey="proj"
@@ -241,6 +246,10 @@ export default function TrainingLoadChart() {
                     label={endLabel(rows.length - 1)}
                   />
                 )}
+                {view === "sport" &&
+                  CTL_SPORTS.map((s) => (
+                    <Line key={s} type="monotone" dataKey={s} name={`${cap(s)} fitness (CTL)`} stroke={SPORT_COLORS[s]} strokeWidth={2} dot={false} isAnimationActive={false} label={endLabel(lastIdx)} />
+                  ))}
               </ComposedChart>
             </ResponsiveContainer>
           </div>
@@ -254,11 +263,11 @@ export default function TrainingLoadChart() {
               </span>
             ))}
           </div>
-          <div className="h-36">
+          <div className="h-40">
             <ResponsiveContainer width="100%" height="100%">
               <ComposedChart data={rows} syncId="pmc" margin={MARGIN}>
                 <CartesianGrid {...gridProps} />
-                <XAxis dataKey="date" {...xAxisProps} tickFormatter={fmtShortDate} minTickGap={40} hide={loadView === "daily"} />
+                <XAxis dataKey="date" {...xAxisProps} tickFormatter={fmtShortDate} minTickGap={40} />
                 <YAxis {...yAxisProps} domain={[Math.floor(tsbMin / 10) * 10, Math.ceil(tsbMax / 10) * 10]} tickCount={5} />
                 {FORM_ZONES.map((z) => (
                   <ReferenceArea key={z.label} y1={z.from} y2={z.to} fill={`${z.color}${z.alpha}`} ifOverflow="hidden" />
@@ -273,39 +282,6 @@ export default function TrainingLoadChart() {
                 />
                 <ReferenceLine y={0} stroke={ink.baseline} />
                 <Line type="monotone" dataKey="tsb" name="Form (TSB)" stroke={LOAD_COLORS.tsb} strokeWidth={2} dot={false} isAnimationActive={false} label={endLabel(lastIdx)} />
-              </ComposedChart>
-            </ResponsiveContainer>
-          </div>
-
-          <div className="mt-2 flex items-center justify-between gap-3">
-            <span className="text-[11px] text-neutral-500">{loadView === "weekly" ? "Weekly" : "Daily"} load, by sport</span>
-            <Toggle options={LOAD_VIEWS} value={loadView} onChange={setLoadView} />
-          </div>
-          <div className="h-28">
-            <ResponsiveContainer width="100%" height="100%">
-              {/* Weekly bars are one per Mon-Sun week over the same date range,
-                  so they are not hover-synced with the daily charts above. */}
-              <ComposedChart data={loadView === "weekly" ? weeks : rows} syncId={loadView === "daily" ? "pmc" : undefined} margin={MARGIN}>
-                <CartesianGrid {...gridProps} />
-                <XAxis dataKey="date" {...xAxisProps} tickFormatter={fmtShortDate} minTickGap={40} />
-                <YAxis {...yAxisProps} tickCount={3} />
-                <Tooltip
-                  {...tooltipProps}
-                  labelFormatter={(d: string) => (loadView === "weekly" ? fmtWeekRange(d) : fmtShortDate(d))}
-                  formatter={(v: number, name: string) => [v.toFixed(0), name]}
-                />
-                {SPORTS.map((s, i) => (
-                  <Bar
-                    key={s}
-                    dataKey={s}
-                    name={s[0].toUpperCase() + s.slice(1)}
-                    stackId="d"
-                    fill={SPORT_COLORS[s]}
-                    maxBarSize={loadView === "weekly" ? 18 : 6}
-                    radius={i === SPORTS.length - 1 ? [2, 2, 0, 0] : 0}
-                    isAnimationActive={false}
-                  />
-                ))}
               </ComposedChart>
             </ResponsiveContainer>
           </div>

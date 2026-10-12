@@ -1,23 +1,16 @@
 import { ShieldAlert } from "lucide-react";
 import { Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
-import { api, FlagStatus, RampWeek } from "@/lib/api";
+import { api, RampWeek } from "@/lib/api";
 import { fmtShortDate, fmtSignedPct, fmtWeekRange } from "@/lib/format";
 import { SPORT_COLORS } from "@/lib/palette";
 import { usePolling } from "@/lib/usePolling";
 import Card from "@/components/ui/Card";
 import Skeleton from "@/components/ui/Skeleton";
-import StatusBadge, { BadgeTone } from "@/components/ui/StatusBadge";
+import StatusBadge, { BadgeTone, FLAG_BADGE } from "@/components/ui/StatusBadge";
 import { ChartTable, gridProps, tooltipProps, xAxisProps, yAxisProps } from "@/components/ui/chart";
 
-const STATUS: Record<FlagStatus, [BadgeTone, string]> = {
-  pass: ["good", "PASS"],
-  amber: ["warning", "AMBER"],
-  red: ["critical", "RED"],
-  no_data: ["neutral", "NO DATA"],
-};
-
 // The week in progress has no status and no change: only completed weeks are judged.
-const badge = (w: RampWeek): [BadgeTone, string] | null => (w.status === "in_progress" ? null : (STATUS[w.status] ?? STATUS.no_data));
+const badge = (w: RampWeek): [BadgeTone, string] | null => (w.status === "in_progress" ? null : (FLAG_BADGE[w.status] ?? FLAG_BADGE.no_data));
 const change = (w: RampWeek) =>
   w.status === "in_progress" ? "in progress" : w.change_pct != null ? fmtSignedPct(w.change_pct) : "no comparison";
 
@@ -30,7 +23,16 @@ export default function RunGuard() {
   const flagged = weeks.filter((w) => w.status === "amber" || w.status === "red");
 
   return (
-    <Card icon={ShieldAlert} title="Run guard" meta="weekly run km, last 8 weeks">
+    <Card
+      icon={ShieldAlert}
+      title="Run guard"
+      info={
+        data
+          ? `Each completed week vs average of the previous ${data.baseline_weeks} weeks: AMBER above +${data.amber_above_pct}%, RED above +${data.red_above_pct}%. No comparison when that average is under ${data.min_baseline_km} km. The week in progress is not judged.`
+          : undefined
+      }
+      meta="weekly run km, last 8 weeks"
+    >
       {error && <p className="mb-2 text-sm text-red-400">Couldn't refresh ({error}){data ? " — showing last known data." : ""}</p>}
       {!data && !error && <Skeleton className="h-40 w-full" />}
 
@@ -78,12 +80,6 @@ export default function RunGuard() {
               ))}
             </ul>
           )}
-
-          <p className="mt-3 text-xs leading-relaxed text-neutral-500">
-            Each completed week vs average of the previous {data.baseline_weeks} weeks: AMBER above +{data.amber_above_pct}%, RED
-            above +{data.red_above_pct}%. No comparison when that average is under {data.min_baseline_km} km. The week in progress
-            is not judged.
-          </p>
 
           <ChartTable
             columns={["Week", "Run km", "4-week average", "Change", "Status"]}

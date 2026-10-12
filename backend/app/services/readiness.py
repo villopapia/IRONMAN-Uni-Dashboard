@@ -40,6 +40,7 @@ WEIGHT_MIN_VALUES = 4
 AVG_DAYS = 7
 AVG_MIN_VALUES = 4
 SPARK_DAYS = 28
+TREND_DAYS = 42
 ACTIONS = ("Continue", "Fix that one thing this week", "Next week at recovery volume")
 
 
@@ -174,4 +175,41 @@ def readiness(db: Session, today: date | None = None) -> dict:
             f"Action: 1 RED = fix that one thing, 2+ = recovery volume; AMBER and missing data never change it. "
             f"Source: intervals.icu wellness."
         ),
+    }
+
+
+def recovery_trend(db: Session, days: int = TREND_DAYS, today: date | None = None) -> dict:
+    """HRV and resting HR over `days` for the Recovery trends card. The status,
+    value, band and thresholds are the ones readiness() reports - the card is a
+    longer view of the same judgement, never a second opinion."""
+    today = today or date.today()
+    ready = readiness(db, today)
+    current = {m["key"]: m for m in ready["metrics"]}
+    rows = {
+        w.date: w
+        for w in db.query(IntervalsWellness).filter(IntervalsWellness.date > today - timedelta(days=days + AVG_DAYS))
+    }
+
+    def rhr_average(day: date) -> float | None:
+        avg = average([getattr(rows.get(day - timedelta(days=i)), "resting_hr", None) for i in range(AVG_DAYS)])
+        return round(avg, 1) if avg is not None else None
+
+    def pick(key: str) -> dict:
+        return {f: current[key][f] for f in ("status", "value", "unit", "basis", "band")}
+
+    return {
+        "series": [
+            {
+                "date": day,
+                "hrv": getattr(rows.get(day), "hrv", None),
+                "rhr": getattr(rows.get(day), "resting_hr", None),
+                "rhr_7d": rhr_average(day),
+            }
+            for day in (today - timedelta(days=i) for i in range(days - 1, -1, -1))
+        ],
+        "hrv": pick("hrv"),
+        "rhr": pick("rhr"),
+        "rhr_amber_from": RHR_AMBER_FROM,
+        "rhr_red_from": RHR_RED_FROM,
+        "note": ready["note"],
     }

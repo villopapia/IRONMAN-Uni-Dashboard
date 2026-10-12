@@ -6,15 +6,8 @@ import { ink } from "@/lib/palette";
 import { usePolling } from "@/lib/usePolling";
 import Card from "@/components/ui/Card";
 import Skeleton from "@/components/ui/Skeleton";
-import StatusBadge, { BadgeTone } from "@/components/ui/StatusBadge";
+import StatusBadge, { FLAG_BADGE } from "@/components/ui/StatusBadge";
 import { ChartTable, tooltipProps } from "@/components/ui/chart";
-
-const STATUS: Record<ReadinessMetric["status"], [BadgeTone, string]> = {
-  pass: ["good", "PASS"],
-  amber: ["warning", "AMBER"],
-  red: ["critical", "RED"],
-  no_data: ["neutral", "NO DATA"],
-};
 
 // One neutral line per metric: the badge carries the status, so the sparkline
 // stays in ink rather than repeating it in color.
@@ -44,35 +37,28 @@ function Spark({ m }: { m: ReadinessMetric }) {
   );
 }
 
+/** The per-metric detail; the action line that sums it up is the Readiness tile in the KPI strip. */
 export default function Readiness() {
   const { data, error } = usePolling(() => api.getReadiness());
   const metrics = data?.metrics ?? [];
-  const lists: [string, string[]][] = [
-    ["Red", data?.red ?? []],
-    ["Amber", data?.amber ?? []],
-    ["No data", data?.no_data ?? []],
-  ];
 
   return (
-    <Card icon={HeartPulse} title="Readiness" meta={data ? fmtShortDate(data.date) : undefined} className="lg:col-span-2">
+    <Card
+      icon={HeartPulse}
+      title="Readiness detail"
+      info={data ? `Sparklines: daily readings, last 28 days. ${data.note}` : undefined}
+      meta={data ? fmtShortDate(data.date) : undefined}
+    >
       {error && <p className="mb-2 text-sm text-red-400">Couldn't refresh ({error}){data ? " — showing last known data." : ""}</p>}
       {!data && !error && <Skeleton className="h-40 w-full" />}
 
       {data && (
         <>
-          <p className="text-lg font-semibold text-white">{data.action}</p>
-          <p className="mt-0.5 text-xs text-neutral-400">
-            {lists
-              .filter(([, names]) => names.length > 0)
-              .map(([name, names]) => `${name}: ${names.join(", ")}`)
-              .join(" · ") || "All metrics pass."}
-          </p>
-
-          <ul className="mt-3 divide-y divide-white/[0.05]">
+          <ul className="divide-y divide-white/[0.05]">
             {metrics.map((m) => {
-              const [tone, label] = STATUS[m.status] ?? ["neutral", "NO DATA"];
+              const [tone, label] = FLAG_BADGE[m.status] ?? FLAG_BADGE.no_data;
               return (
-                <li key={m.key} className="grid grid-cols-[minmax(0,11rem)_minmax(0,1fr)_auto] items-center gap-4 py-2">
+                <li key={m.key} className="grid grid-cols-[minmax(0,10rem)_minmax(0,1fr)_auto] items-center gap-3 py-2">
                   <div className="min-w-0">
                     <div className="text-sm text-neutral-200">{m.label}</div>
                     <div className="text-lg font-semibold tabular-nums text-white">
@@ -87,8 +73,6 @@ export default function Readiness() {
               );
             })}
           </ul>
-
-          <p className="mt-3 text-xs leading-relaxed text-neutral-500">Sparklines: daily readings, last 28 days. {data.note}</p>
 
           <ChartTable
             columns={["Date", ...metrics.map((m) => `${m.label} (${m.unit})`)]}
