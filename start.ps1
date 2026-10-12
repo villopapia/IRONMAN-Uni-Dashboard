@@ -9,9 +9,10 @@ function Test-Port([int]$port) {
 }
 
 # The backend must start from backend\ - .env and the SQLite path are relative to it.
+# --reload restarts it on any change under backend\app, so code edits need no manual restart.
 if (-not (Test-Port 8000)) {
     Start-Process -FilePath (Join-Path $root "backend\.venv\Scripts\python.exe") `
-        -ArgumentList "-m", "uvicorn", "app.main:app", "--port", "8000" `
+        -ArgumentList "-m", "uvicorn", "app.main:app", "--port", "8000", "--reload", "--reload-dir", "app" `
         -WorkingDirectory (Join-Path $root "backend") -WindowStyle Hidden `
         -RedirectStandardOutput (Join-Path $logs "backend.out.log") `
         -RedirectStandardError (Join-Path $logs "backend.err.log")
