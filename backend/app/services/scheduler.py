@@ -9,6 +9,7 @@ from ..database import SessionLocal
 from .garmin_sync import TOKEN_STORE as GARMIN_TOKEN_STORE
 from .garmin_sync import sync_estimates as sync_garmin_estimates
 from .garmin_sync import sync_recent as sync_garmin
+from .intervals_sync import sync_intervals
 from .plan_sync import sync_plan
 from .strava_sync import sync_activities
 
@@ -24,6 +25,16 @@ def _run_strava_sync() -> None:
         logger.info("Strava sync: %d new activities", inserted)
     except Exception:
         logger.exception("Strava sync failed")
+    finally:
+        db.close()
+
+
+def _run_intervals_sync() -> None:
+    db = SessionLocal()
+    try:
+        logger.info("intervals.icu sync: %s", sync_intervals(db))
+    except Exception:
+        logger.exception("intervals.icu sync failed")
     finally:
         db.close()
 
@@ -79,6 +90,19 @@ def start_scheduler(
         logger.info("Scheduled Strava sync every %d minutes", strava_interval_minutes)
     else:
         logger.info("STRAVA_REFRESH_TOKEN not set - scheduled Strava sync disabled")
+
+    if settings.intervals_api_key:
+        scheduler.add_job(
+            _run_intervals_sync,
+            "interval",
+            minutes=strava_interval_minutes,  # same schedule as Strava
+            next_run_time=datetime.now(),
+            id="intervals_sync",
+        )
+        jobs_added = True
+        logger.info("Scheduled intervals.icu sync every %d minutes", strava_interval_minutes)
+    else:
+        logger.info("INTERVALS_API_KEY not set - scheduled intervals.icu sync disabled")
 
     if Path(GARMIN_TOKEN_STORE).exists():
         scheduler.add_job(

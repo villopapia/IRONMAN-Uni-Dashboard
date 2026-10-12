@@ -10,6 +10,7 @@ from .academic_tracking import (
 from .training import WeeklyTrainingTarget
 from .nutrition import NutritionLog, SupplementProtocol, SupplementLog
 from .garmin import GarminDailyMetric
+from .intervals import IntervalsActivity, IntervalsWellness
 from .performance import (
     DailyTrainingLoad,
     InjuryLog,
@@ -34,6 +35,8 @@ __all__ = [
     "SupplementProtocol",
     "SupplementLog",
     "GarminDailyMetric",
+    "IntervalsActivity",
+    "IntervalsWellness",
     "DailyTrainingLoad",
     "InjuryLog",
     "Milestone",

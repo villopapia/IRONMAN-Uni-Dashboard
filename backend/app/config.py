@@ -14,6 +14,9 @@ class Settings(BaseSettings):
     garmin_email: str = ""
     garmin_password: str = ""
 
+    intervals_api_key: str = ""
+    intervals_athlete_id: str = ""
+
     model_config = SettingsConfigDict(env_file=".env", extra="ignore")
 
 
