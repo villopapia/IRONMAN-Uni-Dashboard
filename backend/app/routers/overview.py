@@ -27,9 +27,14 @@ class OverlayWeek(BaseModel):
     chronic_weekly_load: float
     elevated_above: float | None
     load_ratio: float | None
+    planned_load: float
+    planned_to_date: float
     planned_sessions: int
     planned_hours: float
     training_elevated: bool
+    step_up: bool
+    no_deload: bool
+    deload: bool
     deadlines: list[OverlayDeadline]
     deadline_count: int
     exam_count: int
@@ -40,6 +45,7 @@ class OverlayWeek(BaseModel):
 class Overlay(BaseModel):
     weeks: list[OverlayWeek]
     load_per_hour_by_discipline: dict[str, float]
+    load_per_hour_fallback: list[str]
     current_ctl: float
     acwr_threshold: float
     deadline_count_threshold: int

@@ -62,32 +62,6 @@ export interface WeekSummary {
   rest_days: string[];
 }
 
-export interface CompetitorOut {
-  id: number;
-  name: string;
-  note: string | null;
-}
-
-export interface CompetitorWeekTotal {
-  competitor_id: number;
-  name: string;
-  total_minutes: number;
-}
-
-export interface WeekComparison {
-  week_start_date: string;
-  you_minutes: number;
-  competitors: CompetitorWeekTotal[];
-}
-
-export interface CompetitorActivityInput {
-  date: string;
-  sport: string;
-  duration_min: number;
-  distance_km?: number | null;
-  note?: string | null;
-}
-
 export interface NutritionPlan {
   slot_labels: Record<string, string>;
   meal_options: Record<string, string[]>;
@@ -508,9 +482,14 @@ export interface OverlayWeek {
   chronic_weekly_load: number;
   elevated_above: number | null;
   load_ratio: number | null;
+  planned_load: number;
+  planned_to_date: number;
   planned_sessions: number;
   planned_hours: number;
   training_elevated: boolean;
+  step_up: boolean;
+  no_deload: boolean;
+  deload: boolean;
   deadlines: { title: string; kind: string; due_at: string; module_name: string | null; status: string }[];
   deadline_count: number;
   exam_count: number;
@@ -521,6 +500,7 @@ export interface OverlayWeek {
 export interface Overlay {
   weeks: OverlayWeek[];
   load_per_hour_by_discipline: Record<string, number>;
+  load_per_hour_fallback: string[];
   current_ctl: number;
   acwr_threshold: number;
   deadline_count_threshold: number;
@@ -608,19 +588,6 @@ export const api = {
     ),
   getWeekSummary: (weekStartDate: string) =>
     request<WeekSummary>(`/training/week?week_start_date=${weekStartDate}`),
-  getCompetitors: () => request<CompetitorOut[]>("/competitors"),
-  createCompetitor: (name: string, note?: string) =>
-    request<CompetitorOut>("/competitors", {
-      method: "POST",
-      body: JSON.stringify({ name, note: note ?? null }),
-    }),
-  logCompetitorActivity: (competitorId: number, activity: CompetitorActivityInput) =>
-    request(`/competitors/${competitorId}/activities`, {
-      method: "POST",
-      body: JSON.stringify(activity),
-    }),
-  compareWeek: (weekStartDate: string) =>
-    request<WeekComparison>(`/competitors/compare?week_start_date=${weekStartDate}`),
 
   getNutritionPlan: () => request<NutritionPlan>("/nutrition/plan"),
   getNutritionDay: (day: string) =>

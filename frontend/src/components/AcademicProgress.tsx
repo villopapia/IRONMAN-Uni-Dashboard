@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
 import { GraduationCap } from "lucide-react";
-import { api, ClassificationSummary } from "@/lib/api";
+import { api } from "@/lib/api";
 import { ink, status } from "@/lib/palette";
+import { usePolling } from "@/lib/usePolling";
 import Card from "@/components/ui/Card";
 import Skeleton from "@/components/ui/Skeleton";
 
@@ -18,20 +18,7 @@ const BAND_COLOR: Record<string, string> = {
 };
 
 export default function AcademicProgress({ academicYear }: Props) {
-  const [summary, setSummary] = useState<ClassificationSummary | null>(null);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    const load = () =>
-      api
-        .getAcademicSummary(academicYear)
-        .then(setSummary)
-        .catch((err) => setError(err.message));
-
-    load();
-    const id = setInterval(load, 6 * 60 * 1000); // 10x/hour
-    return () => clearInterval(id);
-  }, [academicYear]);
+  const { data: summary, error } = usePolling(() => api.getAcademicSummary(academicYear), [academicYear]);
 
   return (
     <Card icon={GraduationCap} title="Academic progress" meta={academicYear}>

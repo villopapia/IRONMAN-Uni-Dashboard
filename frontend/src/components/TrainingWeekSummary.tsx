@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { Activity, TrendingDown, TrendingUp } from "lucide-react";
 import {
   Bar,
@@ -10,9 +9,10 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import { api, WeekSchedule, WeekSummary } from "@/lib/api";
-import { mostRecentMonday } from "@/lib/dates";
+import { api } from "@/lib/api";
+import { mostRecentMonday, todayIso } from "@/lib/format";
 import { ink, SPORT_COLORS, status } from "@/lib/palette";
+import { usePolling } from "@/lib/usePolling";
 import Card from "@/components/ui/Card";
 import Skeleton from "@/components/ui/Skeleton";
 import { gridProps, LegendChip, tooltipProps, xAxisProps, yAxisProps } from "@/components/ui/chart";
@@ -20,27 +20,11 @@ import { gridProps, LegendChip, tooltipProps, xAxisProps, yAxisProps } from "@/c
 const WEEKDAY_LETTERS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 
 export default function TrainingWeekSummary() {
-  const [weekStart] = useState(mostRecentMonday());
-  const [summary, setSummary] = useState<WeekSummary | null>(null);
-  const [schedule, setSchedule] = useState<WeekSchedule | null>(null);
-  const [scheduleError, setScheduleError] = useState<string | null>(null);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    const load = () => {
-      api.getWeekSummary(weekStart).then(setSummary).catch((err) => setError(err.message));
-      // Calendar is optional (needs Google OAuth creds) - its absence shouldn't
-      // block the rest of the panel, so it gets its own error state.
-      api
-        .getWeekSchedule(weekStart)
-        .then(setSchedule)
-        .catch((err) => setScheduleError(err.message));
-    };
-
-    load();
-    const id = setInterval(load, 6 * 60 * 1000); // 10x/hour, matches backend Strava sync cadence
-    return () => clearInterval(id);
-  }, [weekStart]);
+  const weekStart = mostRecentMonday();
+  const { data: summary, error } = usePolling(() => api.getWeekSummary(weekStart), [weekStart]);
+  // Calendar is optional (needs Google OAuth creds) - its absence shouldn't
+  // block the rest of the panel, so it gets its own error state.
+  const { data: schedule, error: scheduleError } = usePolling(() => api.getWeekSchedule(weekStart), [weekStart]);
 
   const chartData =
     summary?.sports.map((s) => ({
@@ -50,7 +34,7 @@ export default function TrainingWeekSummary() {
     })) ?? [];
 
   const restDaySet = new Set(summary?.rest_days ?? []);
-  const todayIso = new Date().toISOString().slice(0, 10);
+  const today = todayIso();
 
   return (
     <Card icon={Activity} title="Weekly training rollup" meta={summary?.week_label ?? weekStart}>
@@ -164,7 +148,7 @@ export default function TrainingWeekSummary() {
               <div
                 key={dayIso}
                 className={`rounded-lg p-1.5 ${
-                  dayIso === todayIso
+                  dayIso === today
                     ? "bg-orange-500/10 ring-1 ring-orange-500/40"
                     : "bg-white/[0.03]"
                 }`}

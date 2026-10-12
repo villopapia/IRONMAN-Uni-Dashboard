@@ -8,7 +8,6 @@ from .academic_tracking import (
     WeightedAverageSnapshot,
 )
 from .training import WeeklyTrainingTarget
-from .competitor import Competitor, CompetitorActivity
 from .nutrition import NutritionLog, SupplementProtocol, SupplementLog
 from .garmin import GarminDailyMetric
 from .performance import (
@@ -31,8 +30,6 @@ __all__ = [
     "StudyTarget",
     "WeightedAverageSnapshot",
     "WeeklyTrainingTarget",
-    "Competitor",
-    "CompetitorActivity",
     "NutritionLog",
     "SupplementProtocol",
     "SupplementLog",

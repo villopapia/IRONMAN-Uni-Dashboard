@@ -4,7 +4,7 @@ FastAPI + SQLite backend, React/Vite/Tailwind/Recharts frontend. Panels:
 academic progress (Sheffield weighted-mean classification estimate), weekly
 training rollup (actual vs. target minutes *and* km per sport, on-track %,
 this week's calendar plan), recovery metrics (Garmin), nutrition + supplement
-adherence, and manual competitor tracking.
+adherence.
 
 ## Backend
 
@@ -82,11 +82,10 @@ last successfully synced day with a "synced Xh ago" note rather than going
 blank — check the backend logs / re-run the login script if that note
 sticks around.
 
-**Note:** the exact Garmin field paths in `garmin_sync.py` are written
-defensively (nothing crashes on a missing field) but haven't been verified
-against a live account — this needs a real first sync to confirm, same as
-the two real bugs (Strava scope, pagination duplicates) that only surfaced
-once tested for real.
+**Note:** the Garmin field paths in `garmin_sync.py` were verified against a
+real account on 2026-09-23. They're unofficial, so extraction stays defensive
+(a missing field becomes empty rather than an error) in case Garmin changes
+its response shape.
 
 ### Manual data (add via POST, no credentials needed)
 
@@ -96,8 +95,6 @@ POST /api/academic/modules      {"academic_year": "2026/2027", "name": "...", "f
 POST /api/academic/modules/{id}/assessments  {"name": "Exam", "weight_pct": 60, "mark_pct": null}
 POST /api/nutrition/log         {"date": "2026-09-23", "slot": "breakfast", "description": "..."}
 POST /api/nutrition/supplements/log  {"date": "2026-09-23", "supplement_id": 1, "taken": true}
-POST /api/competitors            {"name": "Alex"}
-POST /api/competitors/{id}/activities  {"date": "2026-09-23", "sport": "run", "duration_min": 45}
 ```
 
 ## Training load, compliance, race prep & academic trajectory (Sep 2026 extension)
@@ -193,9 +190,5 @@ npm run build    # typecheck + production build
   `run`/`bike`/`swim`/`gym`/`walk`/`other`. Indoor vs. outdoor is tracked
   separately via `is_indoor` (Strava's `trainer` flag), so an indoor trainer
   ride still counts as `bike` in the weekly rollup.
-- **Competitor tracking is manual entry only** — Strava doesn't expose other
-  athletes' activities to third-party apps (locked down in 2020), and
-  scraping the authenticated `strava.com/dashboard` feed to work around that
-  was ruled out on purpose.
 #   I R O N M A N - U n i - D a s h b o a r d  
  

@@ -62,7 +62,34 @@ export function fmtWeekRange(weekStartIso: string): string {
     : `${dayMonth(start)} – ${dayMonth(end)}`;
 }
 
-export function todayIso(): string {
-  const d = new Date();
+/** Local-calendar YYYY-MM-DD (toISOString() would give the UTC date). */
+function isoDate(d: Date): string {
   return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+}
+
+export function todayIso(): string {
+  return isoDate(new Date());
+}
+
+export function mostRecentMonday(): string {
+  const d = new Date();
+  d.setDate(d.getDate() - ((d.getDay() + 6) % 7));
+  return isoDate(d);
+}
+
+// The backend serializes naive UTC datetimes (Python's datetime.utcnow())
+// without a timezone suffix. JS treats a suffix-less timestamp as LOCAL time,
+// which during BST made every "synced Xh ago" an hour too old - so append Z.
+function parseUtc(isoTimestamp: string): Date {
+  const hasTz = /Z$|[+-]\d\d:?\d\d$/.test(isoTimestamp);
+  return new Date(hasTz ? isoTimestamp : `${isoTimestamp}Z`);
+}
+
+export function timeAgo(isoTimestamp: string): string {
+  const minutes = Math.round((Date.now() - parseUtc(isoTimestamp).getTime()) / 60000);
+  if (minutes < 1) return "just now";
+  if (minutes < 60) return `${minutes}m ago`;
+  const hours = Math.round(minutes / 60);
+  if (hours < 24) return `${hours}h ago`;
+  return `${Math.round(hours / 24)}d ago`;
 }

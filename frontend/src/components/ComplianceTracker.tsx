@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { AlertTriangle, CalendarCheck, Link2, RefreshCw } from "lucide-react";
 import { api, ComplianceRollup, PlannedSlot, SlotStatus, WeekCompliance } from "@/lib/api";
-import { fmtShortDate, todayIso } from "@/lib/format";
-import { timeAgo } from "@/lib/dates";
+import { fmtShortDate, timeAgo, todayIso } from "@/lib/format";
 import { SPORT_COLORS, status as statusColors } from "@/lib/palette";
 import { usePolling } from "@/lib/usePolling";
 import Card from "@/components/ui/Card";

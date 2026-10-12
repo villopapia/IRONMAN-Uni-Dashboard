@@ -1,48 +1,33 @@
 import { useEffect, useState } from "react";
 import { CheckCircle2, Pill, Utensils } from "lucide-react";
-import {
-  api,
-  NutritionDaySummary,
-  NutritionPlan,
-  SupplementDaySummary,
-} from "@/lib/api";
+import { api, NutritionPlan } from "@/lib/api";
+import { todayIso } from "@/lib/format";
 import { status } from "@/lib/palette";
+import { usePolling } from "@/lib/usePolling";
 import Card from "@/components/ui/Card";
 import Skeleton from "@/components/ui/Skeleton";
 
 const SLOT_ORDER = ["breakfast", "snack1", "main_meal", "snack2", "snack3", "dinner"];
 const CUSTOM_OPTION = "__custom__";
-const today = () => new Date().toISOString().slice(0, 10);
-
 const selectClass =
   "min-w-0 flex-1 rounded-lg border border-white/10 bg-black/30 px-2.5 py-1.5 text-neutral-100 focus:border-orange-500/60 focus:outline-none";
 
 export default function NutritionSupplements() {
   const [plan, setPlan] = useState<NutritionPlan | null>(null);
-  const [day, setDay] = useState<NutritionDaySummary | null>(null);
-  const [supplements, setSupplements] = useState<SupplementDaySummary | null>(null);
-  const [error, setError] = useState<string | null>(null);
+  const [actionError, setActionError] = useState<string | null>(null);
+  const { data, error: loadError, reload: loadDay } = usePolling(() =>
+    Promise.all([api.getNutritionDay(todayIso()), api.getSupplementDay(todayIso())]),
+  );
+  const [day, supplements] = data ?? [null, null];
+  const error = actionError ?? loadError;
 
   const [selection, setSelection] = useState<Record<string, string>>({});
   const [customText, setCustomText] = useState<Record<string, string>>({});
   const [submitting, setSubmitting] = useState<string | null>(null);
 
-  const loadDay = () => {
-    const d = today();
-    Promise.all([api.getNutritionDay(d), api.getSupplementDay(d)])
-      .then(([nutritionDay, supplementDay]) => {
-        setDay(nutritionDay);
-        setSupplements(supplementDay);
-      })
-      .catch((err) => setError(err.message));
-  };
-
+  // The meal plan is static reference data - fetched once, not polled.
   useEffect(() => {
-    api.getNutritionPlan().then(setPlan).catch((err) => setError(err.message));
-    loadDay();
-    const id = setInterval(loadDay, 6 * 60 * 1000);
-    return () => clearInterval(id);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    api.getNutritionPlan().then(setPlan).catch((err) => setActionError(err.message));
   }, []);
 
   async function logSlot(slot: string) {
@@ -51,10 +36,10 @@ export default function NutritionSupplements() {
     if (!description) return;
     setSubmitting(slot);
     try {
-      await api.logMeal({ date: today(), slot, description });
+      await api.logMeal({ date: todayIso(), slot, description });
       loadDay();
     } catch (err) {
-      setError((err as Error).message);
+      setActionError((err as Error).message);
     } finally {
       setSubmitting(null);
     }
@@ -62,10 +47,10 @@ export default function NutritionSupplements() {
 
   async function toggleSupplement(id: number, taken: boolean) {
     try {
-      await api.logSupplement(today(), id, taken);
+      await api.logSupplement(todayIso(), id, taken);
       loadDay();
     } catch (err) {
-      setError((err as Error).message);
+      setActionError((err as Error).message);
     }
   }
 

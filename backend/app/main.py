@@ -7,7 +7,6 @@ from .routers import (
     academic,
     academic_tracking,
     calendar,
-    competitors,
     compliance,
     garmin,
     load,
@@ -38,7 +37,6 @@ app.add_middleware(
 app.include_router(academic.router, prefix="/api/academic", tags=["academic"])
 app.include_router(academic_tracking.router, prefix="/api/academic", tags=["academic"])
 app.include_router(training.router, prefix="/api/training", tags=["training"])
-app.include_router(competitors.router, prefix="/api/competitors", tags=["competitors"])
 app.include_router(nutrition.router, prefix="/api/nutrition", tags=["nutrition"])
 app.include_router(calendar.router, prefix="/api/calendar", tags=["calendar"])
 app.include_router(garmin.router, prefix="/api/garmin", tags=["garmin"])

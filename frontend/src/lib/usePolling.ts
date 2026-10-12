@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 
 // 10x/hour - an explicit requirement, matches the backend Strava sync cadence
 // and every existing panel.
-export const REFRESH_MS = 6 * 60 * 1000;
+const REFRESH_MS = 6 * 60 * 1000;
 
 /**
  * Fetch on mount + every REFRESH_MS. A failed refresh sets `error` but never
