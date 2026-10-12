@@ -14,6 +14,7 @@ from .routers import (
     overview,
     performance,
     readiness,
+    season,
     training,
 )
 from .services.scheduler import start_scheduler, stop_scheduler
@@ -46,6 +47,7 @@ app.include_router(compliance.router, prefix="/api/compliance", tags=["complianc
 app.include_router(load.router, prefix="/api/load", tags=["load"])
 app.include_router(overview.router, prefix="/api/overview", tags=["overview"])
 app.include_router(readiness.router, prefix="/api/readiness", tags=["readiness"])
+app.include_router(season.router, prefix="/api/season", tags=["season"])
 
 
 @app.get("/api/health")

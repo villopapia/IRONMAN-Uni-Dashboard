@@ -17,6 +17,7 @@ import Readiness from "@/components/Readiness";
 import RecoveryMetrics from "@/components/RecoveryMetrics";
 import RecoveryTrend from "@/components/RecoveryTrend";
 import RunGuard from "@/components/RunGuard";
+import SeasonHeader from "@/components/SeasonHeader";
 import SportFitness from "@/components/SportFitness";
 import StudyHours from "@/components/StudyHours";
 import ThisWeek from "@/components/ThisWeek";
@@ -71,7 +72,7 @@ export default function App() {
             <Flame size={22} className="text-orange-500" strokeWidth={2} />
             <h1 className="text-xl font-bold text-white">Fitness Dashboard</h1>
           </div>
-          <span className="text-sm text-neutral-500">{today}</span>
+          <SeasonHeader fallback={today} />
         </div>
         <nav className="mx-auto mt-4 flex max-w-6xl gap-1 overflow-x-auto" role="tablist">
           {TABS.map((t) => (

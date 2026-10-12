@@ -389,10 +389,27 @@ export interface PmcResponse {
   series: PmcPoint[];
   current: PmcPoint | null;
   ctl_ramp_7d: number | null;
+  ramp_status: "low" | "normal" | "amber" | "red" | null;
+  ramp_normal_from: number;
+  ramp_amber_above: number;
+  ramp_red_above: number;
+  projection: { date: string; ctl: number }[];
   first_load_date: string | null;
   estimated_sessions: number;
   total_sessions: number;
   methodology_note: string;
+}
+
+export interface Season {
+  today: string;
+  race: { name: string; date: string };
+  days_to_race: number;
+  weeks_to_race: number;
+  phase: { name: string; week: number; weeks: number } | null;
+  next_gate: { name: string; date: string; days: number } | null;
+  gates: { name: string; date: string }[];
+  phases: { name: string; start: string; end: string }[];
+  season_start: string;
 }
 
 // --- Goal gap + recovery trend ---------------------------------------------
@@ -608,7 +625,15 @@ export const api = {
   getRunRamp: () => request<RunRamp>("/load/run-ramp"),
   getSportCtl: (days = 180) => request<SportCtl>(`/load/sport-ctl?days=${days}`),
   getDurability: () => request<Durability>("/load/durability"),
-  getPmc: (days = 120) => request<PmcResponse>(`/load/pmc?days=${days}`),
+  getPmc: (q: { days?: number; since?: string; projectTo?: string }) =>
+    request<PmcResponse>(
+      `/load/pmc?${new URLSearchParams(
+        Object.entries({ days: q.days, since: q.since, project_to: q.projectTo })
+          .filter(([, v]) => v != null)
+          .map(([k, v]) => [k, String(v)]),
+      )}`,
+    ),
+  getSeason: () => request<Season>("/season"),
   getGoalGap: () => request<GoalGap>("/performance/goal-gap"),
   getOverlay: (weeksBack = 6, weeksAhead = 10) =>
     request<Overlay>(`/overview/load-vs-deadlines?weeks_back=${weeksBack}&weeks_ahead=${weeksAhead}`),

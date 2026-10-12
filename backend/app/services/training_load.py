@@ -45,6 +45,7 @@ from the cache instead - see compute_icu_pmc().
 
 from collections import defaultdict
 from datetime import date, timedelta
+from math import exp
 from statistics import median
 
 from sqlalchemy.exc import IntegrityError
@@ -57,6 +58,11 @@ from ..models.performance import DailyTrainingLoad
 
 CTL_DAYS = 42
 ATL_DAYS = 7
+ICU_CTL_K = 1 - exp(-1 / CTL_DAYS)  # intervals.icu's daily CTL decay (compute_pmc uses 1 / CTL_DAYS)
+# CTL ramp per week (the fitness panel's ramp tile): normal from 2 to 6, amber above 6, red above 8.
+RAMP_NORMAL_FROM = 2.0
+RAMP_AMBER_ABOVE = 6.0
+RAMP_RED_ABOVE = 8.0
 FALLBACK_MIN_DURATION = 10.0
 FALLBACK_MIN_SAMPLES = 3
 
@@ -219,3 +225,31 @@ def compute_icu_pmc(db: Session, start: date | None = None, end: date | None = N
 def load_pmc(db: Session, start: date | None = None, end: date | None = None) -> dict:
     """The PMC every panel reads: intervals.icu's, or ours when USE_ICU_PMC is off."""
     return (compute_icu_pmc if settings.use_icu_pmc else compute_pmc)(db, start, end)
+
+
+def ctl_decay() -> float:
+    """Daily CTL decay of whichever PMC load_pmc serves."""
+    return ICU_CTL_K if settings.use_icu_pmc else 1 / CTL_DAYS
+
+
+def project_ctl(ctl: float, load_by_day: dict[date, float], after: date, until: date, k: float) -> list[dict]:
+    """CTL for each day after `after` up to and including `until`, continuing
+    from `ctl` through the given future daily load with decay `k`."""
+    out = []
+    day = after + timedelta(days=1)
+    while day <= until:
+        ctl += (load_by_day.get(day, 0.0) - ctl) * k
+        out.append({"date": day, "ctl": ctl})
+        day += timedelta(days=1)
+    return out
+
+
+def ramp_status(ramp: float | None) -> str | None:
+    """low / normal / amber / red for a 7-day CTL change; None without one."""
+    if ramp is None:
+        return None
+    if ramp > RAMP_RED_ABOVE:
+        return "red"
+    if ramp > RAMP_AMBER_ABOVE:
+        return "amber"
+    return "normal" if ramp >= RAMP_NORMAL_FROM else "low"

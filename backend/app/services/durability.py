@@ -17,15 +17,14 @@ is recorded.
 
 from collections import defaultdict
 from datetime import date, datetime, timedelta
-from math import exp
 
 from sqlalchemy.orm import Session
 
 from ..models.activity import Activity
 from ..models.intervals import IntervalsActivity, IntervalsWellness
 from .intensity import _week_of, _week_starts
+from .training_load import ICU_CTL_K as CTL_K
 
-CTL_K = 1 - exp(-1 / 42)  # intervals.icu's daily CTL decay
 CTL_SPORTS = ("swim", "bike", "run")
 CTL_CHECK_DAYS = 30
 DURABILITY_WEEKS = 12

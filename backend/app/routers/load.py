@@ -7,7 +7,17 @@ from sqlalchemy.orm import Session
 from ..database import get_db
 from ..services.durability import durability, sport_ctl_series
 from ..services.intensity import intensity_distribution, run_ramp
-from ..services.training_load import load_pmc, rebuild_daily_loads
+from ..services.overlay import planned_load_by_day
+from ..services.training_load import (
+    RAMP_AMBER_ABOVE,
+    RAMP_NORMAL_FROM,
+    RAMP_RED_ABOVE,
+    ctl_decay,
+    load_pmc,
+    project_ctl,
+    ramp_status,
+    rebuild_daily_loads,
+)
 
 router = APIRouter()
 
@@ -21,10 +31,20 @@ class PmcPoint(BaseModel):
     by_sport: dict[str, float]
 
 
+class ProjectedCtl(BaseModel):
+    date: date
+    ctl: float
+
+
 class PmcResponse(BaseModel):
     series: list[PmcPoint]
     current: PmcPoint | None
     ctl_ramp_7d: float | None  # CTL change over the last 7 days (load units / week)
+    ramp_status: str | None  # low / normal / amber / red
+    ramp_normal_from: float
+    ramp_amber_above: float
+    ramp_red_above: float
+    projection: list[ProjectedCtl]  # CTL after today through the calendar plan; empty unless project_to is given
     first_load_date: date | None
     estimated_sessions: int
     total_sessions: int
@@ -32,16 +52,34 @@ class PmcResponse(BaseModel):
 
 
 @router.get("/pmc", response_model=PmcResponse)
-def pmc(days: int = 120, db: Session = Depends(get_db)):
+def pmc(days: int = 120, since: date | None = None, project_to: date | None = None, db: Session = Depends(get_db)):
+    """`since` overrides `days` as the start of the series. `project_to` adds the
+    projected CTL from tomorrow to that date."""
     days = max(14, min(days, 730))
     today = date.today()
-    result = load_pmc(db, start=today - timedelta(days=days - 1), end=today)
+    result = load_pmc(db, start=since or today - timedelta(days=days - 1), end=today)
     series = result["series"]
     current = series[-1] if series else None
     ramp = (
         round(series[-1]["ctl"] - series[-8]["ctl"], 1) if len(series) >= 8 else None
     )
-    return PmcResponse(current=current, ctl_ramp_7d=ramp, **result)
+    projection = []
+    if project_to and current:
+        planned = planned_load_by_day(db, today, project_to)
+        projection = [
+            {"date": p["date"], "ctl": round(p["ctl"], 1)}
+            for p in project_ctl(current["ctl"], planned, today, project_to, ctl_decay())
+        ]
+    return PmcResponse(
+        current=current,
+        ctl_ramp_7d=ramp,
+        ramp_status=ramp_status(ramp),
+        ramp_normal_from=RAMP_NORMAL_FROM,
+        ramp_amber_above=RAMP_AMBER_ABOVE,
+        ramp_red_above=RAMP_RED_ABOVE,
+        projection=projection,
+        **result,
+    )
 
 
 @router.post("/rebuild")

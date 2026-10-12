@@ -54,7 +54,7 @@ from ..models.activity import Activity
 from ..models.intervals import IntervalsActivity
 from ..models.performance import PlannedSession
 from .compliance import _merge_slots, _slot_hours
-from .training_load import load_pmc
+from .training_load import ctl_decay, load_pmc, project_ctl
 
 ACWR_THRESHOLD = 1.3  # week-over-week step-up factor (name kept for the API field)
 MIN_CTL = 5.0
@@ -137,6 +137,24 @@ def discipline_rates(db: Session, today: date) -> tuple[dict[str, float], list[s
     return rates_from(db.query(Activity).all(), today)
 
 
+def planned_load_by_day(db: Session, today: date, until: date) -> dict[date, float]:
+    """Projected load per future day (after today, up to `until`): each
+    calendar-planned session's length x the current load/h for its discipline."""
+    rates, _ = discipline_rates(db, today)
+    overall = rates.get("_overall")
+    planned = (
+        db.query(PlannedSession)
+        .filter(PlannedSession.kind == "session", PlannedSession.date > today, PlannedSession.date <= until)
+        .all()
+    )
+    out: dict[date, float] = defaultdict(float)
+    for slot in _merge_slots(planned):
+        rate = rates.get(slot["discipline"], overall)
+        if rate is not None:
+            out[slot["date"]] += _slot_hours(slot) * rate
+    return out
+
+
 def load_vs_deadlines(db: Session, weeks_back: int = 6, weeks_ahead: int = 10, today: date | None = None) -> dict:
     today = today or date.today()
     current = _monday(today)
@@ -165,12 +183,8 @@ def load_vs_deadlines(db: Session, weeks_back: int = 6, weeks_ahead: int = 10, t
 
     # Project CTL forward from today through the planned load.
     projected_ctl: dict[date, float] = {today: latest_ctl}
-    ctl = latest_ctl
-    day = today + timedelta(days=1)
-    while day < end:
-        ctl += (projected_by_day.get(day, 0.0) - ctl) / 42
-        projected_ctl[day] = ctl
-        day += timedelta(days=1)
+    for p in project_ctl(latest_ctl, projected_by_day, today, end - timedelta(days=1), ctl_decay()):
+        projected_ctl[p["date"]] = p["ctl"]
     can_project = overall_rate is not None
 
     deadlines = (

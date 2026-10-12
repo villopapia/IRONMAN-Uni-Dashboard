@@ -78,6 +78,13 @@ function isoDate(d: Date): string {
   return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
 }
 
+/** Monday (YYYY-MM-DD) of the Mon-Sun week containing the given date. */
+export function weekStartIso(iso: string): string {
+  const d = new Date(iso + "T00:00:00");
+  d.setDate(d.getDate() - ((d.getDay() + 6) % 7));
+  return isoDate(d);
+}
+
 export function todayIso(): string {
   return isoDate(new Date());
 }
