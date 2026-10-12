@@ -19,8 +19,7 @@ const BAND_COLOR: Record<string, string> = {
 
 export default function AcademicProgress({ academicYear }: Props) {
   const { data: summary, error } = usePolling(() => api.getAcademicSummary(academicYear), [academicYear]);
-  // Display only: the placeholder module is hidden here, the average itself is the server's.
-  const modules = (summary?.modules ?? []).filter((m) => m.name.trim().toLowerCase() !== "test module");
+  const modules = summary?.modules ?? [];
   const needsLevelCredits = modules.some((m) => m.needs_level_credits);
 
   return (

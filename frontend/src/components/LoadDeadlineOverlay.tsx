@@ -140,8 +140,9 @@ export default function LoadDeadlineOverlay() {
       }`
     : undefined;
 
+  // Amber only on risk weeks, so the bars say the same thing as the flag row beneath them.
   const trainingFill = (w: OverlayWeek, projected: boolean) =>
-    w.training_elevated ? (projected ? `${status.warning}a6` : status.warning) : projected ? ink.muted : ink.secondary;
+    w.risk ? (projected ? `${status.warning}a6` : status.warning) : projected ? ink.muted : ink.secondary;
 
   return (
     <Card
@@ -177,7 +178,7 @@ export default function LoadDeadlineOverlay() {
             <LegendChip color={ink.secondary} label="Actual" />
             <LegendChip color={ink.muted} label="Planned (projected)" />
             <LegendChip color={ink.primary} label="Plan for that week" />
-            <LegendChip color={status.warning} label="Flagged" />
+            <LegendChip color={status.warning} label="Risk week" />
             <LegendChip color={ink.muted} label="Your usual week" line />
           </div>
           <div className="h-40">
