@@ -90,16 +90,10 @@ class SportMinutes(BaseModel):
     done: int  # moving time
 
 
-class RunKm(BaseModel):
-    km: float  # this week so far
-    last_week_km: float
-
-
 class ThisWeek(BaseModel):
     week_start: date
     key_sessions: list[KeySession]
     minutes: dict[str, SportMinutes]
-    run_km: RunKm
 
 
 class ManualStatusUpdate(BaseModel):

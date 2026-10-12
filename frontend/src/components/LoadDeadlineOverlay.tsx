@@ -92,7 +92,8 @@ function headline(weeks: OverlayWeek[]): string {
   const rest = lighter ? `${lighter} lighter week${lighter > 1 ? "s" : ""} planned` : "no lighter week planned";
   const cur = weeks.find((w) => w.state === "current");
   let thisWeek = "";
-  if (cur && cur.planned_load > 0) {
+  // "X done of Y planned" only once the week has a completed session; before that it reads as a failure.
+  if (cur && cur.planned_load > 0 && cur.actual_load > 0) {
     const gap = Math.round(cur.planned_to_date - cur.actual_load);
     const tol = 0.02 * cur.planned_load; // relative, so it reads the same on either load scale
     const pace =
@@ -261,13 +262,17 @@ export default function LoadDeadlineOverlay() {
           >
             {rows.map((r) => (
               <div key={r.label} className="flex h-6 items-center justify-center" title={r.w.risk ? "Training AND deadlines elevated" : undefined}>
+                {/* The training icons only appear on risk weeks; elsewhere a step-up is a quiet tick. */}
                 {r.w.risk ? (
-                  <AlertOctagon size={15} style={{ color: status.critical }} aria-label="risk week" />
-                ) : (
-                  <span className="flex gap-0.5" style={{ color: status.warning }}>
+                  <span className="flex items-center gap-0.5" style={{ color: status.warning }}>
+                    <AlertOctagon size={15} style={{ color: status.critical }} aria-label="risk week" />
                     {r.w.step_up && <TrendingUp size={13} aria-label="step up" />}
                     {r.w.no_deload && <Flame size={13} aria-label="no lighter week" />}
-                    {r.w.deadline_elevated && <CalendarClock size={13} aria-label="deadlines" />}
+                  </span>
+                ) : (
+                  <span className="flex h-full items-start gap-1">
+                    {r.w.step_up && <span className="h-2.5 w-0.5 rounded-full" style={{ background: ink.muted }} role="img" aria-label="step up" title="Step up on the week before" />}
+                    {r.w.deadline_elevated && <CalendarClock size={13} style={{ color: status.warning }} aria-label="deadlines" />}
                   </span>
                 )}
               </div>
@@ -275,10 +280,13 @@ export default function LoadDeadlineOverlay() {
           </div>
           <div className="mt-1 flex flex-wrap gap-3 text-[11px] text-neutral-500">
             <span className="inline-flex items-center gap-1">
-              <AlertOctagon size={12} style={{ color: status.critical }} /> risk week (both elevated)
+              <AlertOctagon size={12} style={{ color: status.critical }} /> risk week (training and deadlines both elevated), with
+              <TrendingUp size={12} style={{ color: status.warning }} /> step up or
+              <Flame size={12} style={{ color: status.warning }} /> 4+ hard weeks
             </span>
-            <span className="inline-flex items-center gap-1"><TrendingUp size={12} style={{ color: status.warning }} /> big step up on the week before</span>
-            <span className="inline-flex items-center gap-1"><Flame size={12} style={{ color: status.warning }} /> 4+ hard weeks, no lighter week</span>
+            <span className="inline-flex items-center gap-1.5">
+              <span className="h-2.5 w-0.5 rounded-full" style={{ background: ink.muted }} /> step up on the week before
+            </span>
             <span className="inline-flex items-center gap-1"><CalendarClock size={12} style={{ color: status.warning }} /> deadlines elevated</span>
           </div>
 

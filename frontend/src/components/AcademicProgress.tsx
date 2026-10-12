@@ -19,6 +19,9 @@ const BAND_COLOR: Record<string, string> = {
 
 export default function AcademicProgress({ academicYear }: Props) {
   const { data: summary, error } = usePolling(() => api.getAcademicSummary(academicYear), [academicYear]);
+  // Display only: the placeholder module is hidden here, the average itself is the server's.
+  const modules = (summary?.modules ?? []).filter((m) => m.name.trim().toLowerCase() !== "test module");
+  const needsLevelCredits = modules.some((m) => m.needs_level_credits);
 
   return (
     <Card icon={GraduationCap} title="Academic progress" meta={academicYear}>
@@ -54,19 +57,16 @@ export default function AcademicProgress({ academicYear }: Props) {
           </div>
 
           <ul className="mt-4 divide-y divide-white/[0.06]">
-            {summary.modules.map((m) => (
+            {modules.map((m) => (
               <li
                 key={m.module_id}
                 className="flex items-center justify-between py-2.5 text-sm"
               >
                 <span className="text-neutral-300">
-                  {m.name}{" "}
-                  {m.needs_level_credits ? (
-                    <span className="text-amber-400/80" title="Excluded from the weighted average until its FHEQ level and credit value are set">
-                      (level/credits needed)
-                    </span>
-                  ) : (
+                  {m.name}
+                  {!m.needs_level_credits && (
                     <span className="text-neutral-500">
+                      {" "}
                       (L{m.fheq_level}, {m.credits} credits)
                     </span>
                   )}
@@ -81,12 +81,15 @@ export default function AcademicProgress({ academicYear }: Props) {
                 </span>
               </li>
             ))}
-            {summary.modules.length === 0 && (
+            {modules.length === 0 && (
               <li className="py-2 text-sm text-neutral-500">
                 No modules seeded for {academicYear} yet.
               </li>
             )}
           </ul>
+          {needsLevelCredits && (
+            <p className="mt-2 text-xs text-neutral-500">Add level and credits on the Academic tab</p>
+          )}
 
           <p className="mt-4 text-xs leading-relaxed text-neutral-500">
             {summary.methodology_note}

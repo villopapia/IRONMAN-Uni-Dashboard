@@ -1,8 +1,8 @@
 import { HeartPulse } from "lucide-react";
 import { Line, LineChart, ReferenceArea, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
-import { api, ReadinessMetric } from "@/lib/api";
-import { fmtShortDate } from "@/lib/format";
-import { ink } from "@/lib/palette";
+import { api, GarminDailyMetric, ReadinessMetric } from "@/lib/api";
+import { fmtShortDate, timeAgo, todayIso } from "@/lib/format";
+import { ink, status } from "@/lib/palette";
 import { usePolling } from "@/lib/usePolling";
 import Card from "@/components/ui/Card";
 import Skeleton from "@/components/ui/Skeleton";
@@ -33,6 +33,68 @@ function Spark({ m }: { m: ReadinessMetric }) {
           <Line dataKey="value" stroke={ink.secondary} strokeWidth={2} dot={false} isAnimationActive={false} connectNulls={false} />
         </LineChart>
       </ResponsiveContainer>
+    </div>
+  );
+}
+
+// Garmin enums: "PRODUCTIVE_2" -> "Productive", "NO_STATUS"/"NONE" -> null.
+function prettyStatus(s: string | null): string | null {
+  if (!s || /^(none|no_status)$/i.test(s)) return null;
+  const t = s.replace(/_\d+$/, "").replace(/_/g, " ").toLowerCase();
+  return t.charAt(0).toUpperCase() + t.slice(1);
+}
+
+// Advice on the Garmin-only numbers, using Garmin's published bands. Nothing here
+// about sleep duration, HRV or resting HR: the rows above already judge those.
+function garminNotes(m: GarminDailyMetric): { tone: keyof typeof NOTE_COLOR; text: string }[] {
+  const notes: { tone: keyof typeof NOTE_COLOR; text: string }[] = [];
+  if (m.sleep_score != null && m.sleep_score < 60) notes.push({ tone: "bad", text: `Sleep score ${m.sleep_score} is poor: protect tonight's sleep.` });
+  else if (m.sleep_score != null && m.sleep_score < 80) notes.push({ tone: "warn", text: `Sleep score ${m.sleep_score} is only fair.` });
+  const r = m.training_readiness;
+  if (r != null && r < 50) notes.push({ tone: "bad", text: `Training readiness ${r} is low: keep today easy or take the rest day.` });
+  else if (r != null && r < 75) notes.push({ tone: "warn", text: `Training readiness ${r} is moderate: fine for steady work, skip the hardest efforts.` });
+  else if (r != null) notes.push({ tone: "good", text: `Training readiness ${r} is high: a good day for quality work.` });
+  if (m.body_battery_high != null && m.body_battery_high < 76) notes.push({ tone: "warn", text: `Body Battery only peaked at ${m.body_battery_high}: you did not fully recharge overnight.` });
+  return notes;
+}
+
+const NOTE_COLOR = { good: status.good, warn: status.warning, bad: status.critical };
+
+// The Garmin numbers that have no row above, as one compact line of small tiles.
+function GarminRow() {
+  const { data: m } = usePolling(() => api.getGarminToday());
+  if (!m) return null;
+  const tiles: [string, string | null][] = [
+    ["Sleep score", m.sleep_score?.toString() ?? null],
+    ["Body Battery", m.body_battery_high != null && m.body_battery_low != null ? `${m.body_battery_low}-${m.body_battery_high}` : null],
+    ["Training readiness", m.training_readiness?.toString() ?? null],
+    ["VO2max (running)", m.vo2max_running?.toString() ?? null],
+    ["Training status", prettyStatus(m.training_status)],
+  ];
+  const stale = m.date !== todayIso();
+  return (
+    <div className="mt-2 border-t border-white/[0.06] pt-3">
+      <div className={`mb-2 text-[11px] ${stale ? "text-amber-400" : "text-neutral-500"}`}>
+        Garmin, {stale ? `last synced for ${fmtShortDate(m.date)}, not today` : `synced ${timeAgo(m.updated_at)}`}
+      </div>
+      <div className="grid grid-cols-3 gap-x-3 gap-y-2 sm:grid-cols-5">
+        {tiles.map(([label, value]) => (
+          <div key={label} className="min-w-0">
+            <div className="truncate text-[11px] text-neutral-500" title={label}>
+              {label}
+            </div>
+            <div className="truncate text-sm font-semibold tabular-nums text-white">{value ?? "—"}</div>
+          </div>
+        ))}
+      </div>
+      <ul className="mt-3 space-y-1.5 text-xs text-neutral-300">
+        {garminNotes(m).map((n) => (
+          <li key={n.text} className="flex gap-2">
+            <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full" style={{ background: NOTE_COLOR[n.tone] }} />
+            {n.text}
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }
@@ -73,6 +135,8 @@ export default function Readiness() {
               );
             })}
           </ul>
+
+          <GarminRow />
 
           <ChartTable
             columns={["Date", ...metrics.map((m) => `${m.label} (${m.unit})`)]}

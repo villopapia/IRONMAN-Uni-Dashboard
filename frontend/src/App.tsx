@@ -15,7 +15,6 @@ import LoadDeadlineOverlay from "@/components/LoadDeadlineOverlay";
 import NutritionSupplements from "@/components/NutritionSupplements";
 import PhaseGateChecklist from "@/components/PhaseGateChecklist";
 import Readiness from "@/components/Readiness";
-import RecoveryMetrics from "@/components/RecoveryMetrics";
 import RecoveryTrend from "@/components/RecoveryTrend";
 import RunGuard from "@/components/RunGuard";
 import SeasonHeader from "@/components/SeasonHeader";
@@ -23,7 +22,6 @@ import StudyHours from "@/components/StudyHours";
 import ThisWeek from "@/components/ThisWeek";
 import ThresholdTrends from "@/components/ThresholdTrends";
 import TrainingLoadChart from "@/components/TrainingLoadChart";
-import TrainingWeekSummary from "@/components/TrainingWeekSummary";
 import WeightedAverageTrend from "@/components/WeightedAverageTrend";
 
 const ACADEMIC_YEAR = "2026/2027";
@@ -129,14 +127,6 @@ export default function App() {
             </section>
 
             <section>
-              <SectionLabel>Training</SectionLabel>
-              <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
-                <TrainingWeekSummary />
-                <RecoveryMetrics />
-              </div>
-            </section>
-
-            <section className="mt-8">
               <SectionLabel>Life</SectionLabel>
               <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
                 <AcademicProgress academicYear={ACADEMIC_YEAR} />

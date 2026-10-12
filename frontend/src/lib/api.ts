@@ -46,22 +46,6 @@ export interface ClassificationSummary {
   methodology_note: string;
 }
 
-export interface SportRollup {
-  sport: string;
-  target_minutes: number | null;
-  actual_minutes: number;
-  target_distance_km: number | null;
-  actual_distance_km: number;
-  on_track_pct: number | null;
-}
-
-export interface WeekSummary {
-  week_start_date: string;
-  week_label: string | null;
-  sports: SportRollup[];
-  rest_days: string[];
-}
-
 export interface NutritionPlan {
   slot_labels: Record<string, string>;
   meal_options: Record<string, string[]>;
@@ -96,16 +80,6 @@ export interface SupplementDaySummary {
   date: string;
   protocols: SupplementProtocolOut[];
   taken_supplement_ids: number[];
-}
-
-export interface CalendarEvent {
-  summary: string;
-  start: string;
-}
-
-export interface WeekSchedule {
-  week_start_date: string;
-  days: Record<string, CalendarEvent[]>;
 }
 
 export interface GarminDailyMetric {
@@ -350,7 +324,6 @@ export interface ThisWeek {
   week_start: string;
   key_sessions: KeySession[];
   minutes: Record<"swim" | "bike" | "run", { planned: number; done: number }>;
-  run_km: { km: number; last_week_km: number };
 }
 
 export interface ReadinessMetric {
@@ -678,8 +651,6 @@ export const api = {
     request<ModuleOut[]>(
       `/academic/modules?academic_year=${encodeURIComponent(academicYear)}`
     ),
-  getWeekSummary: (weekStartDate: string) =>
-    request<WeekSummary>(`/training/week?week_start_date=${weekStartDate}`),
 
   getNutritionPlan: () => request<NutritionPlan>("/nutrition/plan"),
   getNutritionDay: (day: string) =>
@@ -696,9 +667,6 @@ export const api = {
       method: "POST",
       body: JSON.stringify({ date, supplement_id: supplementId, taken }),
     }),
-
-  getWeekSchedule: (weekStartDate: string) =>
-    request<WeekSchedule>(`/calendar/week?week_start_date=${weekStartDate}`),
 
   getGarminToday: () => request<GarminDailyMetric | null>("/garmin/today"),
 };

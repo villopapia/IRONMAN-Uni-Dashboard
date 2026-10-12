@@ -82,11 +82,6 @@ export function todayIso(): string {
   return isoDate(new Date());
 }
 
-export function mostRecentMonday(): string {
-  const d = new Date();
-  d.setDate(d.getDate() - ((d.getDay() + 6) % 7));
-  return isoDate(d);
-}
 
 // The backend serializes naive UTC datetimes (Python's datetime.utcnow())
 // without a timezone suffix. JS treats a suffix-less timestamp as LOCAL time,
