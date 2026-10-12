@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { Flame } from "lucide-react";
-import AcademicProgress from "@/components/AcademicProgress";
 import ComplianceTracker from "@/components/ComplianceTracker";
 import DeadlineTracker from "@/components/DeadlineTracker";
 import DisciplineVolume from "@/components/DisciplineVolume";
@@ -12,7 +11,6 @@ import InjuryLog from "@/components/InjuryLog";
 import IntensityDistribution from "@/components/IntensityDistribution";
 import KpiStrip from "@/components/KpiStrip";
 import LoadDeadlineOverlay from "@/components/LoadDeadlineOverlay";
-import NutritionSupplements from "@/components/NutritionSupplements";
 import PhaseGateChecklist from "@/components/PhaseGateChecklist";
 import Readiness from "@/components/Readiness";
 import RecoveryTrend from "@/components/RecoveryTrend";
@@ -124,14 +122,6 @@ export default function App() {
                 <Readiness />
               </div>
               <LoadDeadlineOverlay />
-            </section>
-
-            <section>
-              <SectionLabel>Life</SectionLabel>
-              <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
-                <AcademicProgress academicYear={ACADEMIC_YEAR} />
-                <NutritionSupplements />
-              </div>
             </section>
           </>
         )}
