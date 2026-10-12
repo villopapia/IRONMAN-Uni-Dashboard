@@ -14,7 +14,7 @@ interface CardProps {
 export default function Card({ icon: Icon, title, info, meta, children, className }: CardProps) {
   return (
     <div
-      className={`rounded-2xl border border-white/[0.08] bg-[#1a1a19] p-5 shadow-lg shadow-black/20 transition-colors ${className ?? ""}`}
+      className={`rounded-2xl border border-white/[0.08] relative bg-[rgba(26,26,25,0.92)] p-5 shadow-lg shadow-black/20 backdrop-blur transition-colors hover:z-10 focus-within:z-10 ${className ?? ""}`}
     >
       <div className="flex items-center justify-between gap-3">
         <div className="flex items-center gap-2">

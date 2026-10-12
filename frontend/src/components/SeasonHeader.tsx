@@ -19,11 +19,11 @@ export default function SeasonHeader() {
 
   return (
     <div className="text-center">
-      <div className="text-4xl font-bold tabular-nums leading-none text-white">{count(data.days_to_race, "day")}</div>
-      <div className="mt-1.5 text-sm text-neutral-200">
+      <div className="text-4xl font-bold tabular-nums leading-none text-white [text-shadow:0_2px_14px_rgba(0,0,0,0.65)]">{count(data.days_to_race, "day")}</div>
+      <div className="mt-1.5 text-sm text-neutral-100">
         {data.race.name} · {longDate(data.race.date)}
       </div>
-      {detail && <div className="mt-0.5 text-xs text-neutral-500">{detail}</div>}
+      {detail && <div className="mt-0.5 text-xs text-neutral-300">{detail}</div>}
     </div>
   );
 }

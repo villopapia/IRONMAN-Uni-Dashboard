@@ -17,3 +17,68 @@ select optgroup {
   background-color: #1a1a19;
   color: #ffffff;
 }
+
+/* --- Page photo ----------------------------------------------------------
+   frontend/public/hero.jpg, if present, sits behind the whole page, faded,
+   and shows more strongly in the header band. Without the file every layer
+   below is simply not rendered and the page keeps its plain background.
+   Nothing here moves with scroll or pointer, so there is no parallax to
+   switch off for prefers-reduced-motion. Tune with these: */
+:root {
+  --page-bg: #0d0d0d;
+  --bg-opacity: 0.14; /* photo strength behind the page */
+  --bg-blur: 2px;
+  --bg-focus: center 20%; /* object-position of the photo */
+  --hero-opacity: 0.35; /* photo strength in the header band */
+  --hero-clear: 30vh; /* the countdown starts this far down, below the face */
+}
+
+.page-photo {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: var(--bg-focus);
+  opacity: var(--bg-opacity);
+  filter: blur(var(--bg-blur)) grayscale(20%);
+  transform: scale(1.02); /* hides the soft edge the blur leaves at the viewport border */
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Darkens the edges of the viewport back to the page colour. */
+.page-vignette {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(ellipse at center, transparent 30%, var(--page-bg) 100%);
+  pointer-events: none;
+}
+
+/* A second copy of the same fixed photo, visible only inside the header
+   (clip-path clips fixed descendants; a transform or filter here would not -
+   it would re-anchor them). Its opacity tops the page photo up to
+   --hero-opacity, and the mask fades it out so the header runs into the page. */
+.hero-photo-clip {
+  position: absolute;
+  inset: 0;
+  clip-path: inset(0);
+  -webkit-mask-image: linear-gradient(to bottom, #000 55%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 55%, transparent 100%);
+  pointer-events: none;
+}
+
+.hero-photo-clip .page-photo {
+  opacity: calc((var(--hero-opacity) - var(--bg-opacity)) / (1 - var(--bg-opacity)));
+}
+
+/* Pushes the countdown below the top of the photo (the header row itself starts 1.25rem down). */
+.hero-countdown {
+  padding-top: max(0px, calc(var(--hero-clear) - 1.25rem));
+}
+
+/* Soft dark pool behind the countdown text. */
+.hero-scrim {
+  padding: 1rem 3rem;
+  background: radial-gradient(closest-side, rgba(10, 10, 10, 0.8), rgba(10, 10, 10, 0.6) 55%, transparent);
+}

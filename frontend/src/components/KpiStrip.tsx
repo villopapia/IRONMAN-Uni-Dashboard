@@ -4,7 +4,7 @@ import { usePolling } from "@/lib/usePolling";
 import StatTile from "@/components/ui/StatTile";
 import StatusBadge, { FLAG_BADGE } from "@/components/ui/StatusBadge";
 
-const TILE = "rounded-2xl border border-white/[0.08] bg-[#1a1a19] p-4 shadow-lg shadow-black/20";
+const TILE = "rounded-2xl border border-white/[0.08] bg-[rgba(26,26,25,0.92)] p-4 shadow-lg shadow-black/20 backdrop-blur";
 const SPARK_DAYS = 28;
 const signed = (v: number) => `${v > 0 ? "+" : ""}${v.toFixed(1)}`;
 

@@ -30,7 +30,7 @@ const ACADEMIC_YEAR = "2026/2027";
 
 function SectionLabel({ children }: { children: string }) {
   return (
-    <h2 className="mb-3 text-xs font-semibold uppercase tracking-widest text-neutral-500">
+    <h2 className="mb-3 text-xs font-semibold uppercase tracking-widest text-neutral-300">
       {children}
     </h2>
   );
@@ -51,6 +51,9 @@ function tabFromHash(): TabId {
 
 export default function App() {
   const [tab, setTab] = useState<TabId>(tabFromHash);
+  // The page photo is optional and local-only: if it fails to load, its layers are dropped
+  // and the header goes back to its compact form on the plain background.
+  const [photo, setPhoto] = useState(true);
 
   useEffect(() => {
     const onHash = () => setTab(tabFromHash());
@@ -65,19 +68,34 @@ export default function App() {
   });
 
   return (
-    <div className="min-h-screen bg-[#0d0d0d]">
-      <header className="border-b border-white/[0.06] bg-[#0d0d0d]/80 px-6 pt-5 backdrop-blur">
+    <div className="relative isolate min-h-screen bg-[#0d0d0d]">
+      {photo && (
+        <>
+          <img src="/hero.jpg" alt="" aria-hidden="true" decoding="async" className="page-photo -z-20" onError={() => setPhoto(false)} />
+          <div className="page-vignette -z-10" />
+        </>
+      )}
+      {/* No background or backdrop-filter on the header: either would hide or re-anchor the fixed photo. */}
+      <header className="relative isolate border-b border-white/[0.06] px-6 pt-5">
+        {photo && (
+          <div className="hero-photo-clip -z-10">
+            <img src="/hero.jpg" alt="" aria-hidden="true" decoding="async" className="page-photo" />
+          </div>
+        )}
         {/* Three columns: title, countdown, date. Narrow screens: title and date share a
             row and the countdown sits centred beneath them, above the tabs. */}
-        <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-x-4 gap-y-3">
+        <div className={`mx-auto flex max-w-6xl flex-wrap justify-between gap-x-4 gap-y-3 ${photo ? "items-start" : "items-center"}`}>
           <div className="order-1 flex items-center gap-2.5 md:flex-1">
             <Flame size={22} className="text-orange-500" strokeWidth={2} />
             <h1 className="text-xl font-bold text-white">Fitness Dashboard</h1>
           </div>
-          <div className="order-3 w-full md:order-2 md:w-auto">
-            <SeasonHeader />
+          {/* With the photo, the countdown drops below the face and gets a dark pool behind it. */}
+          <div className={`order-3 w-full md:order-2 md:w-auto ${photo ? "hero-countdown" : ""}`}>
+            <div className={photo ? "hero-scrim" : undefined}>
+              <SeasonHeader />
+            </div>
           </div>
-          <span className="order-2 text-xs text-neutral-500 md:order-3 md:flex-1 md:text-right">{today}</span>
+          <span className={`order-2 text-xs md:order-3 md:flex-1 md:text-right ${photo ? "text-neutral-100" : "text-neutral-400"}`}>{today}</span>
         </div>
         <nav className="mx-auto mt-4 flex max-w-6xl gap-1 overflow-x-auto" role="tablist">
           {TABS.map((t) => (
@@ -89,7 +107,7 @@ export default function App() {
               className={`whitespace-nowrap border-b-2 px-3 pb-2.5 text-sm font-medium transition-colors ${
                 tab === t.id
                   ? "border-orange-500 text-white"
-                  : "border-transparent text-neutral-500 hover:text-neutral-300"
+                  : "border-transparent text-neutral-300 hover:text-white"
               }`}
             >
               {t.label}
