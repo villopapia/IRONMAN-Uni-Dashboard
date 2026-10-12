@@ -333,6 +333,19 @@ export interface Intensity {
   caveats: string[];
 }
 
+export interface SportCtl {
+  series: { date: string; swim: number; bike: number; run: number }[];
+  starts_on: string | null;
+  check: { max_deviation_pct: number; worst_date: string; days: number } | null;
+}
+
+export type Longest = { value: number; pct: number } | null;
+
+export interface Durability {
+  targets: Record<"swim" | "bike" | "run", { target: number; unit: string }>;
+  weeks: { week_start: string; swim: Longest; bike: Longest; run: Longest }[];
+}
+
 export interface ThisWeek {
   week_start: string;
   key_sessions: KeySession[];
@@ -593,6 +606,8 @@ export const api = {
   getReadiness: () => request<Readiness>("/readiness"),
   getIntensity: () => request<Intensity>("/load/intensity"),
   getRunRamp: () => request<RunRamp>("/load/run-ramp"),
+  getSportCtl: (days = 180) => request<SportCtl>(`/load/sport-ctl?days=${days}`),
+  getDurability: () => request<Durability>("/load/durability"),
   getPmc: (days = 120) => request<PmcResponse>(`/load/pmc?days=${days}`),
   getGoalGap: () => request<GoalGap>("/performance/goal-gap"),
   getOverlay: (weeksBack = 6, weeksAhead = 10) =>

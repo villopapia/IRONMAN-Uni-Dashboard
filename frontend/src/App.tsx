@@ -4,6 +4,7 @@ import AcademicProgress from "@/components/AcademicProgress";
 import ComplianceTracker from "@/components/ComplianceTracker";
 import DeadlineTracker from "@/components/DeadlineTracker";
 import DisciplineVolume from "@/components/DisciplineVolume";
+import Durability from "@/components/Durability";
 import EquipmentMilestones from "@/components/EquipmentMilestones";
 import ExamPrepCoverage from "@/components/ExamPrepCoverage";
 import GoalGapTracker from "@/components/GoalGapTracker";
@@ -16,6 +17,7 @@ import Readiness from "@/components/Readiness";
 import RecoveryMetrics from "@/components/RecoveryMetrics";
 import RecoveryTrend from "@/components/RecoveryTrend";
 import RunGuard from "@/components/RunGuard";
+import SportFitness from "@/components/SportFitness";
 import StudyHours from "@/components/StudyHours";
 import ThisWeek from "@/components/ThisWeek";
 import ThresholdTrends from "@/components/ThresholdTrends";
@@ -135,6 +137,8 @@ export default function App() {
               <ComplianceTracker />
               <IntensityDistribution />
               <RunGuard />
+              <SportFitness />
+              <Durability />
             </div>
           </section>
         )}

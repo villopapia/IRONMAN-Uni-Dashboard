@@ -5,6 +5,7 @@ from pydantic import BaseModel
 from sqlalchemy.orm import Session
 
 from ..database import get_db
+from ..services.durability import durability, sport_ctl_series
 from ..services.intensity import intensity_distribution, run_ramp
 from ..services.training_load import load_pmc, rebuild_daily_loads
 
@@ -91,3 +92,54 @@ def intensity(db: Session = Depends(get_db)):
 @router.get("/run-ramp", response_model=RunRamp)
 def get_run_ramp(db: Session = Depends(get_db)):
     return run_ramp(db)
+
+
+class SportCtlPoint(BaseModel):
+    date: date
+    swim: float
+    bike: float
+    run: float
+
+
+class CtlCheck(BaseModel):
+    max_deviation_pct: float  # swim + bike + run vs intervals.icu's CTL
+    worst_date: date
+    days: int
+
+
+class SportCtl(BaseModel):
+    series: list[SportCtlPoint]
+    starts_on: date | None  # every line starts from 0 here
+    check: CtlCheck | None
+
+
+class Longest(BaseModel):
+    value: float
+    pct: int  # of the race target; can exceed 100
+
+
+class DurabilityWeek(BaseModel):
+    week_start: date
+    swim: Longest | None  # None = no session that week
+    bike: Longest | None
+    run: Longest | None
+
+
+class DurabilityTarget(BaseModel):
+    target: float
+    unit: str
+
+
+class Durability(BaseModel):
+    targets: dict[str, DurabilityTarget]
+    weeks: list[DurabilityWeek]
+
+
+@router.get("/sport-ctl", response_model=SportCtl)
+def sport_ctl(days: int = 180, db: Session = Depends(get_db)):
+    return sport_ctl_series(db, max(28, min(days, 730)))
+
+
+@router.get("/durability", response_model=Durability)
+def get_durability(db: Session = Depends(get_db)):
+    return durability(db)
