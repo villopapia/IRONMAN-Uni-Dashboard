@@ -44,6 +44,7 @@ class OverlayWeek(BaseModel):
 
 class Overlay(BaseModel):
     weeks: list[OverlayWeek]
+    load_source: str
     load_per_hour_by_discipline: dict[str, float]
     load_per_hour_fallback: list[str]
     current_ctl: float

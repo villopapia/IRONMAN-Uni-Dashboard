@@ -17,7 +17,7 @@ Matching rules - documented decisions, not facts from the spec:
     didn't record on Strava) or "skipped" (counted as not completed).
  6. Leftover activities are reported as unplanned extras; they never push a
     discipline above 100%.
- 7. Walks and "other" activities (e.g. StairStepper) never match anything.
+ 7. Walks and "other" activities never match anything.
 
 Bricks (spec item 5) are judged per day: a day is a brick day if any planned
 slot on it is a brick leg. It's "done" when a Strava run starts after a Strava
@@ -25,6 +25,7 @@ bike that day and no later than 60 min after the bike's moving time ends
 (moving time <= elapsed time, so this is lenient on long transitions).
 """
 
+import re
 from collections import defaultdict
 from datetime import date, datetime, timedelta
 
@@ -43,10 +44,25 @@ STRENGTH_LABELS = {
     "other": "Other strength",
 }
 DONE_STATUSES = {"done", "moved", "manual_done"}
+# The week's key sessions for the "This week" panel: (weekday, discipline,
+# calendar-title pattern, label).
+KEY_SESSIONS = [
+    (1, "run", re.compile(r"threshold|tempo", re.I), "Tue threshold / tempo run"),
+    (2, "bike", re.compile(r".", re.I), "Wed key bike"),  # any Wednesday bike
+    (5, "bike", re.compile(r"long", re.I), "Sat long bike"),
+    (5, "run", re.compile(r"brick", re.I), "Sat brick run"),
+    (6, "run", re.compile(r"long", re.I), "Sun long run"),
+]
 
 
 def _monday(d: date) -> date:
     return d - timedelta(days=d.weekday())
+
+
+def _slot_hours(slot: dict) -> float:
+    if slot["start_at"] and slot["end_at"] and slot["end_at"] > slot["start_at"]:
+        return (slot["end_at"] - slot["start_at"]).total_seconds() / 3600
+    return 0.0
 
 
 def _merge_slots(planned: list[PlannedSession]) -> list[dict]:
@@ -271,3 +287,72 @@ def compliance_range(db: Session, weeks_back: int, weeks_ahead: int, today: date
         week_compliance(db, current + timedelta(days=7 * i), today)
         for i in range(-weeks_back, weeks_ahead + 1)
     ]
+
+
+def key_session_rows(slots: list[dict], done: set[tuple[date, str]], week_start: date, today: date) -> list[dict]:
+    """One row per KEY_SESSIONS entry. `done` = (day, sport) pairs with a recorded
+    activity. done if a same-sport activity exists that day, missed once the day
+    has passed without one, pending until then; not_planned when no calendar
+    event that day matches the title pattern."""
+    rows = []
+    for weekday, discipline, pattern, label in KEY_SESSIONS:
+        day = week_start + timedelta(days=weekday)
+        slot = next(
+            (
+                s
+                for s in slots
+                if s["date"] == day
+                and s["discipline"] == discipline
+                and any(pattern.search(t) for t in s["titles"])
+            ),
+            None,
+        )
+        if slot is None:
+            status = "not_planned"
+        elif (day, discipline) in done:
+            status = "done"
+        else:
+            status = "missed" if day < today else "pending"
+        rows.append(
+            {
+                "label": label,
+                "date": day,
+                "title": slot["titles"][0] if slot else None,
+                "discipline": discipline,
+                "status": status,
+            }
+        )
+    return rows
+
+
+def this_week(db: Session, today: date | None = None) -> dict:
+    """Current Mon-Sun week: key sessions, and minutes done vs planned per sport
+    (planned = calendar event duration, done = moving time)."""
+    today = today or date.today()
+    week_start = _monday(today)
+    week_end = week_start + timedelta(days=7)
+    planned = (
+        db.query(PlannedSession)
+        .filter(PlannedSession.kind == "session", PlannedSession.date >= week_start, PlannedSession.date < week_end)
+        .all()
+    )
+    activities = (
+        db.query(Activity)
+        .filter(
+            Activity.date >= datetime.combine(week_start, datetime.min.time()),
+            Activity.date < datetime.combine(week_end, datetime.min.time()),
+        )
+        .all()
+    )
+    slots = _merge_slots(planned)
+    return {
+        "week_start": week_start,
+        "key_sessions": key_session_rows(slots, {(a.date.date(), a.sport) for a in activities}, week_start, today),
+        "minutes": {
+            sport: {
+                "planned": round(sum(_slot_hours(s) for s in slots if s["discipline"] == sport) * 60),
+                "done": round(sum(a.duration_min for a in activities if a.sport == sport)),
+            }
+            for sport in ("swim", "bike", "run")
+        },
+    }

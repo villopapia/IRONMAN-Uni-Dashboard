@@ -294,6 +294,20 @@ export interface ComplianceRange {
   note: string;
 }
 
+export interface KeySession {
+  label: string;
+  date: string;
+  title: string | null;
+  discipline: string | null;
+  status: "done" | "missed" | "pending" | "not_planned";
+}
+
+export interface ThisWeek {
+  week_start: string;
+  key_sessions: KeySession[];
+  minutes: Record<"swim" | "bike" | "run", { planned: number; done: number }>;
+}
+
 // --- Training load (PMC) -----------------------------------------------------
 
 export interface PmcPoint {
@@ -499,6 +513,7 @@ export interface OverlayWeek {
 
 export interface Overlay {
   weeks: OverlayWeek[];
+  load_source: string;
   load_per_hour_by_discipline: Record<string, number>;
   load_per_hour_fallback: string[];
   current_ctl: number;
@@ -521,6 +536,7 @@ export const api = {
   setSessionStatus: (ids: number[], manualStatus: "done" | "skipped" | null) =>
     request("/compliance/sessions", json("PATCH", { ids, manual_status: manualStatus })),
   syncPlan: () => request("/compliance/sync", { method: "POST" }),
+  getThisWeek: () => request<ThisWeek>("/compliance/this-week"),
   getPmc: (days = 120) => request<PmcResponse>(`/load/pmc?days=${days}`),
   getGoalGap: () => request<GoalGap>("/performance/goal-gap"),
   getOverlay: (weeksBack = 6, weeksAhead = 10) =>

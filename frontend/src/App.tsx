@@ -14,6 +14,7 @@ import PhaseGateChecklist from "@/components/PhaseGateChecklist";
 import RecoveryMetrics from "@/components/RecoveryMetrics";
 import RecoveryTrend from "@/components/RecoveryTrend";
 import StudyHours from "@/components/StudyHours";
+import ThisWeek from "@/components/ThisWeek";
 import ThresholdTrends from "@/components/ThresholdTrends";
 import TrainingLoadChart from "@/components/TrainingLoadChart";
 import TrainingWeekSummary from "@/components/TrainingWeekSummary";
@@ -89,6 +90,13 @@ export default function App() {
       <main className="mx-auto max-w-6xl px-6 py-6">
         {tab === "overview" && (
           <>
+            <section className="mb-8">
+              <SectionLabel>This week</SectionLabel>
+              <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
+                <ThisWeek />
+              </div>
+            </section>
+
             <section className="mb-8">
               <SectionLabel>Burnout watch</SectionLabel>
               <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">

@@ -77,6 +77,25 @@ class ComplianceRange(BaseModel):
     note: str
 
 
+class KeySession(BaseModel):
+    label: str
+    date: date
+    title: str | None  # the matched calendar event; None = nothing matched this week
+    discipline: str | None
+    status: str  # done / missed / pending / not_planned
+
+
+class SportMinutes(BaseModel):
+    planned: int  # calendar event duration
+    done: int  # moving time
+
+
+class ThisWeek(BaseModel):
+    week_start: date
+    key_sessions: list[KeySession]
+    minutes: dict[str, SportMinutes]
+
+
 class ManualStatusUpdate(BaseModel):
     ids: list[int]
     manual_status: str | None  # done / skipped / null

@@ -43,6 +43,9 @@ def test_icu_training_load_field():
         IntervalsActivity(name="Ride", date=datetime(2026, 10, d, 9), sport="bike", duration_min=60, icu_training_load=tl)
         for d, tl in loads
     ]
+    acts.append(  # flagged as a race on intervals.icu: excluded although the name doesn't say so
+        IntervalsActivity(name="Ride", date=datetime(2026, 10, 6, 9), sport="bike", duration_min=60, icu_training_load=300, race=True)
+    )
     rates, fallback = rates_from(acts, TODAY, load_field="icu_training_load")
     assert rates["bike"] == 55.0  # median(40, 50, 60, 70)
     assert fallback == []

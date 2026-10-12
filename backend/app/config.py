@@ -16,6 +16,9 @@ class Settings(BaseSettings):
 
     intervals_api_key: str = ""
     intervals_athlete_id: str = ""
+    # Load / CTL / ATL source: the intervals.icu cache (true) or Strava Relative
+    # Effort through training_load.compute_pmc (false).
+    use_icu_pmc: bool = True
 
     model_config = SettingsConfigDict(env_file=".env", extra="ignore")
 

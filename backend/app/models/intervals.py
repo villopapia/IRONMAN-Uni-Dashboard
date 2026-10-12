@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Date, DateTime, Float, String
+from sqlalchemy import Boolean, Column, Date, DateTime, Float, String, false
 
 from ..database import Base
 
@@ -15,6 +15,7 @@ class IntervalsActivity(Base):
     sport = Column(String, nullable=False, index=True)
     duration_min = Column(Float, nullable=False)  # moving_time / 60
     icu_training_load = Column(Float, nullable=True)
+    race = Column(Boolean, nullable=False, default=False, server_default=false())  # intervals.icu's race flag
 
 
 class IntervalsWellness(Base):

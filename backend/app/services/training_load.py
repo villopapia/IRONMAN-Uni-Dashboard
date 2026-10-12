@@ -35,6 +35,12 @@ daily loads on every read (never stored, so they can't drift):
     TSB_d = CTL_(d-1) - ATL_(d-1)                     (form, prior-day convention)
 Both start at 0 on the first day with any activity, so CTL reads low for
 roughly the first six weeks of history - the response carries that date.
+
+== Source switch ==
+
+Everything above is the USE_ICU_PMC=false path. By default (true) panels read
+load_pmc(), which serves intervals.icu's own CTL/ATL and icu_training_load
+from the cache instead - see compute_icu_pmc().
 """
 
 from collections import defaultdict
@@ -44,7 +50,9 @@ from statistics import median
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 
+from ..config import settings
 from ..models.activity import Activity
+from ..models.intervals import IntervalsActivity, IntervalsWellness
 from ..models.performance import DailyTrainingLoad
 
 CTL_DAYS = 42
@@ -60,6 +68,12 @@ METHODOLOGY_NOTE = (
     "load; TSB = yesterday's CTL - ATL. Sessions without a Relative Effort "
     "score use your own median effort-per-minute for that sport x duration, "
     "and are counted as estimated."
+)
+ICU_METHODOLOGY_NOTE = (
+    "Load = intervals.icu training load per session (from your threshold HR / "
+    "pace / power settings there). Fitness (CTL, 42-day) and fatigue (ATL, "
+    "7-day) are intervals.icu's own numbers; TSB = yesterday's CTL - ATL. A "
+    "session only counts once it has reached intervals.icu, which can lag Strava."
 )
 
 
@@ -161,3 +175,47 @@ def compute_pmc(db: Session, start: date | None = None, end: date | None = None)
         "total_sessions": sum(r.sessions for r in rows),
         "methodology_note": METHODOLOGY_NOTE,
     }
+
+
+def compute_icu_pmc(db: Session, start: date | None = None, end: date | None = None) -> dict:
+    """compute_pmc's shape, read from the intervals.icu cache: CTL/ATL are theirs
+    (intervals_wellness), daily load = icu_training_load per sport."""
+    end = end or date.today()
+    activities = db.query(IntervalsActivity).filter(IntervalsActivity.icu_training_load.isnot(None)).all()
+    by_day: dict[date, dict[str, float]] = defaultdict(dict)
+    for a in activities:
+        day = a.date.date()
+        by_day[day][a.sport] = by_day[day].get(a.sport, 0.0) + a.icu_training_load
+
+    series = []
+    tsb = 0.0  # prior-day CTL - ATL, same convention as compute_pmc
+    rows = db.query(IntervalsWellness).filter(IntervalsWellness.date <= end).order_by(IntervalsWellness.date)
+    for w in rows:
+        if w.ctl is None or w.atl is None:
+            continue
+        if start is None or w.date >= start:
+            sports = by_day.get(w.date, {})
+            series.append(
+                {
+                    "date": w.date,
+                    "load": round(sum(sports.values()), 1),
+                    "ctl": round(w.ctl, 1),
+                    "atl": round(w.atl, 1),
+                    "tsb": round(tsb, 1),
+                    "by_sport": {s: round(v, 1) for s, v in sports.items()},
+                }
+            )
+        tsb = w.ctl - w.atl
+
+    return {
+        "series": series,
+        "first_load_date": None,  # their CTL doesn't start from 0 at the cache's first day
+        "estimated_sessions": 0,
+        "total_sessions": len(activities),
+        "methodology_note": ICU_METHODOLOGY_NOTE,
+    }
+
+
+def load_pmc(db: Session, start: date | None = None, end: date | None = None) -> dict:
+    """The PMC every panel reads: intervals.icu's, or ours when USE_ICU_PMC is off."""
+    return (compute_icu_pmc if settings.use_icu_pmc else compute_pmc)(db, start, end)

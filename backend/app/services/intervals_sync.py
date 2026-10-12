@@ -28,7 +28,7 @@ BASE_URL = "https://intervals.icu/api/v1"
 BACKFILL_FROM = date(2026, 4, 1)
 REFRESH_DAYS = 14
 WANTED = {
-    "activities": ["type", "start_date_local", "moving_time", "icu_training_load"],
+    "activities": ["type", "start_date_local", "moving_time", "icu_training_load", "race"],
     "wellness": ["id", "ctl", "atl", "rampRate", "restingHR", "hrv", "sleepSecs", "weight"],
 }
 
@@ -74,6 +74,7 @@ def sync_intervals(db: Session) -> dict[str, int]:
                 sport=normalize_sport(a["type"]),
                 duration_min=(a.get("moving_time") or 0) / 60,
                 icu_training_load=a.get("icu_training_load"),
+                race=bool(a.get("race")),
             )
         )
     wellness = _get("wellness", oldest)

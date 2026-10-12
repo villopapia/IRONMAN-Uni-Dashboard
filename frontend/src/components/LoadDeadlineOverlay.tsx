@@ -94,12 +94,13 @@ function headline(weeks: OverlayWeek[]): string {
   let thisWeek = "";
   if (cur && cur.planned_load > 0) {
     const gap = Math.round(cur.planned_to_date - cur.actual_load);
+    const tol = 0.02 * cur.planned_load; // relative, so it reads the same on either load scale
     const pace =
       cur.planned_to_date < 1
         ? ""
-        : gap > 10
+        : gap > tol
           ? ` — about ${gap} behind where the plan says you should be by today`
-          : gap < -10
+          : gap < -tol
             ? ` — about ${-gap} ahead of the plan so far`
             : " — on plan so far";
     thisWeek = `This week: ${Math.round(cur.actual_load)} done of ${Math.round(cur.planned_load)} planned (${pct(cur.actual_load, cur.planned_load)})${pace}. `;
@@ -126,6 +127,10 @@ export default function LoadDeadlineOverlay() {
   const riskCount = data?.risk_weeks.length ?? 0;
   const n = rows.length;
   const noDeadlines = !!data && data.weeks.every((w) => w.deadline_count === 0);
+  // Optional on purpose: a backend older than the frontend omits these, and a
+  // missing field must not take the whole page down.
+  const rateFallback = data?.load_per_hour_fallback ?? [];
+  const rates = Object.entries(data?.load_per_hour_by_discipline ?? {}).filter(([k]) => ["swim", "bike", "run", "gym"].includes(k));
 
   const trainingFill = (w: OverlayWeek, projected: boolean) =>
     w.training_elevated ? (projected ? `${status.warning}a6` : status.warning) : projected ? ink.muted : ink.secondary;
@@ -159,7 +164,7 @@ export default function LoadDeadlineOverlay() {
         <>
           <p className="mb-3 text-sm text-neutral-200">{headline(data.weeks)}</p>
           <div className="mb-1 flex flex-wrap items-center gap-3">
-            <span className="text-xs font-medium text-neutral-300">Training load / week (Strava Relative Effort)</span>
+            <span className="text-xs font-medium text-neutral-300">Training load / week{data.load_source ? ` (${data.load_source})` : ""}</span>
             <LegendChip color={ink.secondary} label="Actual" />
             <LegendChip color={ink.muted} label="Planned (projected)" />
             <LegendChip color={ink.primary} label="Plan for that week" />
@@ -271,12 +276,9 @@ export default function LoadDeadlineOverlay() {
 
           <p className="mt-3 text-xs leading-relaxed text-neutral-500">
             {data.note} Load/hour used for projection:{" "}
-            {Object.entries(data.load_per_hour_by_discipline)
-              .filter(([k]) => ["swim", "bike", "run", "gym"].includes(k))
-              .map(([k, v]) => `${k} ${v}${data.load_per_hour_fallback.includes(k) ? "*" : ""}`)
-              .join(", ")}
-            {" "}RE/h.
-            {data.load_per_hour_fallback.some((k) => ["swim", "bike", "run", "gym"].includes(k)) && " * all-history fallback."}
+            {rates.map(([k, v]) => `${k} ${v}${rateFallback.includes(k) ? "*" : ""}`).join(", ")}
+            {" "}load/h.
+            {rates.some(([k]) => rateFallback.includes(k)) && " * all-history fallback."}
           </p>
 
           <ChartTable

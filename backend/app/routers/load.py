@@ -5,7 +5,7 @@ from pydantic import BaseModel
 from sqlalchemy.orm import Session
 
 from ..database import get_db
-from ..services.training_load import compute_pmc, rebuild_daily_loads
+from ..services.training_load import load_pmc, rebuild_daily_loads
 
 router = APIRouter()
 
@@ -33,7 +33,7 @@ class PmcResponse(BaseModel):
 def pmc(days: int = 120, db: Session = Depends(get_db)):
     days = max(14, min(days, 730))
     today = date.today()
-    result = compute_pmc(db, start=today - timedelta(days=days - 1), end=today)
+    result = load_pmc(db, start=today - timedelta(days=days - 1), end=today)
     series = result["series"]
     current = series[-1] if series else None
     ramp = (

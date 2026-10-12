@@ -6,8 +6,8 @@ from sqlalchemy.orm import Session
 
 from ..database import get_db
 from ..models.performance import PlannedSession
-from ..schemas.compliance import ComplianceRange, ManualStatusUpdate, WeekCompliance
-from ..services.compliance import COMPLIANCE_FLAG_PCT, compliance_range, week_compliance
+from ..schemas.compliance import ComplianceRange, ManualStatusUpdate, ThisWeek, WeekCompliance
+from ..services.compliance import COMPLIANCE_FLAG_PCT, compliance_range, this_week, week_compliance
 from ..services.plan_sync import sync_plan
 
 router = APIRouter()
@@ -44,6 +44,11 @@ def weeks(weeks_back: int = 6, weeks_ahead: int = 1, db: Session = Depends(get_d
 @router.get("/week", response_model=WeekCompliance)
 def week(week_start_date: date, db: Session = Depends(get_db)):
     return week_compliance(db, week_start_date)
+
+
+@router.get("/this-week", response_model=ThisWeek)
+def current_week(db: Session = Depends(get_db)):
+    return this_week(db)
 
 
 @router.patch("/sessions")

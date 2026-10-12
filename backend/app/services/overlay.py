@@ -4,12 +4,14 @@ overtraining window, rather than either signal alone.
 
 Documented decisions (heuristics, not facts from the spec):
 
-Training signal, in one unit (Strava Relative Effort load) for every week:
+Training signal, in one unit for every week: intervals.icu training load, or
+Strava Relative Effort when USE_ICU_PMC is off (the flag switches actual load,
+projection rates and CTL together, so the two scales never mix):
   - past weeks: actual weekly load (sum of daily load).
   - current week: actual so far + the projected load of the planned sessions
     still to come this week.
   - future weeks: projected load = each planned session's calendar duration
-    x Chris's own median load-per-hour for that discipline (Relative Effort /
+    x Chris's own median load-per-hour for that discipline (load /
     moving hours per activity over the last RATE_WINDOW_DAYS, races and
     no-HR activities excluded; the same filters over all history if a
     discipline has < RATE_MIN_SAMPLES such activities; the all-sport median
@@ -26,11 +28,12 @@ Training signal, in one unit (Strava Relative Effort load) for every week:
   nearly every planned week, because a ramp from a quiet patch is >1.3x
   against a low chronic base for months; that says "the plan is a big jump",
   not which weeks are the problem.
-    step_up:   load >= 1.3 x the previous week's load (and >= 150).
+    step_up:   load >= 1.3 x the previous week's load (and >= 0.6 x the usual
+               week - relative, so it holds on either load scale).
     no_deload: the 4th+ consecutive week at/above the usual week with no
                deload week (a deload = <= 75% of the prior 3 weeks' peak).
   The 1.3 / 4-week / 75% numbers are common coaching rules of thumb,
-  directional, not validated for Relative-Effort units.
+  directional, not validated for either load unit.
 
 Deadline signal: deadlines due in that Mon-Sun week (any status - a
 submitted assignment still represented work that week). Elevated when >= 2
@@ -45,21 +48,24 @@ from statistics import median
 
 from sqlalchemy.orm import Session
 
+from ..config import settings
 from ..models.academic_tracking import AcademicDeadline
 from ..models.activity import Activity
+from ..models.intervals import IntervalsActivity
 from ..models.performance import PlannedSession
-from .compliance import _merge_slots
-from .training_load import compute_pmc
+from .compliance import _merge_slots, _slot_hours
+from .training_load import load_pmc
 
 ACWR_THRESHOLD = 1.3  # week-over-week step-up factor (name kept for the API field)
 MIN_CTL = 5.0
 DEADLINE_COUNT_THRESHOLD = 2
-MIN_FLAG_LOAD = 150.0
+MIN_FLAG_FACTOR = 0.6  # a step-up only counts at >= this x the usual week
 DELOAD_FACTOR = 0.75
 HARD_RUN_WEEKS = 4
 RATE_WINDOW_DAYS = 28
 RATE_MIN_SAMPLES = 4
-# ponytail: race = name match; switch to Strava workout_type if we ever store it
+# Race = intervals.icu's own race flag where the row has one (IntervalsActivity);
+# the name match is the fallback, and all there is for Strava rows.
 _RACE_NAME = re.compile(r"marathon|half|race|10k|parkrun|time trial", re.I)
 
 
@@ -67,33 +73,32 @@ def _monday(d: date) -> date:
     return d - timedelta(days=d.weekday())
 
 
-def training_flags(totals: list[float], hard: list[bool]) -> list[tuple[bool, bool, bool]]:
+def training_flags(totals: list[float], hard: list[bool], usual: list[float]) -> list[tuple[bool, bool, bool]]:
     """Per week: (step_up, no_deload, deload). `totals` = weekly load (0 when
-    unknown), `hard` = week is at/above the usual week."""
+    unknown), `hard` = week is at/above the usual week, `usual` = the usual
+    week's load (0 when there is no meaningful base - never a step-up)."""
     out = []
     run = 0
     for i, t in enumerate(totals):
         prev = totals[i - 1] if i else 0.0
         peak = max(totals[max(0, i - 3):i], default=0.0)
         deload = peak > 0 and t <= DELOAD_FACTOR * peak
-        step_up = prev > 0 and t >= MIN_FLAG_LOAD and t >= ACWR_THRESHOLD * prev
+        step_up = prev > 0 and usual[i] > 0 and t >= MIN_FLAG_FACTOR * usual[i] and t >= ACWR_THRESHOLD * prev
         run = run + 1 if hard[i] and not deload else 0
         out.append((step_up, run >= HARD_RUN_WEEKS, deload))
     return out
 
 
 def _self_check() -> None:
-    f = training_flags([100, 100, 300, 300, 300, 300, 300, 200], [False, False, True, True, True, True, True, False])
+    hard = [False, False, True, True, True, True, True, False]
+    f = training_flags([100, 100, 300, 300, 300, 300, 300, 200], hard, [250.0] * 8)
     assert [x[0] for x in f] == [False, False, True, False, False, False, False, False]  # one step-up
     assert [x[1] for x in f] == [False] * 5 + [True, True, False]  # 4th+ hard week
     assert f[7][2]  # 200 <= 75% of 300 -> deload
-    assert not any(training_flags([50, 140], [False, False])[1][:2])  # below MIN_FLAG_LOAD
-
-
-def _slot_hours(slot: dict) -> float:
-    if slot["start_at"] and slot["end_at"] and slot["end_at"] > slot["start_at"]:
-        return (slot["end_at"] - slot["start_at"]).total_seconds() / 3600
-    return 0.0
+    quiet = [False, False]
+    assert not any(training_flags([50, 140], quiet, [250.0] * 2)[1][:2])  # 140 < 0.6 x usual 250
+    assert training_flags([50, 140], quiet, [100.0] * 2)[1][0]  # same jump on a smaller scale: flagged
+    assert not training_flags([50, 140], quiet, [0.0] * 2)[1][0]  # no base
 
 
 def rates_from(
@@ -109,7 +114,7 @@ def rates_from(
     recent: dict[str, list[float]] = defaultdict(list)
     for a in activities:
         load = getattr(a, load_field)
-        if not load or a.duration_min < 10 or _RACE_NAME.search(a.name):
+        if not load or a.duration_min < 10 or getattr(a, "race", False) or _RACE_NAME.search(a.name):
             continue
         rate = load / (a.duration_min / 60)
         per[a.sport].append(rate)
@@ -127,6 +132,8 @@ def rates_from(
 
 
 def discipline_rates(db: Session, today: date) -> tuple[dict[str, float], list[str]]:
+    if settings.use_icu_pmc:
+        return rates_from(db.query(IntervalsActivity).all(), today, load_field="icu_training_load")
     return rates_from(db.query(Activity).all(), today)
 
 
@@ -136,7 +143,7 @@ def load_vs_deadlines(db: Session, weeks_back: int = 6, weeks_ahead: int = 10, t
     first = current - timedelta(days=7 * weeks_back)
     end = current + timedelta(days=7 * (weeks_ahead + 1))
 
-    pmc = compute_pmc(db, end=today)
+    pmc = load_pmc(db, end=today)
     by_day = {p["date"]: p for p in pmc["series"]}
     latest_ctl = pmc["series"][-1]["ctl"] if pmc["series"] else 0.0
     rates, rate_fallback = discipline_rates(db, today)
@@ -179,6 +186,7 @@ def load_vs_deadlines(db: Session, weeks_back: int = 6, weeks_ahead: int = 10, t
         dl_by_week[_monday(d.due_at.date())].append(d)
 
     weeks = []
+    usual: list[float] = []
     for i in range(weeks_back + weeks_ahead + 1):
         wk = first + timedelta(days=7 * i)
         state = "past" if wk < current else ("current" if wk == current else "future")
@@ -207,6 +215,7 @@ def load_vs_deadlines(db: Session, weeks_back: int = 6, weeks_ahead: int = 10, t
         else:
             ctl = projected_ctl.get(ctl_ref_day, 0.0)
         chronic_weekly = round(7 * ctl, 1)
+        usual.append(chronic_weekly if ctl >= MIN_CTL else 0.0)
         ratio = round(total / chronic_weekly, 2) if ctl >= MIN_CTL and chronic_weekly else None
         has_signal = state != "future" or (can_project and planned_hours > 0)
 
@@ -251,13 +260,15 @@ def load_vs_deadlines(db: Session, weeks_back: int = 6, weeks_ahead: int = 10, t
 
     totals = [w["total_load"] or 0.0 for w in weeks]
     hard = [w["load_ratio"] is not None and w["load_ratio"] >= 1.0 for w in weeks]
-    for w, (step_up, no_deload, deload) in zip(weeks, training_flags(totals, hard)):
+    for w, (step_up, no_deload, deload) in zip(weeks, training_flags(totals, hard, usual)):
         w["step_up"], w["no_deload"], w["deload"] = step_up, no_deload, deload
         w["training_elevated"] = step_up or no_deload
         w["risk"] = w["training_elevated"] and w["deadline_elevated"]
 
+    load_source = "intervals.icu training load" if settings.use_icu_pmc else "Strava Relative Effort"
     return {
         "weeks": weeks,
+        "load_source": load_source,
         "load_per_hour_by_discipline": {k: v for k, v in rates.items() if not k.startswith("_")},
         "load_per_hour_fallback": rate_fallback,
         "current_ctl": latest_ctl,
@@ -265,7 +276,7 @@ def load_vs_deadlines(db: Session, weeks_back: int = 6, weeks_ahead: int = 10, t
         "deadline_count_threshold": DEADLINE_COUNT_THRESHOLD,
         "risk_weeks": [w["week_start"] for w in weeks if w["risk"]],
         "note": (
-            f"Training: weekly Strava Relative-Effort load; future weeks are projected from calendar-planned "
+            f"Training: weekly {load_source}; future weeks are projected from calendar-planned "
             f"session length x your own load-per-hour for that discipline (median over last "
             f"{RATE_WINDOW_DAYS // 7} weeks, races excluded). Flagged when a week is >= "
             f"{ACWR_THRESHOLD}x the week before (step up), or is the {HARD_RUN_WEEKS}th+ week at/above your usual "

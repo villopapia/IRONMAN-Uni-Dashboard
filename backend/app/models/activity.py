@@ -24,6 +24,7 @@ SPORT_MAP = {
     "HighIntensityIntervalTraining": "gym",
     "Walk": "walk",
     "Hike": "walk",
+    "StairStepper": "walk",
 }
 
 
