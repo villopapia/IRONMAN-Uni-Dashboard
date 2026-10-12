@@ -308,6 +308,27 @@ export interface ThisWeek {
   minutes: Record<"swim" | "bike" | "run", { planned: number; done: number }>;
 }
 
+export interface ReadinessMetric {
+  key: "rhr" | "hrv" | "sleep" | "weight";
+  label: string;
+  status: "pass" | "amber" | "red" | "no_data";
+  value: number | null;
+  unit: string;
+  basis: string;
+  series: { date: string; value: number | null }[];
+  band: [number, number] | null;
+}
+
+export interface Readiness {
+  date: string;
+  action: string;
+  red: string[];
+  amber: string[];
+  no_data: string[];
+  metrics: ReadinessMetric[];
+  note: string;
+}
+
 // --- Training load (PMC) -----------------------------------------------------
 
 export interface PmcPoint {
@@ -537,6 +558,7 @@ export const api = {
     request("/compliance/sessions", json("PATCH", { ids, manual_status: manualStatus })),
   syncPlan: () => request("/compliance/sync", { method: "POST" }),
   getThisWeek: () => request<ThisWeek>("/compliance/this-week"),
+  getReadiness: () => request<Readiness>("/readiness"),
   getPmc: (days = 120) => request<PmcResponse>(`/load/pmc?days=${days}`),
   getGoalGap: () => request<GoalGap>("/performance/goal-gap"),
   getOverlay: (weeksBack = 6, weeksAhead = 10) =>

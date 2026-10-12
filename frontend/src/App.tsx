@@ -11,6 +11,7 @@ import InjuryLog from "@/components/InjuryLog";
 import LoadDeadlineOverlay from "@/components/LoadDeadlineOverlay";
 import NutritionSupplements from "@/components/NutritionSupplements";
 import PhaseGateChecklist from "@/components/PhaseGateChecklist";
+import Readiness from "@/components/Readiness";
 import RecoveryMetrics from "@/components/RecoveryMetrics";
 import RecoveryTrend from "@/components/RecoveryTrend";
 import StudyHours from "@/components/StudyHours";
@@ -94,6 +95,7 @@ export default function App() {
               <SectionLabel>This week</SectionLabel>
               <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
                 <ThisWeek />
+                <Readiness />
               </div>
             </section>
 

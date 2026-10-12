@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { AlertTriangle, CalendarCheck, Link2, RefreshCw } from "lucide-react";
 import { api, ComplianceRollup, PlannedSlot, SlotStatus, WeekCompliance } from "@/lib/api";
-import { fmtShortDate, timeAgo, todayIso } from "@/lib/format";
+import { fmtShortDate, stripTag, timeAgo, todayIso } from "@/lib/format";
 import { SPORT_COLORS, status as statusColors } from "@/lib/palette";
 import { usePolling } from "@/lib/usePolling";
 import Card from "@/components/ui/Card";
@@ -59,9 +59,9 @@ function SessionRow({ s, onSet }: { s: PlannedSlot; onSet: (ids: number[], v: "d
           style={{ background: SPORT_COLORS[s.discipline] ?? SPORT_COLORS.other }}
         />
         <div className="min-w-0">
-          <div className="truncate text-sm text-neutral-200" title={s.titles.join(" / ")}>
+          <div className="truncate text-sm text-neutral-200" title={s.titles.map(stripTag).join(" / ")}>
             {s.is_brick && <Link2 size={12} className="mr-1 inline text-neutral-400" aria-label="brick" />}
-            {s.titles[0]}
+            {stripTag(s.titles[0])}
             {s.titles.length > 1 && <span className="text-neutral-500"> (+{s.titles.length - 1} overlapping)</span>}
           </div>
           <div className="text-xs text-neutral-500">

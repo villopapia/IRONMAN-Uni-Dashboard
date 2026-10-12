@@ -10,7 +10,7 @@ import {
   YAxis,
 } from "recharts";
 import { api } from "@/lib/api";
-import { mostRecentMonday, todayIso } from "@/lib/format";
+import { mostRecentMonday, stripTag, todayIso } from "@/lib/format";
 import { ink, SPORT_COLORS, status } from "@/lib/palette";
 import { usePolling } from "@/lib/usePolling";
 import Card from "@/components/ui/Card";
@@ -154,9 +154,9 @@ export default function TrainingWeekSummary() {
                 }`}
               >
                 <div className="text-neutral-500">{WEEKDAY_LETTERS[i]}</div>
-                <div className="mt-1 truncate text-neutral-300" title={events[0]?.summary}>
+                <div className="mt-1 truncate text-neutral-300" title={events[0] && stripTag(events[0].summary)}>
                   {events.length > 0
-                    ? events[0].summary
+                    ? stripTag(events[0].summary)
                     : restDaySet.has(dayIso)
                       ? "Rest"
                       : "—"}

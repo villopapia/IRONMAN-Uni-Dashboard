@@ -1,6 +1,6 @@
 import { CalendarDays } from "lucide-react";
 import { api, KeySession } from "@/lib/api";
-import { fmtWeekRange } from "@/lib/format";
+import { fmtWeekRange, stripTag } from "@/lib/format";
 import { SPORT_COLORS } from "@/lib/palette";
 import { usePolling } from "@/lib/usePolling";
 import Card from "@/components/ui/Card";
@@ -36,8 +36,8 @@ export default function ThisWeek() {
                     <div className="min-w-0">
                       <div className="text-sm text-neutral-200">{k.label}</div>
                       {k.title && (
-                        <div className="truncate text-xs text-neutral-500" title={k.title}>
-                          {k.title}
+                        <div className="truncate text-xs text-neutral-500" title={stripTag(k.title)}>
+                          {stripTag(k.title)}
                         </div>
                       )}
                     </div>

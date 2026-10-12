@@ -13,6 +13,7 @@ from .routers import (
     nutrition,
     overview,
     performance,
+    readiness,
     training,
 )
 from .services.scheduler import start_scheduler, stop_scheduler
@@ -44,6 +45,7 @@ app.include_router(performance.router, prefix="/api/performance", tags=["perform
 app.include_router(compliance.router, prefix="/api/compliance", tags=["compliance"])
 app.include_router(load.router, prefix="/api/load", tags=["load"])
 app.include_router(overview.router, prefix="/api/overview", tags=["overview"])
+app.include_router(readiness.router, prefix="/api/readiness", tags=["readiness"])
 
 
 @app.get("/api/health")
