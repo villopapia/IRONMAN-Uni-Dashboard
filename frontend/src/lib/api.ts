@@ -302,10 +302,42 @@ export interface KeySession {
   status: "done" | "missed" | "pending" | "not_planned";
 }
 
+export type FlagStatus = "pass" | "amber" | "red" | "no_data";
+
+export interface RampWeek {
+  week_start: string;
+  km: number;
+  baseline_km: number;
+  change_pct: number | null;
+  status: FlagStatus | "in_progress";
+}
+
+export interface RunRamp {
+  weeks: RampWeek[];
+  baseline_weeks: number;
+  amber_above_pct: number;
+  red_above_pct: number;
+  min_baseline_km: number;
+}
+
+export interface ZoneShare {
+  low: number;
+  mid: number;
+  high: number;
+}
+
+export interface Intensity {
+  weeks: { week_start: string; bike: ZoneShare | null; run: ZoneShare | null }[];
+  aggregate: Record<"all" | "bike" | "run", ZoneShare | null>;
+  target_note: string;
+  caveats: string[];
+}
+
 export interface ThisWeek {
   week_start: string;
   key_sessions: KeySession[];
   minutes: Record<"swim" | "bike" | "run", { planned: number; done: number }>;
+  run_km: { km: number; last_week_km: number };
 }
 
 export interface ReadinessMetric {
@@ -559,6 +591,8 @@ export const api = {
   syncPlan: () => request("/compliance/sync", { method: "POST" }),
   getThisWeek: () => request<ThisWeek>("/compliance/this-week"),
   getReadiness: () => request<Readiness>("/readiness"),
+  getIntensity: () => request<Intensity>("/load/intensity"),
+  getRunRamp: () => request<RunRamp>("/load/run-ramp"),
   getPmc: (days = 120) => request<PmcResponse>(`/load/pmc?days=${days}`),
   getGoalGap: () => request<GoalGap>("/performance/goal-gap"),
   getOverlay: (weeksBack = 6, weeksAhead = 10) =>

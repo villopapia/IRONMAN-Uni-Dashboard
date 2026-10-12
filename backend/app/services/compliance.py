@@ -33,6 +33,7 @@ from sqlalchemy.orm import Session
 
 from ..models.activity import Activity
 from ..models.performance import PlannedSession
+from .intensity import run_ramp
 
 DISCIPLINES = ["swim", "bike", "run", "gym"]
 COMPLIANCE_FLAG_PCT = 80.0
@@ -345,6 +346,7 @@ def this_week(db: Session, today: date | None = None) -> dict:
         .all()
     )
     slots = _merge_slots(planned)
+    run_weeks = run_ramp(db, today)["weeks"]
     return {
         "week_start": week_start,
         "key_sessions": key_session_rows(slots, {(a.date.date(), a.sport) for a in activities}, week_start, today),
@@ -355,4 +357,6 @@ def this_week(db: Session, today: date | None = None) -> dict:
             }
             for sport in ("swim", "bike", "run")
         },
+        # this week is in progress, so km only - no change or status (see intensity.py)
+        "run_km": {"km": run_weeks[-1]["km"], "last_week_km": run_weeks[-2]["km"]},
     }

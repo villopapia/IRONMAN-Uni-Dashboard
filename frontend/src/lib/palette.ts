@@ -34,6 +34,15 @@ export const LOAD_COLORS = {
   tsb: "#c98500", // yellow - form
 };
 
+// Intensity bands are ordered, so one neutral ramp, dark (recedes) to light:
+// neutral rather than blue because blue already means "run" on this page.
+// Validated with validate_palette.js --mode dark --ordinal on #1a1a19.
+export const INTENSITY_COLORS = {
+  low: "#5c5b56",
+  mid: ink.muted,
+  high: ink.secondary,
+};
+
 // Fixed categorical order - identity follows the sport, never cycled.
 export const SPORT_COLORS: Record<string, string> = {
   run: "#3987e5", // blue

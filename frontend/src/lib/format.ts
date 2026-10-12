@@ -45,6 +45,11 @@ export function stripTag(title: string): string {
   return title.replace(/^[^\p{L}\p{N}[]+/u, "");
 }
 
+/** 12.34 -> "+12%", -5 -> "-5%" (a real minus sign would not be ASCII). */
+export function fmtSignedPct(pct: number): string {
+  return `${pct > 0 ? "+" : ""}${Math.round(pct)}%`;
+}
+
 export function fmtShortDate(iso: string): string {
   return new Date(iso + (iso.length === 10 ? "T00:00:00" : "")).toLocaleDateString(undefined, {
     day: "numeric",

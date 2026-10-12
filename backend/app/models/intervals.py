@@ -1,4 +1,4 @@
-from sqlalchemy import Boolean, Column, Date, DateTime, Float, String, false
+from sqlalchemy import JSON, Boolean, Column, Date, DateTime, Float, String, false
 
 from ..database import Base
 
@@ -15,6 +15,8 @@ class IntervalsActivity(Base):
     sport = Column(String, nullable=False, index=True)
     duration_min = Column(Float, nullable=False)  # moving_time / 60
     icu_training_load = Column(Float, nullable=True)
+    hr_zone_secs = Column(JSON, nullable=True)  # icu_hr_zone_times: seconds in Z1..Z7, their zone boundaries
+    distance_m = Column(Float, nullable=True)  # null for indoor rides
     race = Column(Boolean, nullable=False, default=False, server_default=false())  # intervals.icu's race flag
 
 

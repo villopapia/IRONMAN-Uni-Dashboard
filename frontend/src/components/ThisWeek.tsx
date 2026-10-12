@@ -68,6 +68,12 @@ export default function ThisWeek() {
                 );
               })}
             </ul>
+            {data.run_km && (
+              <p className="mt-2 text-sm text-neutral-300">
+                Run km this week <span className="tabular-nums text-neutral-200">{data.run_km.km}</span> so far{" "}
+                <span className="text-neutral-500">(last week {data.run_km.last_week_km})</span>
+              </p>
+            )}
             <p className="mt-2 text-xs text-neutral-500">
               Planned = calendar block length (includes changing / transition time); done = moving time.
             </p>

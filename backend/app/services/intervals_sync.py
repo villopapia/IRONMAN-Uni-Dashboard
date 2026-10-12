@@ -4,6 +4,7 @@ INTERVALS_API_KEY / INTERVALS_ATHLETE_ID - see backend/.env.example.
 
     python -m app.services.intervals_sync probe    # live field-name check
     python -m app.services.intervals_sync sync     # backfill / refresh the cache
+    python -m app.services.intervals_sync resync   # re-pull everything from BACKFILL_FROM
     python -m app.services.intervals_sync compare  # 14 days: Strava RE vs icu load, their PMC vs ours
 
 Field names verified against the live account 2026-10-11 (all activities
@@ -28,7 +29,7 @@ BASE_URL = "https://intervals.icu/api/v1"
 BACKFILL_FROM = date(2026, 4, 1)
 REFRESH_DAYS = 14
 WANTED = {
-    "activities": ["type", "start_date_local", "moving_time", "icu_training_load", "race"],
+    "activities": ["type", "start_date_local", "moving_time", "icu_training_load", "race", "icu_hr_zone_times", "distance"],
     "wellness": ["id", "ctl", "atl", "rampRate", "restingHR", "hrv", "sleepSecs", "weight"],
 }
 
@@ -56,10 +57,11 @@ def probe() -> None:
             print(f"  source: {dict(Counter(r.get('source') for r in rows))}")
 
 
-def sync_intervals(db: Session) -> dict[str, int]:
-    """First run backfills from BACKFILL_FROM; after that, the last REFRESH_DAYS."""
+def sync_intervals(db: Session, full: bool = False) -> dict[str, int]:
+    """First run (or full=True) backfills from BACKFILL_FROM; otherwise the last
+    REFRESH_DAYS. A new column, or thresholds changed on intervals.icu, need full."""
     backfilled = db.query(IntervalsWellness).first() is not None
-    oldest = date.today() - timedelta(days=REFRESH_DAYS) if backfilled else BACKFILL_FROM
+    oldest = date.today() - timedelta(days=REFRESH_DAYS) if backfilled and not full else BACKFILL_FROM
 
     # Strava-sourced activities come back as stubs with no type/load - skip them.
     # ponytail: activities deleted on intervals.icu stay cached; prune if that ever matters
@@ -75,6 +77,8 @@ def sync_intervals(db: Session) -> dict[str, int]:
                 duration_min=(a.get("moving_time") or 0) / 60,
                 icu_training_load=a.get("icu_training_load"),
                 race=bool(a.get("race")),
+                hr_zone_secs=a.get("icu_hr_zone_times"),
+                distance_m=a.get("distance"),
             )
         )
     wellness = _get("wellness", oldest)
@@ -119,10 +123,10 @@ if __name__ == "__main__":
     command = sys.argv[1] if len(sys.argv) > 1 else ""
     if command == "probe":
         probe()
-    elif command in ("sync", "compare"):
+    elif command in ("sync", "resync", "compare"):
         db = SessionLocal()
         try:
-            print(sync_intervals(db)) if command == "sync" else compare(db)
+            compare(db) if command == "compare" else print(sync_intervals(db, full=command == "resync"))
         finally:
             db.close()
     else:

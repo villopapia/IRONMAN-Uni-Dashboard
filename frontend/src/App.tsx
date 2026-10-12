@@ -8,12 +8,14 @@ import EquipmentMilestones from "@/components/EquipmentMilestones";
 import ExamPrepCoverage from "@/components/ExamPrepCoverage";
 import GoalGapTracker from "@/components/GoalGapTracker";
 import InjuryLog from "@/components/InjuryLog";
+import IntensityDistribution from "@/components/IntensityDistribution";
 import LoadDeadlineOverlay from "@/components/LoadDeadlineOverlay";
 import NutritionSupplements from "@/components/NutritionSupplements";
 import PhaseGateChecklist from "@/components/PhaseGateChecklist";
 import Readiness from "@/components/Readiness";
 import RecoveryMetrics from "@/components/RecoveryMetrics";
 import RecoveryTrend from "@/components/RecoveryTrend";
+import RunGuard from "@/components/RunGuard";
 import StudyHours from "@/components/StudyHours";
 import ThisWeek from "@/components/ThisWeek";
 import ThresholdTrends from "@/components/ThresholdTrends";
@@ -131,6 +133,8 @@ export default function App() {
               <TrainingLoadChart />
               <DisciplineVolume />
               <ComplianceTracker />
+              <IntensityDistribution />
+              <RunGuard />
             </div>
           </section>
         )}

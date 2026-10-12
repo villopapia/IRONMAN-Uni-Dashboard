@@ -5,6 +5,7 @@ from pydantic import BaseModel
 from sqlalchemy.orm import Session
 
 from ..database import get_db
+from ..services.intensity import intensity_distribution, run_ramp
 from ..services.training_load import load_pmc, rebuild_daily_loads
 
 router = APIRouter()
@@ -45,3 +46,48 @@ def pmc(days: int = 120, db: Session = Depends(get_db)):
 @router.post("/rebuild")
 def rebuild(db: Session = Depends(get_db)):
     return {"days_by_sport": rebuild_daily_loads(db)}
+
+
+class ZoneShare(BaseModel):
+    low: float  # % of HR-zone time
+    mid: float
+    high: float
+
+
+class IntensityWeek(BaseModel):
+    week_start: date
+    bike: ZoneShare | None  # None = no zone time that week
+    run: ZoneShare | None
+
+
+class Intensity(BaseModel):
+    weeks: list[IntensityWeek]
+    aggregate: dict[str, ZoneShare | None]  # all / bike / run over the whole window
+    target_note: str
+    caveats: list[str]
+
+
+class RampWeek(BaseModel):
+    week_start: date
+    km: float
+    baseline_km: float  # average of the baseline_weeks weeks before this one
+    change_pct: float | None  # vs baseline_km; None = baseline too small, or week in progress
+    status: str  # pass / amber / red / no_data / in_progress (the current week)
+
+
+class RunRamp(BaseModel):
+    weeks: list[RampWeek]
+    baseline_weeks: int
+    amber_above_pct: float
+    red_above_pct: float
+    min_baseline_km: float
+
+
+@router.get("/intensity", response_model=Intensity)
+def intensity(db: Session = Depends(get_db)):
+    return intensity_distribution(db)
+
+
+@router.get("/run-ramp", response_model=RunRamp)
+def get_run_ramp(db: Session = Depends(get_db)):
+    return run_ramp(db)
