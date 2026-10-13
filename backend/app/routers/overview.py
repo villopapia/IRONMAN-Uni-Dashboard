@@ -6,6 +6,7 @@ from sqlalchemy.orm import Session
 
 from ..database import get_db
 from ..services.overlay import load_vs_deadlines
+from ..services.plan_volume import current_volume_status
 
 router = APIRouter()
 
@@ -53,6 +54,30 @@ class Overlay(BaseModel):
     deadline_count_threshold: int
     risk_weeks: list[date]
     note: str
+
+
+class VolumeSport(BaseModel):
+    sport: str
+    unit: str  # m for swim, min for bike and run
+    done: float
+    due: float
+    week_total: float
+    pct_of_due: float | None
+    status: str | None  # None while a due session has no plan value
+    line: str  # done vs due so far, ready to display
+    week_line: str  # done vs the full week's prescription
+
+
+class VolumeStatus(BaseModel):
+    as_of: datetime  # Europe/London wall-clock
+    week_start: date
+    sports: list[VolumeSport]
+
+
+@router.get("/volume-status", response_model=VolumeStatus)
+def volume(db: Session = Depends(get_db)):
+    """This week's swim / bike / run volume done vs due so far (plan/prescribed_sessions.json vs intervals.icu)."""
+    return current_volume_status(db)
 
 
 @router.get("/load-vs-deadlines", response_model=Overlay)

@@ -12,7 +12,7 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import { api, OverlayWeek } from "@/lib/api";
+import { api, OverlayWeek, VolumeStatus } from "@/lib/api";
 import { fmtShortDate, fmtWeekRange } from "@/lib/format";
 import { ink, status, surface } from "@/lib/palette";
 import { usePolling } from "@/lib/usePolling";
@@ -43,7 +43,7 @@ const pct = (done: number, of: number) => `${Math.round((done / of) * 100)}%`;
 // to "Planned (projected): 974" with no indication *why* actual is 0 - reads
 // as "did I really train zero that week?" rather than "hasn't happened yet."
 // A custom tooltip states which number is real vs. projected explicitly.
-function TrainingLoadTooltip({ active, payload }: TooltipProps<number, string>) {
+function TrainingLoadTooltip({ active, payload, volume }: TooltipProps<number, string> & { volume?: VolumeStatus | null }) {
   const w = (payload?.[0]?.payload as Row | undefined)?.w;
   if (!active || !w) return null;
   const isFuture = w.state === "future";
@@ -69,9 +69,13 @@ function TrainingLoadTooltip({ active, payload }: TooltipProps<number, string>) 
           {pct(w.actual_load, w.planned_load)}
         </div>
       )}
-      {isCurrent && w.planned_to_date > 0 && (
-        <div style={{ color: ink.secondary }}>Should be at about {Math.round(w.planned_to_date)} by today</div>
-      )}
+      {/* Measured volume done vs due so far, per sport (metres and minutes, no load model). */}
+      {isCurrent && (volume?.sports ?? []).map((s) => (
+        <div key={s.sport} style={{ color: ink.secondary }}>{s.line}</div>
+      ))}
+      {isCurrent && (volume?.sports ?? []).map((s) => (
+        <div key={`${s.sport}-week`} style={{ color: ink.muted }}>{s.week_line}</div>
+      ))}
       <div style={{ color: ink.muted }}>Your usual week: {Math.round(w.chronic_weekly_load)}</div>
       {w.step_up && <div style={{ color: status.warning }}>Big step up on the week before</div>}
       {w.no_deload && <div style={{ color: status.warning }}>4+ hard weeks in a row, no lighter week</div>}
@@ -111,6 +115,8 @@ function headline(weeks: OverlayWeek[]): string {
 
 export default function LoadDeadlineOverlay() {
   const { data, error } = usePolling(() => api.getOverlay(6, 10));
+  // Optional: without it the current week's tooltip simply has no volume lines.
+  const { data: volume } = usePolling(() => api.getVolumeStatus());
 
   const rows =
     data?.weeks.map((w) => ({
@@ -188,7 +194,7 @@ export default function LoadDeadlineOverlay() {
                 {currentLabel && <ReferenceArea x1={currentLabel} x2={currentLabel} fill="rgba(255,255,255,0.04)" />}
                 <XAxis dataKey="label" {...xAxisProps} hide />
                 <YAxis {...yAxisProps} width={Y_AXIS_W} />
-                <Tooltip cursor={tooltipProps.cursor} content={<TrainingLoadTooltip />} />
+                <Tooltip cursor={tooltipProps.cursor} content={<TrainingLoadTooltip volume={volume} />} />
                 <Bar dataKey="actual" name="Actual load" stackId="t" maxBarSize={22} isAnimationActive={false}>
                   {rows.map((r) => (
                     <Cell key={r.label} fill={trainingFill(r.w, false)} />

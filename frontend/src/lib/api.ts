@@ -550,6 +550,23 @@ export interface OverlayWeek {
   risk: boolean;
 }
 
+// This week's measured volume against the prescribed plan: swim in metres, bike and run in minutes.
+export interface VolumeStatus {
+  as_of: string;
+  week_start: string;
+  sports: {
+    sport: "swim" | "bike" | "run";
+    unit: "m" | "min";
+    done: number;
+    due: number;
+    week_total: number;
+    pct_of_due: number | null;
+    status: string | null;
+    line: string;
+    week_line: string;
+  }[];
+}
+
 export interface Overlay {
   weeks: OverlayWeek[];
   load_source: string;
@@ -592,6 +609,7 @@ export const api = {
     ),
   getSeason: () => request<Season>("/season"),
   getGoalGap: () => request<GoalGap>("/performance/goal-gap"),
+  getVolumeStatus: () => request<VolumeStatus>("/overview/volume-status"),
   getOverlay: (weeksBack = 6, weeksAhead = 10) =>
     request<Overlay>(`/overview/load-vs-deadlines?weeks_back=${weeksBack}&weeks_ahead=${weeksAhead}`),
 
