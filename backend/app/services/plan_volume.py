@@ -356,6 +356,7 @@ def build_entries(events: list[dict], since: date, until: date = PLAN_UNTIL) -> 
                     "source_event_id": event["id"],
                     "needs_review": value is None,
                     "note": note,
+                    "intensity_class": intensity_class(title),
                 }
             )
     return sorted(entries, key=lambda e: (e["start"], e["sport"]))
@@ -365,11 +366,15 @@ def keep_manual_values(entries: list[dict], previous: list[dict]) -> int:
     """Carry hand-made changes over a rebuild: a value marked hand_filled always
     wins, a value typed into an entry the parser cannot resolve becomes
     hand_filled, and manual entries (sessions with no parsed calendar event,
-    e.g. a gate race) are kept. Returns how many were carried over."""
+    e.g. a gate race) are kept. An intensity_class marked intensity_hand_set is
+    kept the same way. Returns how many were carried over."""
     old = {(e["source_event_id"], e["sport"]): e for e in previous}
     kept = 0
     for e in entries:
         before = old.get((e["source_event_id"], e["sport"]))
+        if before and before.get("intensity_hand_set"):
+            e.update(intensity_class=before["intensity_class"], intensity_hand_set=True)
+            kept += 1
         if not before or before.get("prescribed_value") is None:
             continue
         if before.get("hand_filled") or e["needs_review"]:
@@ -377,6 +382,8 @@ def keep_manual_values(entries: list[dict], previous: list[dict]) -> int:
             kept += 1
     keys = {(e["source_event_id"], e["sport"]) for e in entries}
     manual = [e for e in previous if e.get("manual_entry") and (e["source_event_id"], e["sport"]) not in keys]
+    for e in manual:
+        e.setdefault("intensity_class", intensity_class(e.get("title", "")))
     entries.extend(manual)
     entries.sort(key=lambda e: (e["start"], e["sport"]))
     return kept + len(manual)
@@ -396,6 +403,130 @@ def build(today: date | None = None) -> list[dict]:
     PLAN_FILE.write_text(json.dumps(payload, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     print(f"{len(entries)} entries written to {PLAN_FILE} ({kept} hand-filled values kept)")
     return entries
+
+
+# --- planned load: prescribed volume x realised load per hour ----------------------
+#
+# Estimated load of a planned session = its prescribed volume, as moving hours,
+# x the load per moving hour Chris actually produced over the last 28 days for
+# that sport and intensity class. An estimate, and labelled as one in the UI.
+
+RATE_WINDOW_DAYS = 28
+RATE_MIN_ACTIVITIES = 3
+# "CSS+8-10s" is an easy pace written relative to CSS, and a Tempo Trainer is a metronome.
+_HARD_TITLE = re.compile(r"tempo(?!\s+trainer)|threshold|sweet\s+spot|\bCSS\b(?!\s*\+)|\btest\b|\bretest\b|\bTT\b|time\s+trial", re.I)
+# A race or time trial, by the recorded activity's name or by the plan entry it matches.
+# Deliberately narrow on the plan side: "Race Pace" swims and "HM-TT pace" reps are training.
+_RACE_NAME = re.compile(r"\brace\b|marathon|parkrun|time\s+trial", re.I)
+_RACE_PLAN = re.compile(r"time\s+trial|\b\d+k\s+TT\b|GATE RACE|RACE DAY", re.I)
+# Races with nothing in their recorded name or the plan to say so.
+RACE_ACTIVITIES = {(date(2026, 9, 20), "run")}  # Winchester half marathon
+
+
+def intensity_class(title: str) -> str:
+    """"hard" or "easy" from a session title. The plan file can override it per entry."""
+    return "hard" if _HARD_TITLE.search(title) else "easy"
+
+
+def entry_class(entry: dict) -> str:
+    return entry.get("intensity_class") or intensity_class(entry["title"])
+
+
+def match_plan_entry(activity, sessions: list[dict]) -> dict | None:
+    """The plan entry this activity was: same date and sport, closest start time."""
+    day = activity.date.date().isoformat()
+    same = [s for s in sessions if s["date"] == day and s["sport"] == activity.sport]
+    if not same:
+        return None
+    return min(same, key=lambda s: abs((datetime.fromisoformat(s["start"]) - activity.date).total_seconds()))
+
+
+def is_race(activity, entry: dict | None) -> bool:
+    return bool(
+        getattr(activity, "race", False)
+        or _RACE_NAME.search(getattr(activity, "name", "") or "")
+        or (entry is not None and _RACE_PLAN.search(entry["title"]))
+        or (activity.date.date(), activity.sport) in RACE_ACTIVITIES
+    )
+
+
+def realised_rates(activities: list, sessions: list[dict], today: date) -> dict:
+    """Load per moving hour over the last RATE_WINDOW_DAYS, per sport x intensity
+    class, = sum(load) / sum(moving hours). Races are left out. An activity's
+    class is its matched plan entry's; unmatched ones count only towards the
+    sport's overall rate. A bucket with fewer than RATE_MIN_ACTIVITIES falls back
+    to the sport overall, then to all sports - `source` says which was used.
+    Also the swim pace (hours per metre) that turns prescribed metres into hours."""
+    since = today - timedelta(days=RATE_WINDOW_DAYS)
+    buckets: dict[tuple[str, str], list] = {(s, c): [] for s in UNITS for c in ("easy", "hard")}
+    by_sport: dict[str, list] = {s: [] for s in UNITS}
+    excluded = []
+    for a in activities:
+        if a.sport not in UNITS or not since <= a.date.date() <= today or not a.icu_training_load or not a.duration_min:
+            continue
+        entry = match_plan_entry(a, sessions)
+        if is_race(a, entry):
+            excluded.append(a)
+            continue
+        by_sport[a.sport].append(a)
+        if entry is not None:
+            buckets[(a.sport, entry_class(entry))].append(a)
+
+    def rate(group: list) -> float | None:
+        hours = sum(a.duration_min for a in group) / 60
+        return sum(a.icu_training_load for a in group) / hours if hours else None
+
+    everything = [a for group in by_sport.values() for a in group]
+    table = {}
+    for (sport, cls), group in buckets.items():
+        if len(group) >= RATE_MIN_ACTIVITIES:
+            value, source = rate(group), "own bucket"
+        elif len(by_sport[sport]) >= RATE_MIN_ACTIVITIES:
+            value, source = rate(by_sport[sport]), "sport overall"
+        else:
+            value, source = rate(everything), "all sports"
+        table[(sport, cls)] = {"sport": sport, "intensity": cls, "rate": value, "activities": len(group), "source": source}
+    swims = [a for a in by_sport["swim"] if a.distance_m]
+    metres = sum(a.distance_m for a in swims)
+    return {
+        "table": table,
+        "sport_activities": {s: len(group) for s, group in by_sport.items()},
+        "swim_hours_per_m": sum(a.duration_min for a in swims) / 60 / metres if metres else None,
+        "excluded": excluded,
+    }
+
+
+def planned_hours(entry: dict, rates: dict) -> float | None:
+    """Prescribed volume as moving hours; None without a value (or, for a swim, without a pace)."""
+    value = entry["prescribed_value"]
+    if value is None:
+        return None
+    if entry["sport"] == "swim":
+        return value * rates["swim_hours_per_m"] if rates["swim_hours_per_m"] else None
+    return value / 60
+
+
+def planned_load(entry: dict, rates: dict) -> float | None:
+    """Estimated load of one planned session. None is "unknown", never zero."""
+    hours = planned_hours(entry, rates)
+    rate = rates["table"][(entry["sport"], entry_class(entry))]["rate"]
+    return hours * rate if hours is not None and rate is not None else None
+
+
+def weekly_planned_load(entries: list[dict], rates: dict) -> dict:
+    """One week's estimate. `load` is None as soon as any session has no value:
+    a week with a gap is incomplete, not a smaller week."""
+    loads = [planned_load(e, rates) for e in entries]
+    hours = [planned_hours(e, rates) for e in entries]
+    missing = sum(v is None for v in loads)
+    known = sum(v for v in loads if v is not None)
+    return {
+        "load": None if missing else known,
+        "known_load": known,
+        "missing": missing,
+        "hours": sum(h for h in hours if h is not None),
+        "sessions": len(entries),
+    }
 
 
 # --- done vs due, this week --------------------------------------------------------

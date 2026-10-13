@@ -535,7 +535,10 @@ export interface OverlayWeek {
   chronic_weekly_load: number;
   elevated_above: number | null;
   load_ratio: number | null;
-  planned_load: number;
+  planned_load: number | null; // estimated; null when a session that week has no plan value
+  planned_known_load: number;
+  plan_incomplete: boolean;
+  plan_missing_sessions: number;
   planned_to_date: number;
   planned_sessions: number;
   planned_hours: number;
@@ -571,8 +574,9 @@ export interface Overlay {
   weeks: OverlayWeek[];
   load_source: string;
   any_deadlines: boolean;
-  load_per_hour_by_discipline: Record<string, number>;
-  load_per_hour_fallback: string[];
+  planned_rates: { sport: string; intensity: "easy" | "hard"; rate: number | null; activities: number; source: string }[];
+  swim_pace_s_per_100m: number | null;
+  rate_races_excluded: number;
   current_ctl: number;
   acwr_threshold: number;
   deadline_count_threshold: number;

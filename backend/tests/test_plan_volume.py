@@ -3,7 +3,20 @@
 from datetime import date, datetime
 from types import SimpleNamespace
 
-from app.services.plan_volume import keep_manual_values, prescribed_value, session_sports, status_for, volume_status
+from app.services.plan_volume import (
+    entry_class,
+    intensity_class,
+    is_race,
+    keep_manual_values,
+    match_plan_entry,
+    planned_load,
+    prescribed_value,
+    realised_rates,
+    session_sports,
+    status_for,
+    volume_status,
+    weekly_planned_load,
+)
 
 
 def _d(month, day, year=2026):
@@ -241,6 +254,111 @@ def test_missing_plan_value_is_never_zero_and_never_ahead():
     assert r["bike"]["status"] == "Behind"  # other sports are still judged
     before = _by_sport(volume_status(week, [], datetime(2026, 10, 13, 7, 0)))
     assert before["run"]["status"] == "No sessions due yet"  # not due yet: the gap does not block anything
+
+
+# --- planned load ----------------------------------------------------------------
+
+TODAY = date(2026, 10, 13)
+
+
+def _act(day, sport, load, minutes, metres=None, hour=6, name="Session", month=10):
+    return SimpleNamespace(date=datetime(2026, month, day, hour), sport=sport, icu_training_load=load, duration_min=minutes,
+                           distance_m=metres, name=name, race=False)
+
+
+def test_intensity_class_from_the_title():
+    hard = ["Tempo Run · RPE 7", "Threshold 1km Reps · HM-TT pace", "Sweet Spot · 88-93% FTP", "CSS Swim · hard", "Bike TEST · 20' FTP/LTHR",
+            "Swim: CSS Retest", "Run TEST — 10k TT", "Run TEST — HM Time Trial"]
+    easy = ["Z2 Bike · HR 136-156", "Long Run · HR <=156", "Technique Swim · drills · Tempo Trainer",  # a metronome, not a tempo session
+            "Endurance Swim · 200s @ CSS+8-10s",  # an easy pace written relative to CSS
+            "Long Swim · steady", "Brick Run · out the door"]
+    assert [intensity_class(t) for t in hard] == ["hard"] * len(hard)
+    assert [intensity_class(t) for t in easy] == ["easy"] * len(easy)
+
+
+def test_intensity_overrides_win_and_survive_a_rebuild():
+    assert entry_class({"title": "Tempo Run · RPE 7", "intensity_class": "easy"}) == "easy"  # test-week easy run
+    assert entry_class({"title": "Z2 Bike · HR 136-156", "intensity_class": "hard"}) == "hard"  # the FTP test
+    assert entry_class({"title": "Tempo Run · RPE 7"}) == "hard"  # no field: the title rule
+    new = [{"source_event_id": "t", "sport": "run", "start": "2026-10-20T18:15", "prescribed_value": None, "needs_review": True,
+            "note": "x", "intensity_class": "hard"}]
+    old = [{"source_event_id": "t", "sport": "run", "start": "2026-10-20T18:15", "prescribed_value": 30.0, "hand_filled": True,
+            "intensity_class": "easy", "intensity_hand_set": True}]
+    keep_manual_values(new, old)
+    assert (new[0]["intensity_class"], new[0]["intensity_hand_set"], new[0]["prescribed_value"]) == ("easy", True, 30.0)
+    untouched = [{"source_event_id": "u", "sport": "run", "start": "2026-10-21T18:15", "prescribed_value": 40.0, "needs_review": False,
+                  "note": "x", "intensity_class": "hard"}]
+    keep_manual_values(untouched, [{"source_event_id": "u", "sport": "run", "prescribed_value": 40.0, "intensity_class": "easy"}])
+    assert untouched[0]["intensity_class"] == "hard"  # an old class that was not hand-set does not override the rule
+
+
+def test_activity_takes_the_class_of_the_closest_plan_entry():
+    plan = [_plan(13, "06:00", "07:00", "run", 40.0, "Z2 Run"), _plan(13, "18:15", "19:05", "run", 44.0, "Tempo Run"),
+            _plan(13, "06:00", "07:00", "swim", 1700.0, "Endurance Swim")]
+    assert match_plan_entry(_act(13, "run", 30, 40, hour=19), plan)["title"] == "Tempo Run"  # same day and sport, nearest start
+    assert match_plan_entry(_act(13, "run", 30, 40, hour=7), plan)["title"] == "Z2 Run"
+    assert match_plan_entry(_act(13, "bike", 30, 40), plan) is None  # other sport
+    assert match_plan_entry(_act(14, "run", 30, 40), plan) is None  # other day
+
+
+def _rates(acts, plan):
+    return realised_rates(acts, plan, TODAY)
+
+
+def test_rate_is_total_load_over_total_hours_with_fallbacks():
+    plan = [_plan(d, "06:00", "07:00", "run", 60.0, "Z2 Run") for d in (10, 11, 12)] + [_plan(13, "06:00", "07:00", "run", 44.0, "Tempo Run")]
+    acts = [_act(10, "run", 30, 60), _act(11, "run", 40, 60), _act(12, "run", 50, 120), _act(13, "run", 60, 60),
+            _act(9, "bike", 30, 60), _act(8, "bike", 50, 60)]  # two unmatched rides
+    r = _rates(acts, plan)["table"]
+    assert r[("run", "easy")] == {"sport": "run", "intensity": "easy", "rate": 120 / 4, "activities": 3, "source": "own bucket"}  # not the mean of 30/40/25
+    assert r[("run", "hard")]["source"] == "sport overall" and r[("run", "hard")]["activities"] == 1
+    assert r[("run", "hard")]["rate"] == 180 / 5  # all four runs
+    assert r[("bike", "easy")]["source"] == "all sports" and r[("bike", "easy")]["rate"] == 260 / 7  # under 3 rides: every activity
+    assert r[("swim", "easy")]["rate"] == 260 / 7 and r[("swim", "easy")]["activities"] == 0
+    assert _rates([], plan)["table"][("run", "easy")]["rate"] is None  # no activities at all: unknown, not zero
+
+
+def test_unmatched_activities_count_only_towards_the_sport_overall():
+    acts = [_act(d, "bike", 36, 60) for d in (1, 2, 3, 4)]  # before the plan file starts: no entry to match
+    r = _rates(acts, [])
+    assert r["table"][("bike", "easy")] == {"sport": "bike", "intensity": "easy", "rate": 36.0, "activities": 0, "source": "sport overall"}
+    assert r["sport_activities"]["bike"] == 4
+
+
+def test_races_and_old_activities_are_left_out_of_the_rates():
+    plan = [_plan(11, "17:00", "19:00", "run", 114.0, "Run TEST — HM Time Trial (Phase 1 exit gate)"),
+            _plan(12, "06:00", "07:00", "run", 51.0, "Threshold 1km Reps · HM-TT pace")]
+    race_by_plan, training = _act(11, "run", 150, 110, hour=17), _act(12, "run", 50, 50)
+    assert is_race(race_by_plan, match_plan_entry(race_by_plan, plan)) and not is_race(training, match_plan_entry(training, plan))
+    assert is_race(_act(5, "run", 90, 95, name="Sheffield Half Marathon"), None)  # by recorded name
+    assert is_race(_act(20, "run", 123, 118, month=9), None)  # the listed 20 Sep half marathon
+    assert not is_race(_act(20, "bike", 40, 60, month=9), None)
+    acts = [race_by_plan, training, _act(20, "run", 123, 118, month=9), _act(1, "run", 40, 60), _act(2, "run", 40, 60),
+            _act(1, "run", 999, 60, month=9)]  # 1 Sep: outside the 28-day window
+    r = _rates(acts, plan)
+    assert len(r["excluded"]) == 2 and r["sport_activities"]["run"] == 3
+    assert r["table"][("run", "easy")]["rate"] == 130 / (170 / 60)
+
+
+def test_swim_metres_become_hours_at_the_realised_pace():
+    acts = [_act(d, "swim", 20, 40, metres=2000) for d in (10, 11, 12)] + [_act(9, "swim", 5, 10, metres=None)]  # one with no distance
+    r = _rates(acts, [])
+    assert r["swim_hours_per_m"] == (120 / 60) / 6000  # 2:00 per 100 m; the swim without a distance is not in the pace
+    rate = r["table"][("swim", "easy")]["rate"]  # 65 load over 130 min, the no-distance swim included
+    swim = {"sport": "swim", "prescribed_value": 1500.0, "title": "Endurance Swim"}
+    assert abs(planned_load(swim, r) - 0.5 * rate) < 1e-9  # 1,500 m = 30 min
+    run = {"sport": "run", "prescribed_value": 90.0, "title": "Long Run"}
+    assert planned_load(run, {**r, "table": {**r["table"], ("run", "easy"): {"rate": 40.0}}}) == 60.0  # minutes / 60 x rate
+    assert planned_load(swim, {**r, "swim_hours_per_m": None}) is None  # no pace yet: unknown
+
+
+def test_a_week_with_a_missing_value_has_no_planned_total():
+    rates = {"table": {("bike", "easy"): {"rate": 36.0}, ("run", "hard"): {"rate": 45.0}}, "swim_hours_per_m": None}
+    week = [{"sport": "bike", "prescribed_value": 60.0, "title": "Z2 Bike"}, {"sport": "run", "prescribed_value": 40.0, "title": "Tempo Run"}]
+    assert weekly_planned_load(week, rates) == {"load": 66.0, "known_load": 66.0, "missing": 0, "hours": 60 / 60 + 40 / 60, "sessions": 2}
+    gap = weekly_planned_load(week + [{"sport": "run", "prescribed_value": None, "title": "Tempo Run"}], rates)
+    assert gap["load"] is None and gap["missing"] == 1 and gap["known_load"] == 66.0 and gap["sessions"] == 3  # never 66, never 0
+    assert weekly_planned_load([], rates)["load"] == 0.0  # a week with nothing planned is a real zero
 
 
 if __name__ == "__main__":

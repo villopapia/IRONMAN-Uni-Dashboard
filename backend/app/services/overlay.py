@@ -10,15 +10,14 @@ projection rates and CTL together, so the two scales never mix):
   - past weeks: actual weekly load (sum of daily load).
   - current week: actual so far + the projected load of the planned sessions
     still to come this week.
-  - future weeks: projected load = each planned session's calendar duration
-    x Chris's own median load-per-hour for that discipline (load /
-    moving hours per activity over the last RATE_WINDOW_DAYS, races and
-    no-HR activities excluded; the same filters over all history if a
-    discipline has < RATE_MIN_SAMPLES such activities; the all-sport median
-    if it has < 3 at all). Derived from his data, not a constant - an
-    easy trainer ride and a run of the same length score very differently.
-    Calendar blocks include changing/transition time, so this over- rather
-    than under-states planned load.
+  - future weeks: estimated load = each session's prescribed volume
+    (plan/prescribed_sessions.json: minutes, or swim metres at the 28-day
+    swim pace) x the load per moving hour realised over the last
+    RATE_WINDOW_DAYS for that sport and intensity class, races excluded -
+    see plan_volume.realised_rates for the fallbacks. Never the calendar
+    block length: blocks are sized for a phase's peak week, which used to
+    flatten the 3:1 recovery weeks out of the projection. A week with any
+    session missing its plan value has no planned total at all.
   "Usual week" = chronic weekly load (7 x CTL at the start of the week). For
   future weeks CTL is projected forward day by day through the planned load
   (same 42-day EWMA). Weeks with CTL < 5 have no meaningful base.
@@ -54,6 +53,7 @@ from ..models.activity import Activity
 from ..models.intervals import IntervalsActivity
 from ..models.performance import PlannedSession
 from .compliance import _merge_slots, _slot_hours
+from .plan_volume import load_plan, planned_load, realised_rates, weekly_planned_load
 from .training_load import ctl_decay, load_pmc, project_ctl
 
 ACWR_THRESHOLD = 1.3  # week-over-week step-up factor (name kept for the API field)
@@ -164,28 +164,29 @@ def load_vs_deadlines(db: Session, weeks_back: int = 6, weeks_ahead: int = 10, t
     pmc = load_pmc(db, end=today)
     by_day = {p["date"]: p for p in pmc["series"]}
     latest_ctl = pmc["series"][-1]["ctl"] if pmc["series"] else 0.0
-    rates, rate_fallback = discipline_rates(db, today)
-    overall_rate = rates.get("_overall")
 
-    planned = (
-        db.query(PlannedSession)
-        .filter(PlannedSession.kind == "session", PlannedSession.date >= first, PlannedSession.date < end)
-        .all()
-    )
-    slots_by_week: dict[date, list[dict]] = defaultdict(list)
+    # Planned load is an estimate: the volume prescribed in plan/prescribed_sessions.json
+    # (never the calendar block length) x the load per hour realised over the last 28 days
+    # for that sport and intensity class. See plan_volume.realised_rates.
+    plan = load_plan()
+    window_start = datetime.combine(today - timedelta(days=RATE_WINDOW_DAYS), datetime.min.time())
+    rates = realised_rates(db.query(IntervalsActivity).filter(IntervalsActivity.date >= window_start).all(), plan, today)
+    entries_by_week: dict[date, list[dict]] = defaultdict(list)
     projected_by_day: dict[date, float] = defaultdict(float)
-    for slot in _merge_slots(planned):
-        slots_by_week[_monday(slot["date"])].append(slot)
-        rate = rates.get(slot["discipline"], overall_rate)
-        slot["projected_load"] = round(_slot_hours(slot) * rate, 1) if rate is not None else None
-        if slot["date"] > today and slot["projected_load"]:
-            projected_by_day[slot["date"]] += slot["projected_load"]
+    for entry in plan:
+        day = date.fromisoformat(entry["date"])
+        if not first <= day < end:
+            continue
+        entries_by_week[_monday(day)].append(entry)
+        load = planned_load(entry, rates)
+        if day > today and load:
+            projected_by_day[day] += load
 
-    # Project CTL forward from today through the planned load.
+    # Project CTL forward from today through the planned load (sessions without a
+    # plan value add nothing, so it under-reads from the first incomplete week on).
     projected_ctl: dict[date, float] = {today: latest_ctl}
     for p in project_ctl(latest_ctl, projected_by_day, today, end - timedelta(days=1), ctl_decay()):
         projected_ctl[p["date"]] = p["ctl"]
-    can_project = overall_rate is not None
 
     deadlines = (
         db.query(AcademicDeadline)
@@ -204,24 +205,22 @@ def load_vs_deadlines(db: Session, weeks_back: int = 6, weeks_ahead: int = 10, t
     for i in range(weeks_back + weeks_ahead + 1):
         wk = first + timedelta(days=7 * i)
         state = "past" if wk < current else ("current" if wk == current else "future")
-        slots = slots_by_week.get(wk, [])
-        planned_hours = sum(_slot_hours(s) for s in slots)
+        entries = entries_by_week.get(wk, [])
+        plan_week = weekly_planned_load(entries, rates)
+        # A week still to come with any session missing its plan value has no planned
+        # total at all: it is drawn as "plan incomplete" and kept out of every flag.
+        incomplete = state != "past" and plan_week["missing"] > 0
 
         actual = sum(
             by_day[wk + timedelta(days=d)]["load"]
             for d in range(7)
             if (wk + timedelta(days=d)) in by_day and (wk + timedelta(days=d)) <= today
         )
-        projected = (
-            round(sum(s["projected_load"] or 0.0 for s in slots if s["date"] > today), 1)
-            if state != "past"
-            else 0.0
-        )
+        entry_days = [(date.fromisoformat(e["date"]), planned_load(e, rates) or 0.0) for e in entries]
+        projected = round(sum(load for day, load in entry_days if day > today), 1) if state != "past" else 0.0
         total = actual + projected
-        # What the calendar asked for, in the same load unit: the whole week,
-        # and the part that should already be done (sessions before today).
-        planned_load = round(sum(s["projected_load"] or 0.0 for s in slots), 1)
-        planned_to_date = round(sum(s["projected_load"] or 0.0 for s in slots if s["date"] < today), 1)
+        # The part of the week's estimate that should already be done (sessions before today).
+        planned_to_date = round(sum(load for day, load in entry_days if day < today), 1)
 
         ctl_ref_day = wk - timedelta(days=1)
         if ctl_ref_day in by_day:
@@ -231,7 +230,7 @@ def load_vs_deadlines(db: Session, weeks_back: int = 6, weeks_ahead: int = 10, t
         chronic_weekly = round(7 * ctl, 1)
         usual.append(chronic_weekly if ctl >= MIN_CTL else 0.0)
         ratio = round(total / chronic_weekly, 2) if ctl >= MIN_CTL and chronic_weekly else None
-        has_signal = state != "future" or (can_project and planned_hours > 0)
+        has_signal = (state != "future" or plan_week["sessions"] > 0) and not incomplete
 
         dls = sorted(dl_by_week.get(wk, []), key=lambda d: d.due_at)
         exam_count = sum(1 for d in dls if d.kind == "exam")
@@ -247,10 +246,13 @@ def load_vs_deadlines(db: Session, weeks_back: int = 6, weeks_ahead: int = 10, t
                 "chronic_weekly_load": chronic_weekly,
                 "elevated_above": round(chronic_weekly * ACWR_THRESHOLD, 1) if ctl >= MIN_CTL else None,
                 "load_ratio": ratio if has_signal else None,
-                "planned_load": planned_load,
+                "planned_load": round(plan_week["load"], 1) if plan_week["load"] is not None else None,
+                "planned_known_load": round(plan_week["known_load"], 1),  # the sessions that do have a value
+                "plan_incomplete": incomplete,
+                "plan_missing_sessions": plan_week["missing"],
                 "planned_to_date": planned_to_date,
-                "planned_sessions": len(slots),
-                "planned_hours": round(planned_hours, 1),
+                "planned_sessions": plan_week["sessions"],
+                "planned_hours": round(plan_week["hours"], 1),  # prescribed moving hours, not calendar blocks
                 "training_elevated": False,  # set by the flag pass below
                 "step_up": False,
                 "no_deload": False,
@@ -275,6 +277,8 @@ def load_vs_deadlines(db: Session, weeks_back: int = 6, weeks_ahead: int = 10, t
     totals = [w["total_load"] or 0.0 for w in weeks]
     hard = [w["load_ratio"] is not None and w["load_ratio"] >= 1.0 for w in weeks]
     for w, (step_up, no_deload, deload) in zip(weeks, training_flags(totals, hard, usual)):
+        if w["plan_incomplete"]:  # no planned total: nothing to flag, in either direction
+            step_up = no_deload = deload = False
         w["step_up"], w["no_deload"], w["deload"] = step_up, no_deload, deload
         w["training_elevated"] = step_up or no_deload
         w["risk"] = w["training_elevated"] and w["deadline_elevated"]
@@ -284,16 +288,20 @@ def load_vs_deadlines(db: Session, weeks_back: int = 6, weeks_ahead: int = 10, t
         "weeks": weeks,
         "load_source": load_source,
         "any_deadlines": db.query(AcademicDeadline).first() is not None,  # anywhere, not just in this window
-        "load_per_hour_by_discipline": {k: v for k, v in rates.items() if not k.startswith("_")},
-        "load_per_hour_fallback": rate_fallback,
+        "planned_rates": [
+            {**r, "rate": round(r["rate"], 1) if r["rate"] is not None else None} for r in rates["table"].values()
+        ],
+        "swim_pace_s_per_100m": round(rates["swim_hours_per_m"] * 360000) if rates["swim_hours_per_m"] else None,
+        "rate_races_excluded": len(rates["excluded"]),
         "current_ctl": latest_ctl,
         "acwr_threshold": ACWR_THRESHOLD,
         "deadline_count_threshold": DEADLINE_COUNT_THRESHOLD,
         "risk_weeks": [w["week_start"] for w in weeks if w["risk"]],
         "note": (
-            f"Training: weekly {load_source}; future weeks are projected from calendar-planned "
-            f"session length x your own load-per-hour for that discipline (median over last "
-            f"{RATE_WINDOW_DAYS // 7} weeks, races excluded). Flagged when a week is >= "
+            f"Training: weekly {load_source}. Planned load is an estimate: the volume prescribed for each "
+            f"session (from its calendar description, not the block length) x the load per hour you "
+            f"realised for that sport and intensity over the last {RATE_WINDOW_DAYS // 7} weeks, races excluded. "
+            f"A week with a session missing its plan value has no planned total. Flagged when a week is >= "
             f"{ACWR_THRESHOLD}x the week before (step up), or is the {HARD_RUN_WEEKS}th+ week at/above your usual "
             f"week with no deload. Deadlines: elevated with {DEADLINE_COUNT_THRESHOLD}+ due, or any exam. "
             f"A risk week is both at once. Heuristics, not a diagnosis."

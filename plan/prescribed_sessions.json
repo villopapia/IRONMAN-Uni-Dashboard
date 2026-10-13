@@ -1,5 +1,5 @@
 {
-  "generated": "2026-10-13T10:14:33",
+  "generated": "2026-10-13T10:38:03",
   "from": "2026-10-12",
   "to": "2027-07-11",
   "sessions": [
@@ -13,7 +13,8 @@
       "title": "🚴 Z2 Bike · HR 136-156 · gel if >60'",
       "source_event_id": "ep1idcmt21a3n7uf64n7kfom5k_20261012T050000Z",
       "needs_review": false,
-      "note": "session header total"
+      "note": "session header total",
+      "intensity_class": "easy"
     },
     {
       "date": "2026-10-13",
@@ -25,7 +26,8 @@
       "title": "🏊 Endurance Swim · 200s steady, RPE 5-6",
       "source_event_id": "jsi6fj3cunp8vigrkler3g569o_20261013T050000Z",
       "needs_review": false,
-      "note": "total on the line for this date"
+      "note": "total on the line for this date",
+      "intensity_class": "easy"
     },
     {
       "date": "2026-10-13",
@@ -38,6 +40,7 @@
       "source_event_id": "3njscg9mlpe04inho4dpvn7us8_20261013T171500Z",
       "needs_review": false,
       "note": "filled in by hand",
+      "intensity_class": "hard",
       "hand_filled": true
     },
     {
@@ -50,7 +53,8 @@
       "title": "🏊 Technique Swim · drills · Tempo Trainer",
       "source_event_id": "s6h0697kugpltq41j7o0s7deds_20261014T050000Z",
       "needs_review": false,
-      "note": "total on the line for this date"
+      "note": "total on the line for this date",
+      "intensity_class": "easy"
     },
     {
       "date": "2026-10-14",
@@ -62,7 +66,8 @@
       "title": "🚴 Z2 + Cadence · spin-ups 100-110 rpm",
       "source_event_id": "7c18c9jrjb987jsuv14hgould0_20261014T170000Z",
       "needs_review": false,
-      "note": "duration on the line for this date"
+      "note": "duration on the line for this date",
+      "intensity_class": "easy"
     },
     {
       "date": "2026-10-15",
@@ -74,7 +79,8 @@
       "title": "🚴 Long Z2 Bike · 90/75 rpm blocks · gel",
       "source_event_id": "kofpt31abkuqqilf42k0qup2mc_20261015T050000Z",
       "needs_review": false,
-      "note": "duration on the line for this date"
+      "note": "duration on the line for this date",
+      "intensity_class": "easy"
     },
     {
       "date": "2026-10-16",
@@ -86,7 +92,8 @@
       "title": "🏊 CSS Swim · hard · log every split",
       "source_event_id": "80bf375e4os8704lbjbihl6eqo_20261016T050000Z",
       "needs_review": false,
-      "note": "total on the line for this date"
+      "note": "total on the line for this date",
+      "intensity_class": "hard"
     },
     {
       "date": "2026-10-17",
@@ -98,7 +105,8 @@
       "title": "🚴 Long Bike → Brick · gel every 25'",
       "source_event_id": "kv20pci0l0jtneqva6q1q21hmg_20261017T050000Z",
       "needs_review": false,
-      "note": "duration on the line for this date"
+      "note": "duration on the line for this date",
+      "intensity_class": "easy"
     },
     {
       "date": "2026-10-17",
@@ -110,7 +118,8 @@
       "title": "🔗 Brick Run · out the door <3' · easy 10'",
       "source_event_id": "fvu1rs2p7bti73fqr14mc6sej8_20261017T070000Z",
       "needs_review": false,
-      "note": "duration on the line for this date"
+      "note": "duration on the line for this date",
+      "intensity_class": "easy"
     },
     {
       "date": "2026-10-17",
@@ -122,7 +131,8 @@
       "title": "🏊 Long Swim · steady · sight every 6-8",
       "source_event_id": "lgbs5d313d652hki1kadok8io8_20261017T170000Z",
       "needs_review": false,
-      "note": "total on the line for this date"
+      "note": "total on the line for this date",
+      "intensity_class": "easy"
     },
     {
       "date": "2026-10-18",
@@ -134,7 +144,8 @@
       "title": "🏃 Long Run · HR ≤156 · gel at 40'",
       "source_event_id": "l8la8tcqr9ho03ged2bieot0do_20261018T170000Z",
       "needs_review": false,
-      "note": "duration on the line for this date"
+      "note": "duration on the line for this date",
+      "intensity_class": "easy"
     },
     {
       "date": "2026-10-19",
@@ -146,7 +157,9 @@
       "title": "🚴 Z2 Bike · HR 136-156 · gel if >60'",
       "source_event_id": "ep1idcmt21a3n7uf64n7kfom5k_20261019T050000Z",
       "needs_review": false,
-      "note": "session header total"
+      "note": "session header total",
+      "intensity_class": "hard",
+      "intensity_hand_set": true
     },
     {
       "date": "2026-10-20",
@@ -158,7 +171,8 @@
       "title": "🏊 Endurance Swim · 200s steady, RPE 5-6",
       "source_event_id": "jsi6fj3cunp8vigrkler3g569o_20261020T050000Z",
       "needs_review": false,
-      "note": "total on the line for this date"
+      "note": "total on the line for this date",
+      "intensity_class": "easy"
     },
     {
       "date": "2026-10-20",
@@ -171,6 +185,8 @@
       "source_event_id": "3njscg9mlpe04inho4dpvn7us8_20261020T171500Z",
       "needs_review": false,
       "note": "filled in by hand",
+      "intensity_class": "easy",
+      "intensity_hand_set": true,
       "hand_filled": true
     },
     {
@@ -183,7 +199,8 @@
       "title": "🏊 Technique Swim · drills · Tempo Trainer",
       "source_event_id": "s6h0697kugpltq41j7o0s7deds_20261021T050000Z",
       "needs_review": false,
-      "note": "total on the line for this date"
+      "note": "total on the line for this date",
+      "intensity_class": "easy"
     },
     {
       "date": "2026-10-21",
@@ -195,7 +212,8 @@
       "title": "🚴 Z2 + Cadence · spin-ups 100-110 rpm",
       "source_event_id": "7c18c9jrjb987jsuv14hgould0_20261021T170000Z",
       "needs_review": false,
-      "note": "session header total"
+      "note": "session header total",
+      "intensity_class": "easy"
     },
     {
       "date": "2026-10-22",
@@ -207,7 +225,8 @@
       "title": "🚴 Long Z2 Bike · 90/75 rpm blocks · gel",
       "source_event_id": "kofpt31abkuqqilf42k0qup2mc_20261022T050000Z",
       "needs_review": false,
-      "note": "duration on the line for this date"
+      "note": "duration on the line for this date",
+      "intensity_class": "easy"
     },
     {
       "date": "2026-10-23",
@@ -219,7 +238,8 @@
       "title": "🏊 CSS Swim · hard · log every split",
       "source_event_id": "80bf375e4os8704lbjbihl6eqo_20261023T050000Z",
       "needs_review": false,
-      "note": "session header total"
+      "note": "session header total",
+      "intensity_class": "hard"
     },
     {
       "date": "2026-10-24",
@@ -231,7 +251,8 @@
       "title": "🚴 Long Bike → Brick · gel every 25'",
       "source_event_id": "kv20pci0l0jtneqva6q1q21hmg_20261024T050000Z",
       "needs_review": false,
-      "note": "duration on the line for this date"
+      "note": "duration on the line for this date",
+      "intensity_class": "easy"
     },
     {
       "date": "2026-10-24",
@@ -243,7 +264,8 @@
       "title": "🔗 Brick Run · out the door <3' · easy 10'",
       "source_event_id": "fvu1rs2p7bti73fqr14mc6sej8_20261024T070000Z",
       "needs_review": false,
-      "note": "session header total"
+      "note": "session header total",
+      "intensity_class": "easy"
     },
     {
       "date": "2026-10-24",
@@ -255,7 +277,8 @@
       "title": "🏊 Long Swim · steady · sight every 6-8",
       "source_event_id": "lgbs5d313d652hki1kadok8io8_20261024T170000Z",
       "needs_review": false,
-      "note": "total on the line for this date"
+      "note": "total on the line for this date",
+      "intensity_class": "easy"
     },
     {
       "date": "2026-10-25",
@@ -268,6 +291,7 @@
       "source_event_id": "bo5b5ecppjelbe7o596389psvs",
       "needs_review": false,
       "note": "filled in by hand",
+      "intensity_class": "hard",
       "hand_filled": true
     },
     {
@@ -280,7 +304,8 @@
       "title": "🚴 Z2 Bike · HR 136-156 · gel if >60'",
       "source_event_id": "ptoeoi17otfpqudoccu691fmi8_20261026T060000Z",
       "needs_review": false,
-      "note": "duration on the line for this date"
+      "note": "duration on the line for this date",
+      "intensity_class": "easy"
     },
     {
       "date": "2026-10-27",
@@ -292,7 +317,8 @@
       "title": "🏊 Endurance Swim · 200s @ CSS+8-10s",
       "source_event_id": "q5ui1aodhno437b3lg9e7ktcjo_20261027T060000Z",
       "needs_review": false,
-      "note": "total on the line for this date"
+      "note": "total on the line for this date",
+      "intensity_class": "easy"
     },
     {
       "date": "2026-10-27",
@@ -305,6 +331,7 @@
       "source_event_id": "9m1ik47nf9gso641d381t88a9g_20261027T164500Z",
       "needs_review": false,
       "note": "filled in by hand",
+      "intensity_class": "hard",
       "hand_filled": true
     },
     {
@@ -317,7 +344,8 @@
       "title": "🏊 Technique Swim · drills · Tempo Trainer",
       "source_event_id": "bsgr0fp1idh80mpqvocqbqio9k_20261028T060000Z",
       "needs_review": false,
-      "note": "total on the line for this date"
+      "note": "total on the line for this date",
+      "intensity_class": "easy"
     },
     {
       "date": "2026-10-28",
@@ -329,7 +357,8 @@
       "title": "🚴 Sweet Spot · 88-93% FTP · gel at 30'",
       "source_event_id": "rh8p91416ei2ag55n1t4gvr0og_20261028T180000Z",
       "needs_review": false,
-      "note": "warm-up + reps + recoveries + cool-down"
+      "note": "warm-up + reps + recoveries + cool-down",
+      "intensity_class": "hard"
     },
     {
       "date": "2026-10-29",
@@ -341,7 +370,8 @@
       "title": "🚴 Long Z2 Bike · 90/75 rpm blocks · gel",
       "source_event_id": "aiq0n31klnt6bj76gbmvtlum2s_20261029T060000Z",
       "needs_review": false,
-      "note": "duration on the line for this date"
+      "note": "duration on the line for this date",
+      "intensity_class": "easy"
     },
     {
       "date": "2026-10-30",
@@ -353,7 +383,8 @@
       "title": "🏊 CSS Swim · hard · log every split",
       "source_event_id": "5rfq0alsjnbqbist3ljs7e1b7c_20261030T060000Z",
       "needs_review": false,
-      "note": "total on the line for this date"
+      "note": "total on the line for this date",
+      "intensity_class": "hard"
     },
     {
       "date": "2026-10-31",
@@ -365,7 +396,8 @@
       "title": "🚴 Long Bike → Brick · gel every 25'",
       "source_event_id": "1pqcqiu7r4rsmuf3ul1o422024_20261031T080000Z",
       "needs_review": false,
-      "note": "duration on the line for this date"
+      "note": "duration on the line for this date",
+      "intensity_class": "easy"
     },
     {
       "date": "2026-10-31",
@@ -377,7 +409,8 @@
       "title": "🔗 Brick Run · out the door <3' · easy 10'",
       "source_event_id": "1tm8086ifjrlavigu39ehsa82s_20261031T103500Z",
       "needs_review": false,
-      "note": "duration on the line for this date"
+      "note": "duration on the line for this date",
+      "intensity_class": "easy"
     },
     {
       "date": "2026-10-31",
@@ -389,7 +422,8 @@
       "title": "🏊 Long Swim · steady · sight every 6-8",
       "source_event_id": "0b5mlqrhluej3hbmm62dlfqkuo_20261031T180000Z",
       "needs_review": false,
-      "note": "total on the line for this date"
+      "note": "total on the line for this date",
+      "intensity_class": "easy"
     },
     {
       "date": "2026-11-01",
@@ -401,7 +435,8 @@
       "title": "🏃 Long Run · HR ≤156 · gel at 40'",
       "source_event_id": "6ptuuhb0545ivn5h4vkqjg09go_20261101T170000Z",
       "needs_review": false,
-      "note": "duration on the line for this date"
+      "note": "duration on the line for this date",
+      "intensity_class": "easy"
     },
     {
       "date": "2026-11-02",
@@ -413,7 +448,8 @@
       "title": "🚴 Z2 Bike · HR 136-156 · gel if >60'",
       "source_event_id": "ptoeoi17otfpqudoccu691fmi8_20261102T060000Z",
       "needs_review": false,
-      "note": "duration on the line for this date"
+      "note": "duration on the line for this date",
+      "intensity_class": "easy"
     },
     {
       "date": "2026-11-03",
@@ -425,7 +461,8 @@
       "title": "🏊 Endurance Swim · 200s @ CSS+8-10s",
       "source_event_id": "q5ui1aodhno437b3lg9e7ktcjo_20261103T060000Z",
       "needs_review": false,
-      "note": "total on the line for this date"
+      "note": "total on the line for this date",
+      "intensity_class": "easy"
     },
     {
       "date": "2026-11-03",
@@ -438,6 +475,7 @@
       "source_event_id": "9m1ik47nf9gso641d381t88a9g_20261103T164500Z",
       "needs_review": false,
       "note": "filled in by hand",
+      "intensity_class": "hard",
       "hand_filled": true
     },
     {
@@ -450,7 +488,8 @@
       "title": "🏊 Technique Swim · drills · Tempo Trainer",
       "source_event_id": "bsgr0fp1idh80mpqvocqbqio9k_20261104T060000Z",
       "needs_review": false,
-      "note": "total on the line for this date"
+      "note": "total on the line for this date",
+      "intensity_class": "easy"
     },
     {
       "date": "2026-11-04",
@@ -462,7 +501,8 @@
       "title": "🚴 Sweet Spot · 88-93% FTP · gel at 30'",
       "source_event_id": "rh8p91416ei2ag55n1t4gvr0og_20261104T180000Z",
       "needs_review": false,
-      "note": "warm-up + reps + recoveries + cool-down"
+      "note": "warm-up + reps + recoveries + cool-down",
+      "intensity_class": "hard"
     },
     {
       "date": "2026-11-05",
@@ -474,7 +514,8 @@
       "title": "🚴 Long Z2 Bike · 90/75 rpm blocks · gel",
       "source_event_id": "aiq0n31klnt6bj76gbmvtlum2s_20261105T060000Z",
       "needs_review": false,
-      "note": "duration on the line for this date"
+      "note": "duration on the line for this date",
+      "intensity_class": "easy"
     },
     {
       "date": "2026-11-06",
@@ -486,7 +527,8 @@
       "title": "🏊 CSS Swim · hard · log every split",
       "source_event_id": "5rfq0alsjnbqbist3ljs7e1b7c_20261106T060000Z",
       "needs_review": false,
-      "note": "total on the line for this date"
+      "note": "total on the line for this date",
+      "intensity_class": "hard"
     },
     {
       "date": "2026-11-07",
@@ -498,7 +540,8 @@
       "title": "🚴 Long Bike → Brick · gel every 25'",
       "source_event_id": "1pqcqiu7r4rsmuf3ul1o422024_20261107T080000Z",
       "needs_review": false,
-      "note": "duration on the line for this date"
+      "note": "duration on the line for this date",
+      "intensity_class": "easy"
     },
     {
       "date": "2026-11-07",
@@ -510,7 +553,8 @@
       "title": "🔗 Brick Run · out the door <3' · easy 10'",
       "source_event_id": "1tm8086ifjrlavigu39ehsa82s_20261107T103500Z",
       "needs_review": false,
-      "note": "duration on the line for this date"
+      "note": "duration on the line for this date",
+      "intensity_class": "easy"
     },
     {
       "date": "2026-11-07",
@@ -522,7 +566,8 @@
       "title": "🏊 Long Swim · steady · sight every 6-8",
       "source_event_id": "0b5mlqrhluej3hbmm62dlfqkuo_20261107T180000Z",
       "needs_review": false,
-      "note": "total on the line for this date"
+      "note": "total on the line for this date",
+      "intensity_class": "easy"
     },
     {
       "date": "2026-11-08",
@@ -534,7 +579,8 @@
       "title": "🏃 Long Run · HR ≤156 · gel at 40'",
       "source_event_id": "6ptuuhb0545ivn5h4vkqjg09go_20261108T170000Z",
       "needs_review": false,
-      "note": "duration on the line for this date"
+      "note": "duration on the line for this date",
+      "intensity_class": "easy"
     },
     {
       "date": "2026-11-09",
@@ -546,7 +592,8 @@
       "title": "🚴 Z2 Bike · HR 136-156 · gel if >60'",
       "source_event_id": "ptoeoi17otfpqudoccu691fmi8_20261109T060000Z",
       "needs_review": false,
-      "note": "duration on the line for this date"
+      "note": "duration on the line for this date",
+      "intensity_class": "easy"
     },
     {
       "date": "2026-11-10",
@@ -558,7 +605,8 @@
       "title": "🏊 Endurance Swim · 200s @ CSS+8-10s",
       "source_event_id": "q5ui1aodhno437b3lg9e7ktcjo_20261110T060000Z",
       "needs_review": false,
-      "note": "total on the line for this date"
+      "note": "total on the line for this date",
+      "intensity_class": "easy"
     },
     {
       "date": "2026-11-10",
@@ -571,6 +619,7 @@
       "source_event_id": "9m1ik47nf9gso641d381t88a9g_20261110T164500Z",
       "needs_review": false,
       "note": "filled in by hand",
+      "intensity_class": "hard",
       "hand_filled": true
     },
     {
@@ -583,7 +632,8 @@
       "title": "🏊 Technique Swim · drills · Tempo Trainer",
       "source_event_id": "bsgr0fp1idh80mpqvocqbqio9k_20261111T060000Z",
       "needs_review": false,
-      "note": "total on the line for this date"
+      "note": "total on the line for this date",
+      "intensity_class": "easy"
     },
     {
       "date": "2026-11-11",
@@ -595,7 +645,8 @@
       "title": "🚴 Sweet Spot · 88-93% FTP · gel at 30'",
       "source_event_id": "rh8p91416ei2ag55n1t4gvr0og_20261111T180000Z",
       "needs_review": false,
-      "note": "warm-up + reps + recoveries + cool-down"
+      "note": "warm-up + reps + recoveries + cool-down",
+      "intensity_class": "hard"
     },
     {
       "date": "2026-11-12",
@@ -607,7 +658,8 @@
       "title": "🚴 Long Z2 Bike · 90/75 rpm blocks · gel",
       "source_event_id": "aiq0n31klnt6bj76gbmvtlum2s_20261112T060000Z",
       "needs_review": false,
-      "note": "duration on the line for this date"
+      "note": "duration on the line for this date",
+      "intensity_class": "easy"
     },
     {
       "date": "2026-11-13",
@@ -619,7 +671,8 @@
       "title": "🏊 CSS Swim · hard · log every split",
       "source_event_id": "5rfq0alsjnbqbist3ljs7e1b7c_20261113T060000Z",
       "needs_review": false,
-      "note": "total on the line for this date"
+      "note": "total on the line for this date",
+      "intensity_class": "hard"
     },
     {
       "date": "2026-11-14",
@@ -631,7 +684,8 @@
       "title": "🚴 Long Bike → Brick · gel every 25'",
       "source_event_id": "1pqcqiu7r4rsmuf3ul1o422024_20261114T080000Z",
       "needs_review": false,
-      "note": "duration on the line for this date"
+      "note": "duration on the line for this date",
+      "intensity_class": "easy"
     },
     {
       "date": "2026-11-14",
@@ -643,7 +697,8 @@
       "title": "🔗 Brick Run · out the door <3' · easy 10'",
       "source_event_id": "1tm8086ifjrlavigu39ehsa82s_20261114T103500Z",
       "needs_review": false,
-      "note": "duration on the line for this date"
+      "note": "duration on the line for this date",
+      "intensity_class": "easy"
     },
     {
       "date": "2026-11-14",
@@ -655,7 +710,8 @@
       "title": "🏊 Long Swim · steady · sight every 6-8",
       "source_event_id": "0b5mlqrhluej3hbmm62dlfqkuo_20261114T180000Z",
       "needs_review": false,
-      "note": "total on the line for this date"
+      "note": "total on the line for this date",
+      "intensity_class": "easy"
     },
     {
       "date": "2026-11-15",
@@ -667,7 +723,8 @@
       "title": "🏃 Long Run · HR ≤156 · gel at 40'",
       "source_event_id": "6ptuuhb0545ivn5h4vkqjg09go_20261115T170000Z",
       "needs_review": false,
-      "note": "duration on the line for this date"
+      "note": "duration on the line for this date",
+      "intensity_class": "easy"
     },
     {
       "date": "2026-11-16",
@@ -679,7 +736,8 @@
       "title": "🚴 Z2 Bike · HR 136-156 · gel if >60'",
       "source_event_id": "ptoeoi17otfpqudoccu691fmi8_20261116T060000Z",
       "needs_review": false,
-      "note": "duration on the line for this date"
+      "note": "duration on the line for this date",
+      "intensity_class": "easy"
     },
     {
       "date": "2026-11-17",
@@ -691,7 +749,8 @@
       "title": "🏊 Endurance Swim · 200s @ CSS+8-10s",
       "source_event_id": "q5ui1aodhno437b3lg9e7ktcjo_20261117T060000Z",
       "needs_review": false,
-      "note": "total on the line for this date"
+      "note": "total on the line for this date",
+      "intensity_class": "easy"
     },
     {
       "date": "2026-11-17",
@@ -704,6 +763,8 @@
       "source_event_id": "9m1ik47nf9gso641d381t88a9g_20261117T164500Z",
       "needs_review": false,
       "note": "filled in by hand",
+      "intensity_class": "easy",
+      "intensity_hand_set": true,
       "hand_filled": true
     },
     {
@@ -716,7 +777,8 @@
       "title": "🏊 Technique Swim · drills · Tempo Trainer",
       "source_event_id": "bsgr0fp1idh80mpqvocqbqio9k_20261118T060000Z",
       "needs_review": false,
-      "note": "total on the line for this date"
+      "note": "total on the line for this date",
+      "intensity_class": "easy"
     },
     {
       "date": "2026-11-18",
@@ -729,6 +791,8 @@
       "source_event_id": "rh8p91416ei2ag55n1t4gvr0og_20261118T180000Z",
       "needs_review": false,
       "note": "filled in by hand",
+      "intensity_class": "easy",
+      "intensity_hand_set": true,
       "hand_filled": true
     },
     {
@@ -741,7 +805,8 @@
       "title": "🚴 Long Z2 Bike · 90/75 rpm blocks · gel",
       "source_event_id": "aiq0n31klnt6bj76gbmvtlum2s_20261119T060000Z",
       "needs_review": false,
-      "note": "duration on the line for this date"
+      "note": "duration on the line for this date",
+      "intensity_class": "easy"
     },
     {
       "date": "2026-11-20",
@@ -753,7 +818,8 @@
       "title": "🏊 CSS Swim · hard · log every split",
       "source_event_id": "5rfq0alsjnbqbist3ljs7e1b7c_20261120T060000Z",
       "needs_review": false,
-      "note": "total of the Css Retest block"
+      "note": "total of the Css Retest block",
+      "intensity_class": "hard"
     },
     {
       "date": "2026-11-21",
@@ -765,7 +831,8 @@
       "title": "🚴 Long Bike → Brick · gel every 25'",
       "source_event_id": "1pqcqiu7r4rsmuf3ul1o422024_20261121T080000Z",
       "needs_review": false,
-      "note": "duration on the line for this date"
+      "note": "duration on the line for this date",
+      "intensity_class": "easy"
     },
     {
       "date": "2026-11-21",
@@ -777,7 +844,8 @@
       "title": "🔗 Brick Run · out the door <3' · easy 10'",
       "source_event_id": "1tm8086ifjrlavigu39ehsa82s_20261121T103500Z",
       "needs_review": false,
-      "note": "duration on the line for this date"
+      "note": "duration on the line for this date",
+      "intensity_class": "easy"
     },
     {
       "date": "2026-11-21",
@@ -789,7 +857,8 @@
       "title": "🏊 Long Swim · steady · sight every 6-8",
       "source_event_id": "0b5mlqrhluej3hbmm62dlfqkuo_20261121T180000Z",
       "needs_review": false,
-      "note": "total on the line for this date"
+      "note": "total on the line for this date",
+      "intensity_class": "easy"
     },
     {
       "date": "2026-11-22",
@@ -801,7 +870,8 @@
       "title": "🏃 Long Run · 20' Z2 BENCHMARK #2",
       "source_event_id": "6ptuuhb0545ivn5h4vkqjg09go_20261122T170000Z",
       "needs_review": false,
-      "note": "session header total"
+      "note": "session header total",
+      "intensity_class": "easy"
     },
     {
       "date": "2026-11-23",
@@ -813,7 +883,8 @@
       "title": "🚴 Z2 Bike · HR 136-156 · gel if >60'",
       "source_event_id": "ptoeoi17otfpqudoccu691fmi8_20261123T060000Z",
       "needs_review": false,
-      "note": "duration on the line for this date"
+      "note": "duration on the line for this date",
+      "intensity_class": "easy"
     },
     {
       "date": "2026-11-24",
@@ -825,7 +896,8 @@
       "title": "🏊 Endurance Swim · 200s @ CSS+8-10s",
       "source_event_id": "q5ui1aodhno437b3lg9e7ktcjo_20261124T060000Z",
       "needs_review": false,
-      "note": "total on the line for this date"
+      "note": "total on the line for this date",
+      "intensity_class": "easy"
     },
     {
       "date": "2026-11-24",
@@ -838,6 +910,7 @@
       "source_event_id": "9m1ik47nf9gso641d381t88a9g_20261124T164500Z",
       "needs_review": false,
       "note": "filled in by hand",
+      "intensity_class": "hard",
       "hand_filled": true
     },
     {
@@ -850,7 +923,8 @@
       "title": "🏊 Technique Swim · drills · Tempo Trainer",
       "source_event_id": "bsgr0fp1idh80mpqvocqbqio9k_20261125T060000Z",
       "needs_review": false,
-      "note": "total on the line for this date"
+      "note": "total on the line for this date",
+      "intensity_class": "easy"
     },
     {
       "date": "2026-11-25",
@@ -862,7 +936,8 @@
       "title": "🚴 Sweet Spot · 88-93% FTP · gel at 30'",
       "source_event_id": "rh8p91416ei2ag55n1t4gvr0og_20261125T180000Z",
       "needs_review": false,
-      "note": "warm-up + reps + recoveries + cool-down"
+      "note": "warm-up + reps + recoveries + cool-down",
+      "intensity_class": "hard"
     },
     {
       "date": "2026-11-26",
@@ -874,7 +949,8 @@
       "title": "🚴 Long Z2 Bike · 90/75 rpm blocks · gel",
       "source_event_id": "aiq0n31klnt6bj76gbmvtlum2s_20261126T060000Z",
       "needs_review": false,
-      "note": "duration on the line for this date"
+      "note": "duration on the line for this date",
+      "intensity_class": "easy"
     },
     {
       "date": "2026-11-27",
@@ -886,7 +962,8 @@
       "title": "🏊 CSS Swim · hard · log every split",
       "source_event_id": "5rfq0alsjnbqbist3ljs7e1b7c_20261127T060000Z",
       "needs_review": false,
-      "note": "total on the line for this date"
+      "note": "total on the line for this date",
+      "intensity_class": "hard"
     },
     {
       "date": "2026-11-28",
@@ -898,7 +975,8 @@
       "title": "🚴 Long Bike → Brick · gel every 25'",
       "source_event_id": "1pqcqiu7r4rsmuf3ul1o422024_20261128T080000Z",
       "needs_review": false,
-      "note": "duration on the line for this date"
+      "note": "duration on the line for this date",
+      "intensity_class": "easy"
     },
     {
       "date": "2026-11-28",
@@ -910,7 +988,8 @@
       "title": "🔗 Brick Run · out the door <3' · easy 10'",
       "source_event_id": "1tm8086ifjrlavigu39ehsa82s_20261128T103500Z",
       "needs_review": false,
-      "note": "duration on the line for this date"
+      "note": "duration on the line for this date",
+      "intensity_class": "easy"
     },
     {
       "date": "2026-11-28",
@@ -922,7 +1001,8 @@
       "title": "🏊 Long Swim · steady · sight every 6-8",
       "source_event_id": "0b5mlqrhluej3hbmm62dlfqkuo_20261128T180000Z",
       "needs_review": false,
-      "note": "total on the line for this date"
+      "note": "total on the line for this date",
+      "intensity_class": "easy"
     },
     {
       "date": "2026-11-29",
@@ -934,7 +1014,8 @@
       "title": "🏃 Long Run · HR ≤156 · gel at 40'",
       "source_event_id": "6ptuuhb0545ivn5h4vkqjg09go_20261129T170000Z",
       "needs_review": false,
-      "note": "duration on the line for this date"
+      "note": "duration on the line for this date",
+      "intensity_class": "easy"
     },
     {
       "date": "2026-11-30",
@@ -946,7 +1027,8 @@
       "title": "🚴 Z2 Bike · HR 136-156 · gel if >60'",
       "source_event_id": "ptoeoi17otfpqudoccu691fmi8_20261130T060000Z",
       "needs_review": false,
-      "note": "duration on the line for this date"
+      "note": "duration on the line for this date",
+      "intensity_class": "easy"
     },
     {
       "date": "2026-12-01",
@@ -958,7 +1040,8 @@
       "title": "🏊 Endurance Swim · 200s @ CSS+8-10s",
       "source_event_id": "q5ui1aodhno437b3lg9e7ktcjo_20261201T060000Z",
       "needs_review": false,
-      "note": "total on the line for this date"
+      "note": "total on the line for this date",
+      "intensity_class": "easy"
     },
     {
       "date": "2026-12-01",
@@ -971,6 +1054,7 @@
       "source_event_id": "9m1ik47nf9gso641d381t88a9g_20261201T164500Z",
       "needs_review": false,
       "note": "filled in by hand",
+      "intensity_class": "hard",
       "hand_filled": true
     },
     {
@@ -983,7 +1067,8 @@
       "title": "🏊 Technique Swim · drills · Tempo Trainer",
       "source_event_id": "bsgr0fp1idh80mpqvocqbqio9k_20261202T060000Z",
       "needs_review": false,
-      "note": "total on the line for this date"
+      "note": "total on the line for this date",
+      "intensity_class": "easy"
     },
     {
       "date": "2026-12-02",
@@ -995,7 +1080,8 @@
       "title": "🚴 Sweet Spot · 88-93% FTP · gel at 30'",
       "source_event_id": "rh8p91416ei2ag55n1t4gvr0og_20261202T180000Z",
       "needs_review": false,
-      "note": "warm-up + reps + recoveries + cool-down"
+      "note": "warm-up + reps + recoveries + cool-down",
+      "intensity_class": "hard"
     },
     {
       "date": "2026-12-03",
@@ -1007,7 +1093,8 @@
       "title": "🚴 Long Z2 Bike · 90/75 rpm blocks · gel",
       "source_event_id": "aiq0n31klnt6bj76gbmvtlum2s_20261203T060000Z",
       "needs_review": false,
-      "note": "duration on the line for this date"
+      "note": "duration on the line for this date",
+      "intensity_class": "easy"
     },
     {
       "date": "2026-12-04",
@@ -1019,7 +1106,8 @@
       "title": "🏊 CSS Swim · hard · log every split",
       "source_event_id": "5rfq0alsjnbqbist3ljs7e1b7c_20261204T060000Z",
       "needs_review": false,
-      "note": "total on the line for this date"
+      "note": "total on the line for this date",
+      "intensity_class": "hard"
     },
     {
       "date": "2026-12-05",
@@ -1031,7 +1119,8 @@
       "title": "🚴 Long Bike → Brick · gel every 25'",
       "source_event_id": "1pqcqiu7r4rsmuf3ul1o422024_20261205T080000Z",
       "needs_review": false,
-      "note": "duration on the line for this date"
+      "note": "duration on the line for this date",
+      "intensity_class": "easy"
     },
     {
       "date": "2026-12-05",
@@ -1043,7 +1132,8 @@
       "title": "🔗 Brick Run · out the door <3' · easy 10'",
       "source_event_id": "1tm8086ifjrlavigu39ehsa82s_20261205T103500Z",
       "needs_review": false,
-      "note": "duration on the line for this date"
+      "note": "duration on the line for this date",
+      "intensity_class": "easy"
     },
     {
       "date": "2026-12-05",
@@ -1055,7 +1145,8 @@
       "title": "🏊 Long Swim · steady · sight every 6-8",
       "source_event_id": "0b5mlqrhluej3hbmm62dlfqkuo_20261205T180000Z",
       "needs_review": false,
-      "note": "total on the line for this date"
+      "note": "total on the line for this date",
+      "intensity_class": "easy"
     },
     {
       "date": "2026-12-06",
@@ -1067,7 +1158,8 @@
       "title": "🏃 Long Run · HR ≤156 · gel at 40'",
       "source_event_id": "6ptuuhb0545ivn5h4vkqjg09go_20261206T170000Z",
       "needs_review": false,
-      "note": "duration on the line for this date"
+      "note": "duration on the line for this date",
+      "intensity_class": "easy"
     },
     {
       "date": "2026-12-07",
@@ -1079,7 +1171,8 @@
       "title": "🚴 Z2 Bike · HR 136-156 · gel if >60'",
       "source_event_id": "ptoeoi17otfpqudoccu691fmi8_20261207T060000Z",
       "needs_review": false,
-      "note": "duration on the line for this date"
+      "note": "duration on the line for this date",
+      "intensity_class": "easy"
     },
     {
       "date": "2026-12-08",
@@ -1091,7 +1184,8 @@
       "title": "🏊 Endurance Swim · 200s @ CSS+8-10s",
       "source_event_id": "q5ui1aodhno437b3lg9e7ktcjo_20261208T060000Z",
       "needs_review": false,
-      "note": "total on the line for this date"
+      "note": "total on the line for this date",
+      "intensity_class": "easy"
     },
     {
       "date": "2026-12-08",
@@ -1104,6 +1198,7 @@
       "source_event_id": "9m1ik47nf9gso641d381t88a9g_20261208T164500Z",
       "needs_review": false,
       "note": "filled in by hand",
+      "intensity_class": "hard",
       "hand_filled": true
     },
     {
@@ -1116,7 +1211,8 @@
       "title": "🏊 Technique Swim · drills · Tempo Trainer",
       "source_event_id": "bsgr0fp1idh80mpqvocqbqio9k_20261209T060000Z",
       "needs_review": false,
-      "note": "total on the line for this date"
+      "note": "total on the line for this date",
+      "intensity_class": "easy"
     },
     {
       "date": "2026-12-09",
@@ -1128,7 +1224,8 @@
       "title": "🚴 Sweet Spot · 88-93% FTP · gel at 30'",
       "source_event_id": "rh8p91416ei2ag55n1t4gvr0og_20261209T180000Z",
       "needs_review": false,
-      "note": "warm-up + reps + recoveries + cool-down"
+      "note": "warm-up + reps + recoveries + cool-down",
+      "intensity_class": "hard"
     },
     {
       "date": "2026-12-10",
@@ -1140,7 +1237,8 @@
       "title": "🚴 Long Z2 Bike · 90/75 rpm blocks · gel",
       "source_event_id": "aiq0n31klnt6bj76gbmvtlum2s_20261210T060000Z",
       "needs_review": false,
-      "note": "duration on the line for this date"
+      "note": "duration on the line for this date",
+      "intensity_class": "easy"
     },
     {
       "date": "2026-12-11",
@@ -1152,7 +1250,8 @@
       "title": "🏊 CSS Swim · hard · log every split",
       "source_event_id": "5rfq0alsjnbqbist3ljs7e1b7c_20261211T060000Z",
       "needs_review": false,
-      "note": "total on the line for this date"
+      "note": "total on the line for this date",
+      "intensity_class": "hard"
     },
     {
       "date": "2026-12-12",
@@ -1164,7 +1263,8 @@
       "title": "🚴 Long Bike → Brick · gel every 25'",
       "source_event_id": "1pqcqiu7r4rsmuf3ul1o422024_20261212T080000Z",
       "needs_review": false,
-      "note": "duration on the line for this date"
+      "note": "duration on the line for this date",
+      "intensity_class": "easy"
     },
     {
       "date": "2026-12-12",
@@ -1176,7 +1276,8 @@
       "title": "🔗 Brick Run · out the door <3' · easy 10'",
       "source_event_id": "1tm8086ifjrlavigu39ehsa82s_20261212T103500Z",
       "needs_review": false,
-      "note": "duration on the line for this date"
+      "note": "duration on the line for this date",
+      "intensity_class": "easy"
     },
     {
       "date": "2026-12-12",
@@ -1188,7 +1289,8 @@
       "title": "🏊 Long Swim · steady · sight every 6-8",
       "source_event_id": "0b5mlqrhluej3hbmm62dlfqkuo_20261212T180000Z",
       "needs_review": false,
-      "note": "total on the line for this date"
+      "note": "total on the line for this date",
+      "intensity_class": "easy"
     },
     {
       "date": "2026-12-13",
@@ -1200,7 +1302,8 @@
       "title": "🏃 Long Run · HR ≤156 · gel at 40'",
       "source_event_id": "6ptuuhb0545ivn5h4vkqjg09go_20261213T170000Z",
       "needs_review": false,
-      "note": "duration on the line for this date"
+      "note": "duration on the line for this date",
+      "intensity_class": "easy"
     },
     {
       "date": "2026-12-14",
@@ -1212,7 +1315,8 @@
       "title": "🚴 Z2 Bike · HR 136-156 · gel if >60'",
       "source_event_id": "ptoeoi17otfpqudoccu691fmi8_20261214T060000Z",
       "needs_review": false,
-      "note": "duration on the line for this date"
+      "note": "duration on the line for this date",
+      "intensity_class": "easy"
     },
     {
       "date": "2026-12-15",
@@ -1224,7 +1328,8 @@
       "title": "🏊 Endurance Swim · 200s @ CSS+8-10s",
       "source_event_id": "q5ui1aodhno437b3lg9e7ktcjo_20261215T060000Z",
       "needs_review": false,
-      "note": "total on the line for this date"
+      "note": "total on the line for this date",
+      "intensity_class": "easy"
     },
     {
       "date": "2026-12-15",
@@ -1237,6 +1342,8 @@
       "source_event_id": "9m1ik47nf9gso641d381t88a9g_20261215T164500Z",
       "needs_review": false,
       "note": "filled in by hand",
+      "intensity_class": "easy",
+      "intensity_hand_set": true,
       "hand_filled": true
     },
     {
@@ -1249,7 +1356,8 @@
       "title": "🏊 Technique Swim · drills · Tempo Trainer",
       "source_event_id": "bsgr0fp1idh80mpqvocqbqio9k_20261216T060000Z",
       "needs_review": false,
-      "note": "total on the line for this date"
+      "note": "total on the line for this date",
+      "intensity_class": "easy"
     },
     {
       "date": "2026-12-16",
@@ -1262,6 +1370,8 @@
       "source_event_id": "rh8p91416ei2ag55n1t4gvr0og_20261216T180000Z",
       "needs_review": false,
       "note": "filled in by hand",
+      "intensity_class": "easy",
+      "intensity_hand_set": true,
       "hand_filled": true
     },
     {
@@ -1274,7 +1384,8 @@
       "title": "🚴 Long Z2 Bike · 90/75 rpm blocks · gel",
       "source_event_id": "aiq0n31klnt6bj76gbmvtlum2s_20261217T060000Z",
       "needs_review": false,
-      "note": "duration on the line for this date"
+      "note": "duration on the line for this date",
+      "intensity_class": "easy"
     },
     {
       "date": "2026-12-18",
@@ -1286,7 +1397,8 @@
       "title": "🏊 CSS Swim · hard · log every split",
       "source_event_id": "5rfq0alsjnbqbist3ljs7e1b7c_20261218T060000Z",
       "needs_review": false,
-      "note": "total of the Css Retest block"
+      "note": "total of the Css Retest block",
+      "intensity_class": "hard"
     },
     {
       "date": "2026-12-19",
@@ -1298,7 +1410,8 @@
       "title": "🚴 Long Bike → Brick · gel every 25'",
       "source_event_id": "1pqcqiu7r4rsmuf3ul1o422024_20261219T080000Z",
       "needs_review": false,
-      "note": "duration on the line for this date"
+      "note": "duration on the line for this date",
+      "intensity_class": "easy"
     },
     {
       "date": "2026-12-19",
@@ -1310,7 +1423,8 @@
       "title": "🔗 Brick Run · out the door <3' · easy 10'",
       "source_event_id": "1tm8086ifjrlavigu39ehsa82s_20261219T103500Z",
       "needs_review": false,
-      "note": "duration on the line for this date"
+      "note": "duration on the line for this date",
+      "intensity_class": "easy"
     },
     {
       "date": "2026-12-19",
@@ -1322,7 +1436,8 @@
       "title": "🏊 Long Swim · steady · sight every 6-8",
       "source_event_id": "0b5mlqrhluej3hbmm62dlfqkuo_20261219T180000Z",
       "needs_review": false,
-      "note": "total on the line for this date"
+      "note": "total on the line for this date",
+      "intensity_class": "easy"
     },
     {
       "date": "2026-12-20",
@@ -1334,7 +1449,8 @@
       "title": "🏃 Long Run · 20' Z2 BENCHMARK #3",
       "source_event_id": "6ptuuhb0545ivn5h4vkqjg09go_20261220T170000Z",
       "needs_review": false,
-      "note": "session header total"
+      "note": "session header total",
+      "intensity_class": "easy"
     },
     {
       "date": "2026-12-22",
@@ -1347,6 +1463,7 @@
       "source_event_id": "9m1ik47nf9gso641d381t88a9g_20261222T164500Z",
       "needs_review": false,
       "note": "filled in by hand",
+      "intensity_class": "hard",
       "hand_filled": true
     },
     {
@@ -1359,7 +1476,8 @@
       "title": "🚴 Sweet Spot · 88-93% FTP · gel at 30'",
       "source_event_id": "rh8p91416ei2ag55n1t4gvr0og_20261223T180000Z",
       "needs_review": false,
-      "note": "warm-up + reps + recoveries + cool-down"
+      "note": "warm-up + reps + recoveries + cool-down",
+      "intensity_class": "hard"
     },
     {
       "date": "2026-12-24",
@@ -1371,7 +1489,8 @@
       "title": "🚴 Long Z2 Bike · 90/75 rpm blocks · gel",
       "source_event_id": "aiq0n31klnt6bj76gbmvtlum2s_20261224T060000Z",
       "needs_review": false,
-      "note": "duration on the line for this date"
+      "note": "duration on the line for this date",
+      "intensity_class": "easy"
     },
     {
       "date": "2026-12-26",
@@ -1383,7 +1502,8 @@
       "title": "🚴 Long Bike → Brick · gel every 25'",
       "source_event_id": "1pqcqiu7r4rsmuf3ul1o422024_20261226T080000Z",
       "needs_review": false,
-      "note": "duration on the line for this date"
+      "note": "duration on the line for this date",
+      "intensity_class": "easy"
     },
     {
       "date": "2026-12-26",
@@ -1395,7 +1515,8 @@
       "title": "🔗 Brick Run · out the door <3' · easy 10'",
       "source_event_id": "1tm8086ifjrlavigu39ehsa82s_20261226T103500Z",
       "needs_review": false,
-      "note": "duration on the line for this date"
+      "note": "duration on the line for this date",
+      "intensity_class": "easy"
     },
     {
       "date": "2026-12-27",
@@ -1407,7 +1528,8 @@
       "title": "🏃 Long Run · HR ≤156 · gel at 40'",
       "source_event_id": "6ptuuhb0545ivn5h4vkqjg09go_20261227T170000Z",
       "needs_review": false,
-      "note": "duration on the line for this date"
+      "note": "duration on the line for this date",
+      "intensity_class": "easy"
     },
     {
       "date": "2026-12-28",
@@ -1419,7 +1541,8 @@
       "title": "🚴 Z2 Bike · HR 136-156 · gel if >60'",
       "source_event_id": "ptoeoi17otfpqudoccu691fmi8_20261228T060000Z",
       "needs_review": false,
-      "note": "duration on the line for this date"
+      "note": "duration on the line for this date",
+      "intensity_class": "easy"
     },
     {
       "date": "2026-12-29",
@@ -1432,6 +1555,7 @@
       "source_event_id": "9m1ik47nf9gso641d381t88a9g_20261229T164500Z",
       "needs_review": false,
       "note": "filled in by hand",
+      "intensity_class": "hard",
       "hand_filled": true
     },
     {
@@ -1444,7 +1568,8 @@
       "title": "🚴 Sweet Spot · 88-93% FTP · gel at 30'",
       "source_event_id": "rh8p91416ei2ag55n1t4gvr0og_20261230T180000Z",
       "needs_review": false,
-      "note": "warm-up + reps + recoveries + cool-down"
+      "note": "warm-up + reps + recoveries + cool-down",
+      "intensity_class": "hard"
     },
     {
       "date": "2026-12-31",
@@ -1456,7 +1581,8 @@
       "title": "🚴 Long Z2 Bike · 90/75 rpm blocks · gel",
       "source_event_id": "aiq0n31klnt6bj76gbmvtlum2s_20261231T060000Z",
       "needs_review": false,
-      "note": "duration on the line for this date"
+      "note": "duration on the line for this date",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-01-02",
@@ -1468,7 +1594,8 @@
       "title": "🚴 Long Bike → Brick · gel every 25'",
       "source_event_id": "1pqcqiu7r4rsmuf3ul1o422024_20270102T080000Z",
       "needs_review": false,
-      "note": "duration on the line for this date"
+      "note": "duration on the line for this date",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-01-02",
@@ -1480,7 +1607,8 @@
       "title": "🔗 Brick Run · out the door <3' · easy 10'",
       "source_event_id": "1tm8086ifjrlavigu39ehsa82s_20270102T103500Z",
       "needs_review": false,
-      "note": "duration on the line for this date"
+      "note": "duration on the line for this date",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-01-03",
@@ -1492,7 +1620,8 @@
       "title": "🏃 Long Run · HR ≤156 · gel at 40'",
       "source_event_id": "6ptuuhb0545ivn5h4vkqjg09go_20270103T170000Z",
       "needs_review": false,
-      "note": "duration on the line for this date"
+      "note": "duration on the line for this date",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-01-04",
@@ -1504,7 +1633,8 @@
       "title": "🚴 Z2 Bike · HR 136-156 · gel if >60'",
       "source_event_id": "ptoeoi17otfpqudoccu691fmi8_20270104T060000Z",
       "needs_review": false,
-      "note": "duration on the line for this date"
+      "note": "duration on the line for this date",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-01-05",
@@ -1516,7 +1646,8 @@
       "title": "🏊 Endurance Swim · 200s @ CSS+8-10s",
       "source_event_id": "q5ui1aodhno437b3lg9e7ktcjo_20270105T060000Z",
       "needs_review": false,
-      "note": "total on the line for this date"
+      "note": "total on the line for this date",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-01-05",
@@ -1529,6 +1660,7 @@
       "source_event_id": "9m1ik47nf9gso641d381t88a9g_20270105T164500Z",
       "needs_review": false,
       "note": "filled in by hand",
+      "intensity_class": "hard",
       "hand_filled": true
     },
     {
@@ -1541,7 +1673,8 @@
       "title": "🏊 Technique Swim · drills · Tempo Trainer",
       "source_event_id": "bsgr0fp1idh80mpqvocqbqio9k_20270106T060000Z",
       "needs_review": false,
-      "note": "total on the line for this date"
+      "note": "total on the line for this date",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-01-06",
@@ -1553,7 +1686,8 @@
       "title": "🚴 Sweet Spot · 88-93% FTP · gel at 30'",
       "source_event_id": "rh8p91416ei2ag55n1t4gvr0og_20270106T180000Z",
       "needs_review": false,
-      "note": "warm-up + reps + recoveries + cool-down"
+      "note": "warm-up + reps + recoveries + cool-down",
+      "intensity_class": "hard"
     },
     {
       "date": "2027-01-07",
@@ -1565,7 +1699,8 @@
       "title": "🚴 Long Z2 Bike · 90/75 rpm blocks · gel",
       "source_event_id": "aiq0n31klnt6bj76gbmvtlum2s_20270107T060000Z",
       "needs_review": false,
-      "note": "duration on the line for this date"
+      "note": "duration on the line for this date",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-01-08",
@@ -1577,7 +1712,8 @@
       "title": "🏊 CSS Swim · hard · log every split",
       "source_event_id": "5rfq0alsjnbqbist3ljs7e1b7c_20270108T060000Z",
       "needs_review": false,
-      "note": "total on the line for this date"
+      "note": "total on the line for this date",
+      "intensity_class": "hard"
     },
     {
       "date": "2027-01-09",
@@ -1589,7 +1725,8 @@
       "title": "🚴 Long Bike → Brick · gel every 25'",
       "source_event_id": "1pqcqiu7r4rsmuf3ul1o422024_20270109T080000Z",
       "needs_review": false,
-      "note": "duration on the line for this date"
+      "note": "duration on the line for this date",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-01-09",
@@ -1601,7 +1738,8 @@
       "title": "🔗 Brick Run · out the door <3' · easy 10'",
       "source_event_id": "1tm8086ifjrlavigu39ehsa82s_20270109T103500Z",
       "needs_review": false,
-      "note": "duration on the line for this date"
+      "note": "duration on the line for this date",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-01-09",
@@ -1613,7 +1751,8 @@
       "title": "🏊 Long Swim · steady · sight every 6-8",
       "source_event_id": "0b5mlqrhluej3hbmm62dlfqkuo_20270109T180000Z",
       "needs_review": false,
-      "note": "total on the line for this date"
+      "note": "total on the line for this date",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-01-10",
@@ -1625,7 +1764,8 @@
       "title": "🏃 Long Run · HR ≤156 · gel at 40'",
       "source_event_id": "6ptuuhb0545ivn5h4vkqjg09go_20270110T170000Z",
       "needs_review": false,
-      "note": "duration on the line for this date"
+      "note": "duration on the line for this date",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-01-11",
@@ -1637,7 +1777,8 @@
       "title": "🚴 Z2 Bike · HR 136-156 · gel if >60'",
       "source_event_id": "ptoeoi17otfpqudoccu691fmi8_20270111T060000Z",
       "needs_review": false,
-      "note": "duration on the line for this date"
+      "note": "duration on the line for this date",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-01-12",
@@ -1649,7 +1790,8 @@
       "title": "🏊 Endurance Swim · 200s @ CSS+8-10s",
       "source_event_id": "q5ui1aodhno437b3lg9e7ktcjo_20270112T060000Z",
       "needs_review": false,
-      "note": "total on the line for this date"
+      "note": "total on the line for this date",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-01-12",
@@ -1662,6 +1804,8 @@
       "source_event_id": "9m1ik47nf9gso641d381t88a9g_20270112T164500Z",
       "needs_review": false,
       "note": "filled in by hand",
+      "intensity_class": "easy",
+      "intensity_hand_set": true,
       "hand_filled": true
     },
     {
@@ -1674,7 +1818,8 @@
       "title": "🏊 Technique Swim · drills · Tempo Trainer",
       "source_event_id": "bsgr0fp1idh80mpqvocqbqio9k_20270113T060000Z",
       "needs_review": false,
-      "note": "total on the line for this date"
+      "note": "total on the line for this date",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-01-13",
@@ -1687,6 +1832,7 @@
       "source_event_id": "rh8p91416ei2ag55n1t4gvr0og_20270113T180000Z",
       "needs_review": false,
       "note": "filled in by hand",
+      "intensity_class": "hard",
       "hand_filled": true
     },
     {
@@ -1699,7 +1845,8 @@
       "title": "🚴 Long Z2 Bike · 90/75 rpm blocks · gel",
       "source_event_id": "aiq0n31klnt6bj76gbmvtlum2s_20270114T060000Z",
       "needs_review": false,
-      "note": "duration on the line for this date"
+      "note": "duration on the line for this date",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-01-15",
@@ -1711,7 +1858,8 @@
       "title": "🏊 CSS Swim · hard · log every split",
       "source_event_id": "5rfq0alsjnbqbist3ljs7e1b7c_20270115T060000Z",
       "needs_review": false,
-      "note": "total of the Css Retest block"
+      "note": "total of the Css Retest block",
+      "intensity_class": "hard"
     },
     {
       "date": "2027-01-16",
@@ -1723,7 +1871,8 @@
       "title": "🚴 Long Bike → Brick · gel every 25'",
       "source_event_id": "1pqcqiu7r4rsmuf3ul1o422024_20270116T080000Z",
       "needs_review": false,
-      "note": "duration on the line for this date"
+      "note": "duration on the line for this date",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-01-16",
@@ -1735,7 +1884,8 @@
       "title": "🔗 Brick Run · out the door <3' · easy 10'",
       "source_event_id": "1tm8086ifjrlavigu39ehsa82s_20270116T103500Z",
       "needs_review": false,
-      "note": "duration on the line for this date"
+      "note": "duration on the line for this date",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-01-16",
@@ -1747,7 +1897,8 @@
       "title": "🏊 Long Swim · steady · sight every 6-8",
       "source_event_id": "0b5mlqrhluej3hbmm62dlfqkuo_20270116T180000Z",
       "needs_review": false,
-      "note": "total on the line for this date"
+      "note": "total on the line for this date",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-01-18",
@@ -1759,7 +1910,8 @@
       "title": "🏊 Swim: Threshold Sets",
       "source_event_id": "r30o5hs7dbq651ff7tckg81o4c_20270118T060000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "hard"
     },
     {
       "date": "2027-01-19",
@@ -1771,7 +1923,8 @@
       "title": "🚴 Bike FTP: 3x12' @ FTP (outdoor, 90')",
       "source_event_id": "1n387jdcvtiqf85j7nu8mtt9h4_20270119T060000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-01-19",
@@ -1783,7 +1936,8 @@
       "title": "🏃 Run Z2 (50')",
       "source_event_id": "k9eb5q21jhqf0c1sdvkc9eiovo_20270119T190000Z",
       "needs_review": false,
-      "note": "sum of the listed parts"
+      "note": "sum of the listed parts",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-01-20",
@@ -1795,7 +1949,8 @@
       "title": "🏊 Swim: CSS Pyramid (100/200/300)",
       "source_event_id": "i208o7tobrdjfb6hur0s90ooos_20270120T060000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "hard"
     },
     {
       "date": "2027-01-20",
@@ -1807,7 +1962,8 @@
       "title": "🎯 Bike TEST · 20' FTP/LTHR · gel 10' before",
       "source_event_id": "1td4d9j46jh4np2l4bsidsf1us",
       "needs_review": false,
-      "note": "session header total"
+      "note": "session header total",
+      "intensity_class": "hard"
     },
     {
       "date": "2027-01-20",
@@ -1819,7 +1975,8 @@
       "title": "🏃 Run: Half-Mar Specific 5-6x1k @ HMP",
       "source_event_id": "0ht2hqn4k3u7c1q18dd6nbe6eo_20270120T190000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-01-21",
@@ -1831,7 +1988,8 @@
       "title": "🚴 Bike Sweet Spot: 3x15' (outdoor, 90')",
       "source_event_id": "5ue75fpc569k0nf61tg07a813g_20270121T060000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "hard"
     },
     {
       "date": "2027-01-22",
@@ -1843,7 +2001,8 @@
       "title": "🏊 Swim: Race Pace (2.5-3k)",
       "source_event_id": "32ji6cnoocbiforctakfta2ld0_20270122T060000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-01-22",
@@ -1855,7 +2014,8 @@
       "title": "🎯 Swim TEST · CSS 400/200 · log both times",
       "source_event_id": "4o2389f545fh4kgqdh6vh5ves0",
       "needs_review": false,
-      "note": "session header total"
+      "note": "session header total",
+      "intensity_class": "hard"
     },
     {
       "date": "2027-01-23",
@@ -1867,7 +2027,8 @@
       "title": "🔗 Brick: Bike 3h + Run 30' @ HMP off-bike",
       "source_event_id": "bienbafd61fe7cgcae9uqeole4_20270123T080000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-01-23",
@@ -1879,7 +2040,8 @@
       "title": "🔗 Brick: Bike 3h + Run 30' @ HMP off-bike",
       "source_event_id": "bienbafd61fe7cgcae9uqeole4_20270123T080000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-01-24",
@@ -1891,7 +2053,8 @@
       "title": "🏃 Long Run: Half-Mar Specific 90-105'",
       "source_event_id": "u18t0m8mn1u09fr84i5d6rk3d0_20270124T090000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-01-24",
@@ -1903,7 +2066,8 @@
       "title": "🎯 Run TEST — 10k TT ≤46:15 (Phase 2 exit gate)",
       "source_event_id": "lcb77evk7lt5557pnn0iu2q3s4",
       "needs_review": true,
-      "note": "the line for this date gives no duration"
+      "note": "the line for this date gives no duration",
+      "intensity_class": "hard"
     },
     {
       "date": "2027-01-25",
@@ -1915,7 +2079,8 @@
       "title": "🏊 Swim: Threshold Sets",
       "source_event_id": "r30o5hs7dbq651ff7tckg81o4c_20270125T060000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "hard"
     },
     {
       "date": "2027-01-26",
@@ -1927,7 +2092,8 @@
       "title": "🚴 Bike FTP: 3x12' @ FTP (outdoor, 90')",
       "source_event_id": "1n387jdcvtiqf85j7nu8mtt9h4_20270126T060000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-01-26",
@@ -1939,7 +2105,8 @@
       "title": "🏃 Run Z2 (50')",
       "source_event_id": "k9eb5q21jhqf0c1sdvkc9eiovo_20270126T190000Z",
       "needs_review": false,
-      "note": "sum of the listed parts"
+      "note": "sum of the listed parts",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-01-27",
@@ -1951,7 +2118,8 @@
       "title": "🏊 Swim: CSS Pyramid (100/200/300)",
       "source_event_id": "i208o7tobrdjfb6hur0s90ooos_20270127T060000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "hard"
     },
     {
       "date": "2027-01-27",
@@ -1963,7 +2131,8 @@
       "title": "🏃 Run: Half-Mar Specific 5-6x1k @ HMP",
       "source_event_id": "0ht2hqn4k3u7c1q18dd6nbe6eo_20270127T190000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-01-28",
@@ -1975,7 +2144,8 @@
       "title": "🚴 Bike Sweet Spot: 3x15' (outdoor, 90')",
       "source_event_id": "5ue75fpc569k0nf61tg07a813g_20270128T060000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "hard"
     },
     {
       "date": "2027-01-29",
@@ -1987,7 +2157,8 @@
       "title": "🏊 Swim: Race Pace (2.5-3k)",
       "source_event_id": "32ji6cnoocbiforctakfta2ld0_20270129T060000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-01-30",
@@ -1999,7 +2170,8 @@
       "title": "🔗 Brick: Bike 3h + Run 30' @ HMP off-bike",
       "source_event_id": "bienbafd61fe7cgcae9uqeole4_20270130T080000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-01-30",
@@ -2011,7 +2183,8 @@
       "title": "🔗 Brick: Bike 3h + Run 30' @ HMP off-bike",
       "source_event_id": "bienbafd61fe7cgcae9uqeole4_20270130T080000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-01-31",
@@ -2023,7 +2196,8 @@
       "title": "🏃 Long Run: Half-Mar Specific 90-105'",
       "source_event_id": "u18t0m8mn1u09fr84i5d6rk3d0_20270131T090000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-02-01",
@@ -2035,7 +2209,8 @@
       "title": "🏊 Swim: Threshold Sets",
       "source_event_id": "r30o5hs7dbq651ff7tckg81o4c_20270201T060000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "hard"
     },
     {
       "date": "2027-02-02",
@@ -2047,7 +2222,8 @@
       "title": "🚴 Bike FTP: 3x12' @ FTP (outdoor, 90')",
       "source_event_id": "1n387jdcvtiqf85j7nu8mtt9h4_20270202T060000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-02-02",
@@ -2059,7 +2235,8 @@
       "title": "🏃 Run Z2 (50')",
       "source_event_id": "k9eb5q21jhqf0c1sdvkc9eiovo_20270202T190000Z",
       "needs_review": false,
-      "note": "sum of the listed parts"
+      "note": "sum of the listed parts",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-02-03",
@@ -2071,7 +2248,8 @@
       "title": "🏊 Swim: CSS Pyramid (100/200/300)",
       "source_event_id": "i208o7tobrdjfb6hur0s90ooos_20270203T060000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "hard"
     },
     {
       "date": "2027-02-03",
@@ -2083,7 +2261,8 @@
       "title": "🏃 Run: Half-Mar Specific 5-6x1k @ HMP",
       "source_event_id": "0ht2hqn4k3u7c1q18dd6nbe6eo_20270203T190000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-02-04",
@@ -2095,7 +2274,8 @@
       "title": "🚴 Bike Sweet Spot: 3x15' (outdoor, 90')",
       "source_event_id": "5ue75fpc569k0nf61tg07a813g_20270204T060000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "hard"
     },
     {
       "date": "2027-02-05",
@@ -2107,7 +2287,8 @@
       "title": "🏊 Swim: Race Pace (2.5-3k)",
       "source_event_id": "32ji6cnoocbiforctakfta2ld0_20270205T060000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-02-06",
@@ -2119,7 +2300,8 @@
       "title": "🔗 Brick: Bike 3h + Run 30' @ HMP off-bike",
       "source_event_id": "bienbafd61fe7cgcae9uqeole4_20270206T080000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-02-06",
@@ -2131,7 +2313,8 @@
       "title": "🔗 Brick: Bike 3h + Run 30' @ HMP off-bike",
       "source_event_id": "bienbafd61fe7cgcae9uqeole4_20270206T080000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-02-07",
@@ -2143,7 +2326,8 @@
       "title": "🏃 Long Run: Half-Mar Specific 90-105'",
       "source_event_id": "u18t0m8mn1u09fr84i5d6rk3d0_20270207T090000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-02-08",
@@ -2155,7 +2339,8 @@
       "title": "🏊 Swim: Threshold Sets",
       "source_event_id": "r30o5hs7dbq651ff7tckg81o4c_20270208T060000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "hard"
     },
     {
       "date": "2027-02-09",
@@ -2167,7 +2352,8 @@
       "title": "🚴 Bike FTP: 3x12' @ FTP (outdoor, 90')",
       "source_event_id": "1n387jdcvtiqf85j7nu8mtt9h4_20270209T060000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-02-09",
@@ -2179,7 +2365,8 @@
       "title": "🏃 Run Z2 (50')",
       "source_event_id": "k9eb5q21jhqf0c1sdvkc9eiovo_20270209T190000Z",
       "needs_review": false,
-      "note": "sum of the listed parts"
+      "note": "sum of the listed parts",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-02-10",
@@ -2191,7 +2378,8 @@
       "title": "🏊 Swim: CSS Pyramid (100/200/300)",
       "source_event_id": "i208o7tobrdjfb6hur0s90ooos_20270210T060000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "hard"
     },
     {
       "date": "2027-02-10",
@@ -2203,7 +2391,8 @@
       "title": "🏃 Run: Half-Mar Specific 5-6x1k @ HMP",
       "source_event_id": "0ht2hqn4k3u7c1q18dd6nbe6eo_20270210T190000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-02-11",
@@ -2215,7 +2404,8 @@
       "title": "🚴 Bike Sweet Spot: 3x15' (outdoor, 90')",
       "source_event_id": "5ue75fpc569k0nf61tg07a813g_20270211T060000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "hard"
     },
     {
       "date": "2027-02-12",
@@ -2227,7 +2417,8 @@
       "title": "🏊 Swim: Race Pace (2.5-3k)",
       "source_event_id": "32ji6cnoocbiforctakfta2ld0_20270212T060000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-02-13",
@@ -2239,7 +2430,8 @@
       "title": "🔗 Brick: Bike 3h + Run 30' @ HMP off-bike",
       "source_event_id": "bienbafd61fe7cgcae9uqeole4_20270213T080000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-02-13",
@@ -2251,7 +2443,8 @@
       "title": "🔗 Brick: Bike 3h + Run 30' @ HMP off-bike",
       "source_event_id": "bienbafd61fe7cgcae9uqeole4_20270213T080000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-02-14",
@@ -2263,7 +2456,8 @@
       "title": "🏃 Long Run: Half-Mar Specific 90-105'",
       "source_event_id": "u18t0m8mn1u09fr84i5d6rk3d0_20270214T090000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-02-15",
@@ -2275,7 +2469,8 @@
       "title": "🏊 Swim: Threshold Sets",
       "source_event_id": "r30o5hs7dbq651ff7tckg81o4c_20270215T060000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "hard"
     },
     {
       "date": "2027-02-16",
@@ -2287,7 +2482,8 @@
       "title": "🚴 Bike FTP: 3x12' @ FTP (outdoor, 90')",
       "source_event_id": "1n387jdcvtiqf85j7nu8mtt9h4_20270216T060000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-02-16",
@@ -2299,7 +2495,8 @@
       "title": "🏃 Run Z2 (50')",
       "source_event_id": "k9eb5q21jhqf0c1sdvkc9eiovo_20270216T190000Z",
       "needs_review": false,
-      "note": "sum of the listed parts"
+      "note": "sum of the listed parts",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-02-17",
@@ -2311,7 +2508,8 @@
       "title": "🏊 Swim: CSS Pyramid (100/200/300)",
       "source_event_id": "i208o7tobrdjfb6hur0s90ooos_20270217T060000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "hard"
     },
     {
       "date": "2027-02-17",
@@ -2323,7 +2521,8 @@
       "title": "🏃 Run: Half-Mar Specific 5-6x1k @ HMP",
       "source_event_id": "0ht2hqn4k3u7c1q18dd6nbe6eo_20270217T190000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-02-18",
@@ -2335,7 +2534,8 @@
       "title": "🚴 Bike Sweet Spot: 3x15' (outdoor, 90')",
       "source_event_id": "5ue75fpc569k0nf61tg07a813g_20270218T060000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "hard"
     },
     {
       "date": "2027-02-19",
@@ -2347,7 +2547,8 @@
       "title": "🏊 Swim: Race Pace (2.5-3k)",
       "source_event_id": "32ji6cnoocbiforctakfta2ld0_20270219T060000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-02-20",
@@ -2359,7 +2560,8 @@
       "title": "🔗 Brick: Bike 3h + Run 30' @ HMP off-bike",
       "source_event_id": "bienbafd61fe7cgcae9uqeole4_20270220T080000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-02-20",
@@ -2371,7 +2573,8 @@
       "title": "🔗 Brick: Bike 3h + Run 30' @ HMP off-bike",
       "source_event_id": "bienbafd61fe7cgcae9uqeole4_20270220T080000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-02-21",
@@ -2383,7 +2586,8 @@
       "title": "🏃 Long Run: Half-Mar Specific 90-105'",
       "source_event_id": "u18t0m8mn1u09fr84i5d6rk3d0_20270221T090000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-02-22",
@@ -2395,7 +2599,8 @@
       "title": "🏊 Swim: Threshold Sets",
       "source_event_id": "r30o5hs7dbq651ff7tckg81o4c_20270222T060000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "hard"
     },
     {
       "date": "2027-02-23",
@@ -2407,7 +2612,8 @@
       "title": "🚴 Bike FTP: 3x12' @ FTP (outdoor, 90')",
       "source_event_id": "1n387jdcvtiqf85j7nu8mtt9h4_20270223T060000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-02-23",
@@ -2419,7 +2625,8 @@
       "title": "🏃 Run Z2 (50')",
       "source_event_id": "k9eb5q21jhqf0c1sdvkc9eiovo_20270223T190000Z",
       "needs_review": false,
-      "note": "sum of the listed parts"
+      "note": "sum of the listed parts",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-02-24",
@@ -2431,7 +2638,8 @@
       "title": "🏊 Swim: CSS Pyramid (100/200/300)",
       "source_event_id": "i208o7tobrdjfb6hur0s90ooos_20270224T060000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "hard"
     },
     {
       "date": "2027-02-24",
@@ -2443,7 +2651,8 @@
       "title": "🏃 Run: Half-Mar Specific 5-6x1k @ HMP",
       "source_event_id": "0ht2hqn4k3u7c1q18dd6nbe6eo_20270224T190000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-02-25",
@@ -2455,7 +2664,8 @@
       "title": "🚴 Bike Sweet Spot: 3x15' (outdoor, 90')",
       "source_event_id": "5ue75fpc569k0nf61tg07a813g_20270225T060000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "hard"
     },
     {
       "date": "2027-02-26",
@@ -2467,7 +2677,8 @@
       "title": "🏊 Swim: Race Pace (2.5-3k)",
       "source_event_id": "32ji6cnoocbiforctakfta2ld0_20270226T060000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-02-27",
@@ -2479,7 +2690,8 @@
       "title": "🔗 Brick: Bike 3h + Run 30' @ HMP off-bike",
       "source_event_id": "bienbafd61fe7cgcae9uqeole4_20270227T080000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-02-27",
@@ -2491,7 +2703,8 @@
       "title": "🔗 Brick: Bike 3h + Run 30' @ HMP off-bike",
       "source_event_id": "bienbafd61fe7cgcae9uqeole4_20270227T080000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-02-28",
@@ -2503,7 +2716,8 @@
       "title": "🏃 Long Run: Half-Mar Specific 90-105'",
       "source_event_id": "u18t0m8mn1u09fr84i5d6rk3d0_20270228T090000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-03-01",
@@ -2515,7 +2729,8 @@
       "title": "🏊 Swim: Threshold Sets",
       "source_event_id": "r30o5hs7dbq651ff7tckg81o4c_20270301T060000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "hard"
     },
     {
       "date": "2027-03-02",
@@ -2527,7 +2742,8 @@
       "title": "🚴 Bike FTP: 3x12' @ FTP (outdoor, 90')",
       "source_event_id": "1n387jdcvtiqf85j7nu8mtt9h4_20270302T060000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-03-02",
@@ -2539,7 +2755,8 @@
       "title": "🏃 Run Z2 (50')",
       "source_event_id": "k9eb5q21jhqf0c1sdvkc9eiovo_20270302T190000Z",
       "needs_review": false,
-      "note": "sum of the listed parts"
+      "note": "sum of the listed parts",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-03-03",
@@ -2551,7 +2768,8 @@
       "title": "🏊 Swim: CSS Pyramid (100/200/300)",
       "source_event_id": "i208o7tobrdjfb6hur0s90ooos_20270303T060000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "hard"
     },
     {
       "date": "2027-03-03",
@@ -2563,7 +2781,8 @@
       "title": "🏃 Run: Half-Mar Specific 5-6x1k @ HMP",
       "source_event_id": "0ht2hqn4k3u7c1q18dd6nbe6eo_20270303T190000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-03-04",
@@ -2575,7 +2794,8 @@
       "title": "🚴 Bike Sweet Spot: 3x15' (outdoor, 90')",
       "source_event_id": "5ue75fpc569k0nf61tg07a813g_20270304T060000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "hard"
     },
     {
       "date": "2027-03-05",
@@ -2587,7 +2807,8 @@
       "title": "🏊 Swim: Race Pace (2.5-3k)",
       "source_event_id": "32ji6cnoocbiforctakfta2ld0_20270305T060000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-03-06",
@@ -2599,7 +2820,8 @@
       "title": "🔗 Brick: Bike 3h + Run 30' @ HMP off-bike",
       "source_event_id": "bienbafd61fe7cgcae9uqeole4_20270306T080000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-03-06",
@@ -2611,7 +2833,8 @@
       "title": "🔗 Brick: Bike 3h + Run 30' @ HMP off-bike",
       "source_event_id": "bienbafd61fe7cgcae9uqeole4_20270306T080000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-03-07",
@@ -2623,7 +2846,8 @@
       "title": "🏃 Long Run: Half-Mar Specific 90-105'",
       "source_event_id": "u18t0m8mn1u09fr84i5d6rk3d0_20270307T090000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-03-08",
@@ -2635,7 +2859,8 @@
       "title": "🏊 Swim: Threshold Sets",
       "source_event_id": "r30o5hs7dbq651ff7tckg81o4c_20270308T060000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "hard"
     },
     {
       "date": "2027-03-09",
@@ -2647,7 +2872,8 @@
       "title": "🚴 Bike FTP: 3x12' @ FTP (outdoor, 90')",
       "source_event_id": "1n387jdcvtiqf85j7nu8mtt9h4_20270309T060000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-03-09",
@@ -2659,7 +2885,8 @@
       "title": "🏃 Run Z2 (50')",
       "source_event_id": "k9eb5q21jhqf0c1sdvkc9eiovo_20270309T190000Z",
       "needs_review": false,
-      "note": "sum of the listed parts"
+      "note": "sum of the listed parts",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-03-10",
@@ -2671,7 +2898,8 @@
       "title": "🏊 Swim: CSS Pyramid (100/200/300)",
       "source_event_id": "i208o7tobrdjfb6hur0s90ooos_20270310T060000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "hard"
     },
     {
       "date": "2027-03-10",
@@ -2683,7 +2911,8 @@
       "title": "🏃 Run: Half-Mar Specific 5-6x1k @ HMP",
       "source_event_id": "0ht2hqn4k3u7c1q18dd6nbe6eo_20270310T190000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-03-11",
@@ -2695,7 +2924,8 @@
       "title": "🚴 Bike Sweet Spot: 3x15' (outdoor, 90')",
       "source_event_id": "5ue75fpc569k0nf61tg07a813g_20270311T060000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "hard"
     },
     {
       "date": "2027-03-12",
@@ -2707,7 +2937,8 @@
       "title": "🏊 Swim: Race Pace (2.5-3k)",
       "source_event_id": "32ji6cnoocbiforctakfta2ld0_20270312T060000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-03-13",
@@ -2719,7 +2950,8 @@
       "title": "🔗 Brick: Bike 3h + Run 30' @ HMP off-bike",
       "source_event_id": "bienbafd61fe7cgcae9uqeole4_20270313T080000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-03-13",
@@ -2731,7 +2963,8 @@
       "title": "🔗 Brick: Bike 3h + Run 30' @ HMP off-bike",
       "source_event_id": "bienbafd61fe7cgcae9uqeole4_20270313T080000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-03-14",
@@ -2743,7 +2976,8 @@
       "title": "🏃 Long Run: Half-Mar Specific 90-105'",
       "source_event_id": "u18t0m8mn1u09fr84i5d6rk3d0_20270314T090000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-03-15",
@@ -2755,7 +2989,8 @@
       "title": "🏊 Swim: Threshold Sets",
       "source_event_id": "r30o5hs7dbq651ff7tckg81o4c_20270315T060000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "hard"
     },
     {
       "date": "2027-03-16",
@@ -2767,7 +3002,8 @@
       "title": "🚴 Bike FTP: 3x12' @ FTP (outdoor, 90')",
       "source_event_id": "1n387jdcvtiqf85j7nu8mtt9h4_20270316T060000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-03-16",
@@ -2779,7 +3015,8 @@
       "title": "🏃 Run Z2 (50')",
       "source_event_id": "k9eb5q21jhqf0c1sdvkc9eiovo_20270316T190000Z",
       "needs_review": false,
-      "note": "sum of the listed parts"
+      "note": "sum of the listed parts",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-03-17",
@@ -2791,7 +3028,8 @@
       "title": "🏊 Swim: CSS Pyramid (100/200/300)",
       "source_event_id": "i208o7tobrdjfb6hur0s90ooos_20270317T060000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "hard"
     },
     {
       "date": "2027-03-17",
@@ -2803,7 +3041,8 @@
       "title": "🏃 Run: Half-Mar Specific 5-6x1k @ HMP",
       "source_event_id": "0ht2hqn4k3u7c1q18dd6nbe6eo_20270317T190000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-03-18",
@@ -2815,7 +3054,8 @@
       "title": "🚴 Bike Sweet Spot: 3x15' (outdoor, 90')",
       "source_event_id": "5ue75fpc569k0nf61tg07a813g_20270318T060000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "hard"
     },
     {
       "date": "2027-03-19",
@@ -2827,7 +3067,8 @@
       "title": "🏊 Swim: Race Pace (2.5-3k)",
       "source_event_id": "32ji6cnoocbiforctakfta2ld0_20270319T060000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-03-20",
@@ -2839,7 +3080,8 @@
       "title": "🔗 Brick: Bike 3h + Run 30' @ HMP off-bike",
       "source_event_id": "bienbafd61fe7cgcae9uqeole4_20270320T080000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-03-20",
@@ -2851,7 +3093,8 @@
       "title": "🔗 Brick: Bike 3h + Run 30' @ HMP off-bike",
       "source_event_id": "bienbafd61fe7cgcae9uqeole4_20270320T080000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-03-21",
@@ -2863,7 +3106,8 @@
       "title": "🏃 Long Run: Half-Mar Specific 90-105'",
       "source_event_id": "u18t0m8mn1u09fr84i5d6rk3d0_20270321T090000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-03-22",
@@ -2875,7 +3119,8 @@
       "title": "🏊 Swim: Threshold Sets",
       "source_event_id": "r30o5hs7dbq651ff7tckg81o4c_20270322T060000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "hard"
     },
     {
       "date": "2027-03-23",
@@ -2887,7 +3132,8 @@
       "title": "🚴 Bike FTP: 3x12' @ FTP (outdoor, 90')",
       "source_event_id": "1n387jdcvtiqf85j7nu8mtt9h4_20270323T060000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-03-23",
@@ -2899,7 +3145,8 @@
       "title": "🏃 Run Z2 (50')",
       "source_event_id": "k9eb5q21jhqf0c1sdvkc9eiovo_20270323T190000Z",
       "needs_review": false,
-      "note": "sum of the listed parts"
+      "note": "sum of the listed parts",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-03-24",
@@ -2911,7 +3158,8 @@
       "title": "🏊 Swim: CSS Pyramid (100/200/300)",
       "source_event_id": "i208o7tobrdjfb6hur0s90ooos_20270324T060000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "hard"
     },
     {
       "date": "2027-03-24",
@@ -2923,7 +3171,8 @@
       "title": "🏃 Run: Half-Mar Specific 5-6x1k @ HMP",
       "source_event_id": "0ht2hqn4k3u7c1q18dd6nbe6eo_20270324T190000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-03-25",
@@ -2935,7 +3184,8 @@
       "title": "🚴 Bike Sweet Spot: 3x15' (outdoor, 90')",
       "source_event_id": "5ue75fpc569k0nf61tg07a813g_20270325T060000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "hard"
     },
     {
       "date": "2027-03-26",
@@ -2947,7 +3197,8 @@
       "title": "🏊 Swim: Race Pace (2.5-3k)",
       "source_event_id": "32ji6cnoocbiforctakfta2ld0_20270326T060000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-03-27",
@@ -2959,7 +3210,8 @@
       "title": "🔗 Brick: Bike 3h + Run 30' @ HMP off-bike",
       "source_event_id": "bienbafd61fe7cgcae9uqeole4_20270327T080000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-03-27",
@@ -2971,7 +3223,8 @@
       "title": "🔗 Brick: Bike 3h + Run 30' @ HMP off-bike",
       "source_event_id": "bienbafd61fe7cgcae9uqeole4_20270327T080000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-03-28",
@@ -2983,7 +3236,8 @@
       "title": "🏃 Long Run: Half-Mar Specific 90-105'",
       "source_event_id": "u18t0m8mn1u09fr84i5d6rk3d0_20270328T080000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-03-29",
@@ -2995,7 +3249,8 @@
       "title": "🏊 Swim: Threshold + Endurance (3k)",
       "source_event_id": "s8nlt2lc626g9t5c1gdl5qf2os_20270329T050000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "hard"
     },
     {
       "date": "2027-03-30",
@@ -3007,7 +3262,8 @@
       "title": "🚴 Bike Race Pace: 2x30' @ 70.3 watts",
       "source_event_id": "i33cf37p29t71ocrrodo4c46p0_20270330T050000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-03-30",
@@ -3019,7 +3275,8 @@
       "title": "🏃 Run Z2 (45')",
       "source_event_id": "bvdcmu2mj74cjfg81jfmr8ufdc_20270330T180000Z",
       "needs_review": false,
-      "note": "sum of the listed parts"
+      "note": "sum of the listed parts",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-03-31",
@@ -3031,7 +3288,8 @@
       "title": "🏊 Swim: Race Pace 1900m + Sighting",
       "source_event_id": "37o85e3dvmu6s2ri223eslphkk_20270331T050000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-03-31",
@@ -3043,7 +3301,8 @@
       "title": "🏃 Run Threshold: 5x1k @ threshold",
       "source_event_id": "tsessgvo886mrc35kq77idp8f8_20270331T180000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "hard"
     },
     {
       "date": "2027-04-01",
@@ -3055,7 +3314,8 @@
       "title": "🚴 Bike Z2 Endurance (outdoor, 75')",
       "source_event_id": "6qmos3mi4mugp8p20g5ofca7m4_20270401T050000Z",
       "needs_review": false,
-      "note": "sum of the listed parts"
+      "note": "sum of the listed parts",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-04-02",
@@ -3067,7 +3327,8 @@
       "title": "🏊 Swim: Open Water Sim / Tech (2.5-3k)",
       "source_event_id": "7mu81hpsullr4l2rpbiir8morc_20270402T050000Z",
       "needs_review": true,
-      "note": "the title gives a range, not one value"
+      "note": "the title gives a range, not one value",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-04-03",
@@ -3079,7 +3340,8 @@
       "title": "🔗 BIG BRICK: Bike 3.5-4h + Run 45' race pace",
       "source_event_id": "22frdj8fg8ri7eujahaso7lc10_20270403T060000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-04-03",
@@ -3091,7 +3353,8 @@
       "title": "🔗 BIG BRICK: Bike 3.5-4h + Run 45' race pace",
       "source_event_id": "22frdj8fg8ri7eujahaso7lc10_20270403T060000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-04-04",
@@ -3105,7 +3368,8 @@
       "needs_review": false,
       "note": "manual entry (gate race)",
       "hand_filled": true,
-      "manual_entry": true
+      "manual_entry": true,
+      "intensity_class": "easy"
     },
     {
       "date": "2027-04-05",
@@ -3117,7 +3381,8 @@
       "title": "🏊 Swim: Threshold + Endurance (3k)",
       "source_event_id": "s8nlt2lc626g9t5c1gdl5qf2os_20270405T050000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "hard"
     },
     {
       "date": "2027-04-06",
@@ -3129,7 +3394,8 @@
       "title": "🚴 Bike Race Pace: 2x30' @ 70.3 watts",
       "source_event_id": "i33cf37p29t71ocrrodo4c46p0_20270406T050000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-04-06",
@@ -3141,7 +3407,8 @@
       "title": "🏃 Run Z2 (45')",
       "source_event_id": "bvdcmu2mj74cjfg81jfmr8ufdc_20270406T180000Z",
       "needs_review": false,
-      "note": "sum of the listed parts"
+      "note": "sum of the listed parts",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-04-07",
@@ -3153,7 +3420,8 @@
       "title": "🏊 Swim: Race Pace 1900m + Sighting",
       "source_event_id": "37o85e3dvmu6s2ri223eslphkk_20270407T050000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-04-07",
@@ -3165,7 +3433,8 @@
       "title": "🏃 Run Threshold: 5x1k @ threshold",
       "source_event_id": "tsessgvo886mrc35kq77idp8f8_20270407T180000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "hard"
     },
     {
       "date": "2027-04-08",
@@ -3177,7 +3446,8 @@
       "title": "🚴 Bike Z2 Endurance (outdoor, 75')",
       "source_event_id": "6qmos3mi4mugp8p20g5ofca7m4_20270408T050000Z",
       "needs_review": false,
-      "note": "sum of the listed parts"
+      "note": "sum of the listed parts",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-04-09",
@@ -3189,7 +3459,8 @@
       "title": "🏊 Swim: Open Water Sim / Tech (2.5-3k)",
       "source_event_id": "7mu81hpsullr4l2rpbiir8morc_20270409T050000Z",
       "needs_review": true,
-      "note": "the title gives a range, not one value"
+      "note": "the title gives a range, not one value",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-04-10",
@@ -3201,7 +3472,8 @@
       "title": "🔗 BIG BRICK: Bike 3.5-4h + Run 45' race pace",
       "source_event_id": "22frdj8fg8ri7eujahaso7lc10_20270410T060000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-04-10",
@@ -3213,7 +3485,8 @@
       "title": "🔗 BIG BRICK: Bike 3.5-4h + Run 45' race pace",
       "source_event_id": "22frdj8fg8ri7eujahaso7lc10_20270410T060000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-04-11",
@@ -3225,7 +3498,8 @@
       "title": "🏃 Long Run + Recovery Swim",
       "source_event_id": "k9klikjm309f8cels7bhr20ofs_20270411T073000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-04-11",
@@ -3237,7 +3511,8 @@
       "title": "🏃 Long Run + Recovery Swim",
       "source_event_id": "k9klikjm309f8cels7bhr20ofs_20270411T073000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-04-12",
@@ -3249,7 +3524,8 @@
       "title": "🏊 Swim: Threshold + Endurance (3k)",
       "source_event_id": "s8nlt2lc626g9t5c1gdl5qf2os_20270412T050000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "hard"
     },
     {
       "date": "2027-04-13",
@@ -3261,7 +3537,8 @@
       "title": "🚴 Bike Race Pace: 2x30' @ 70.3 watts",
       "source_event_id": "i33cf37p29t71ocrrodo4c46p0_20270413T050000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-04-13",
@@ -3273,7 +3550,8 @@
       "title": "🏃 Run Z2 (45')",
       "source_event_id": "bvdcmu2mj74cjfg81jfmr8ufdc_20270413T180000Z",
       "needs_review": false,
-      "note": "sum of the listed parts"
+      "note": "sum of the listed parts",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-04-14",
@@ -3285,7 +3563,8 @@
       "title": "🏊 Swim: Race Pace 1900m + Sighting",
       "source_event_id": "37o85e3dvmu6s2ri223eslphkk_20270414T050000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-04-14",
@@ -3297,7 +3576,8 @@
       "title": "🏃 Run Threshold: 5x1k @ threshold",
       "source_event_id": "tsessgvo886mrc35kq77idp8f8_20270414T180000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "hard"
     },
     {
       "date": "2027-04-15",
@@ -3309,7 +3589,8 @@
       "title": "🚴 Bike Z2 Endurance (outdoor, 75')",
       "source_event_id": "6qmos3mi4mugp8p20g5ofca7m4_20270415T050000Z",
       "needs_review": false,
-      "note": "sum of the listed parts"
+      "note": "sum of the listed parts",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-04-16",
@@ -3321,7 +3602,8 @@
       "title": "🏊 Swim: Open Water Sim / Tech (2.5-3k)",
       "source_event_id": "7mu81hpsullr4l2rpbiir8morc_20270416T050000Z",
       "needs_review": true,
-      "note": "the title gives a range, not one value"
+      "note": "the title gives a range, not one value",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-04-17",
@@ -3333,7 +3615,8 @@
       "title": "🔗 BIG BRICK: Bike 3.5-4h + Run 45' race pace",
       "source_event_id": "22frdj8fg8ri7eujahaso7lc10_20270417T060000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-04-17",
@@ -3345,7 +3628,8 @@
       "title": "🔗 BIG BRICK: Bike 3.5-4h + Run 45' race pace",
       "source_event_id": "22frdj8fg8ri7eujahaso7lc10_20270417T060000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-04-18",
@@ -3357,7 +3641,8 @@
       "title": "🏃 Long Run + Recovery Swim",
       "source_event_id": "k9klikjm309f8cels7bhr20ofs_20270418T073000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-04-18",
@@ -3369,7 +3654,8 @@
       "title": "🏃 Long Run + Recovery Swim",
       "source_event_id": "k9klikjm309f8cels7bhr20ofs_20270418T073000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-04-19",
@@ -3381,7 +3667,8 @@
       "title": "🏊 Swim: Threshold + Endurance (3k)",
       "source_event_id": "s8nlt2lc626g9t5c1gdl5qf2os_20270419T050000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "hard"
     },
     {
       "date": "2027-04-20",
@@ -3393,7 +3680,8 @@
       "title": "🚴 Bike Race Pace: 2x30' @ 70.3 watts",
       "source_event_id": "i33cf37p29t71ocrrodo4c46p0_20270420T050000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-04-20",
@@ -3405,7 +3693,8 @@
       "title": "🏃 Run Z2 (45')",
       "source_event_id": "bvdcmu2mj74cjfg81jfmr8ufdc_20270420T180000Z",
       "needs_review": false,
-      "note": "sum of the listed parts"
+      "note": "sum of the listed parts",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-04-21",
@@ -3417,7 +3706,8 @@
       "title": "🏊 Swim: Race Pace 1900m + Sighting",
       "source_event_id": "37o85e3dvmu6s2ri223eslphkk_20270421T050000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-04-21",
@@ -3429,7 +3719,8 @@
       "title": "🏃 Run Threshold: 5x1k @ threshold",
       "source_event_id": "tsessgvo886mrc35kq77idp8f8_20270421T180000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "hard"
     },
     {
       "date": "2027-04-22",
@@ -3441,7 +3732,8 @@
       "title": "🚴 Bike Z2 Endurance (outdoor, 75')",
       "source_event_id": "6qmos3mi4mugp8p20g5ofca7m4_20270422T050000Z",
       "needs_review": false,
-      "note": "sum of the listed parts"
+      "note": "sum of the listed parts",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-04-23",
@@ -3453,7 +3745,8 @@
       "title": "🏊 Swim: Open Water Sim / Tech (2.5-3k)",
       "source_event_id": "7mu81hpsullr4l2rpbiir8morc_20270423T050000Z",
       "needs_review": true,
-      "note": "the title gives a range, not one value"
+      "note": "the title gives a range, not one value",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-04-24",
@@ -3465,7 +3758,8 @@
       "title": "🔗 BIG BRICK: Bike 3.5-4h + Run 45' race pace",
       "source_event_id": "22frdj8fg8ri7eujahaso7lc10_20270424T060000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-04-24",
@@ -3477,7 +3771,8 @@
       "title": "🔗 BIG BRICK: Bike 3.5-4h + Run 45' race pace",
       "source_event_id": "22frdj8fg8ri7eujahaso7lc10_20270424T060000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-04-25",
@@ -3489,7 +3784,8 @@
       "title": "🏃 Long Run + Recovery Swim",
       "source_event_id": "k9klikjm309f8cels7bhr20ofs_20270425T073000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-04-25",
@@ -3501,7 +3797,8 @@
       "title": "🏃 Long Run + Recovery Swim",
       "source_event_id": "k9klikjm309f8cels7bhr20ofs_20270425T073000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-04-26",
@@ -3513,7 +3810,8 @@
       "title": "🏊 Swim: Threshold + Endurance (3k)",
       "source_event_id": "s8nlt2lc626g9t5c1gdl5qf2os_20270426T050000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "hard"
     },
     {
       "date": "2027-04-27",
@@ -3525,7 +3823,8 @@
       "title": "🚴 Bike Race Pace: 2x30' @ 70.3 watts",
       "source_event_id": "i33cf37p29t71ocrrodo4c46p0_20270427T050000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-04-27",
@@ -3537,7 +3836,8 @@
       "title": "🏃 Run Z2 (45')",
       "source_event_id": "bvdcmu2mj74cjfg81jfmr8ufdc_20270427T180000Z",
       "needs_review": false,
-      "note": "sum of the listed parts"
+      "note": "sum of the listed parts",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-04-28",
@@ -3549,7 +3849,8 @@
       "title": "🏊 Swim: Race Pace 1900m + Sighting",
       "source_event_id": "37o85e3dvmu6s2ri223eslphkk_20270428T050000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-04-28",
@@ -3561,7 +3862,8 @@
       "title": "🏃 Run Threshold: 5x1k @ threshold",
       "source_event_id": "tsessgvo886mrc35kq77idp8f8_20270428T180000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "hard"
     },
     {
       "date": "2027-04-29",
@@ -3573,7 +3875,8 @@
       "title": "🚴 Bike Z2 Endurance (outdoor, 75')",
       "source_event_id": "6qmos3mi4mugp8p20g5ofca7m4_20270429T050000Z",
       "needs_review": false,
-      "note": "sum of the listed parts"
+      "note": "sum of the listed parts",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-04-30",
@@ -3585,7 +3888,8 @@
       "title": "🏊 Swim: Open Water Sim / Tech (2.5-3k)",
       "source_event_id": "7mu81hpsullr4l2rpbiir8morc_20270430T050000Z",
       "needs_review": true,
-      "note": "the title gives a range, not one value"
+      "note": "the title gives a range, not one value",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-05-01",
@@ -3597,7 +3901,8 @@
       "title": "🔗 BIG BRICK: Bike 3.5-4h + Run 45' race pace",
       "source_event_id": "22frdj8fg8ri7eujahaso7lc10_20270501T060000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-05-01",
@@ -3609,7 +3914,8 @@
       "title": "🔗 BIG BRICK: Bike 3.5-4h + Run 45' race pace",
       "source_event_id": "22frdj8fg8ri7eujahaso7lc10_20270501T060000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-05-02",
@@ -3621,7 +3927,8 @@
       "title": "🏃 Long Run + Recovery Swim",
       "source_event_id": "k9klikjm309f8cels7bhr20ofs_20270502T073000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-05-02",
@@ -3633,7 +3940,8 @@
       "title": "🏃 Long Run + Recovery Swim",
       "source_event_id": "k9klikjm309f8cels7bhr20ofs_20270502T073000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-05-03",
@@ -3645,7 +3953,8 @@
       "title": "🏊 Swim: Threshold + Endurance (3k)",
       "source_event_id": "s8nlt2lc626g9t5c1gdl5qf2os_20270503T050000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "hard"
     },
     {
       "date": "2027-05-04",
@@ -3657,7 +3966,8 @@
       "title": "🚴 Bike Race Pace: 2x30' @ 70.3 watts",
       "source_event_id": "i33cf37p29t71ocrrodo4c46p0_20270504T050000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-05-04",
@@ -3669,7 +3979,8 @@
       "title": "🏃 Run Z2 (45')",
       "source_event_id": "bvdcmu2mj74cjfg81jfmr8ufdc_20270504T180000Z",
       "needs_review": false,
-      "note": "sum of the listed parts"
+      "note": "sum of the listed parts",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-05-05",
@@ -3681,7 +3992,8 @@
       "title": "🏊 Swim: Race Pace 1900m + Sighting",
       "source_event_id": "37o85e3dvmu6s2ri223eslphkk_20270505T050000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-05-05",
@@ -3693,7 +4005,8 @@
       "title": "🏃 Run Threshold: 5x1k @ threshold",
       "source_event_id": "tsessgvo886mrc35kq77idp8f8_20270505T180000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "hard"
     },
     {
       "date": "2027-05-06",
@@ -3705,7 +4018,8 @@
       "title": "🚴 Bike Z2 Endurance (outdoor, 75')",
       "source_event_id": "6qmos3mi4mugp8p20g5ofca7m4_20270506T050000Z",
       "needs_review": false,
-      "note": "sum of the listed parts"
+      "note": "sum of the listed parts",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-05-07",
@@ -3717,7 +4031,8 @@
       "title": "🏊 Swim: Open Water Sim / Tech (2.5-3k)",
       "source_event_id": "7mu81hpsullr4l2rpbiir8morc_20270507T050000Z",
       "needs_review": true,
-      "note": "the title gives a range, not one value"
+      "note": "the title gives a range, not one value",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-05-08",
@@ -3729,7 +4044,8 @@
       "title": "🔗 BIG BRICK: Bike 3.5-4h + Run 45' race pace",
       "source_event_id": "22frdj8fg8ri7eujahaso7lc10_20270508T060000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-05-08",
@@ -3741,7 +4057,8 @@
       "title": "🔗 BIG BRICK: Bike 3.5-4h + Run 45' race pace",
       "source_event_id": "22frdj8fg8ri7eujahaso7lc10_20270508T060000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-05-09",
@@ -3753,7 +4070,8 @@
       "title": "🏃 Long Run + Recovery Swim",
       "source_event_id": "k9klikjm309f8cels7bhr20ofs_20270509T073000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-05-09",
@@ -3765,7 +4083,8 @@
       "title": "🏃 Long Run + Recovery Swim",
       "source_event_id": "k9klikjm309f8cels7bhr20ofs_20270509T073000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-05-10",
@@ -3777,7 +4096,8 @@
       "title": "🏊 Swim: Threshold + Endurance (3k)",
       "source_event_id": "s8nlt2lc626g9t5c1gdl5qf2os_20270510T050000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "hard"
     },
     {
       "date": "2027-05-11",
@@ -3789,7 +4109,8 @@
       "title": "🚴 Bike Race Pace: 2x30' @ 70.3 watts",
       "source_event_id": "i33cf37p29t71ocrrodo4c46p0_20270511T050000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-05-11",
@@ -3801,7 +4122,8 @@
       "title": "🏃 Run Z2 (45')",
       "source_event_id": "bvdcmu2mj74cjfg81jfmr8ufdc_20270511T180000Z",
       "needs_review": false,
-      "note": "sum of the listed parts"
+      "note": "sum of the listed parts",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-05-12",
@@ -3813,7 +4135,8 @@
       "title": "🏊 Swim: Race Pace 1900m + Sighting",
       "source_event_id": "37o85e3dvmu6s2ri223eslphkk_20270512T050000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-05-12",
@@ -3825,7 +4148,8 @@
       "title": "🏃 Run Threshold: 5x1k @ threshold",
       "source_event_id": "tsessgvo886mrc35kq77idp8f8_20270512T180000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "hard"
     },
     {
       "date": "2027-05-13",
@@ -3837,7 +4161,8 @@
       "title": "🚴 Bike Z2 Endurance (outdoor, 75')",
       "source_event_id": "6qmos3mi4mugp8p20g5ofca7m4_20270513T050000Z",
       "needs_review": false,
-      "note": "sum of the listed parts"
+      "note": "sum of the listed parts",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-05-14",
@@ -3849,7 +4174,8 @@
       "title": "🏊 Swim: Open Water Sim / Tech (2.5-3k)",
       "source_event_id": "7mu81hpsullr4l2rpbiir8morc_20270514T050000Z",
       "needs_review": true,
-      "note": "the title gives a range, not one value"
+      "note": "the title gives a range, not one value",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-05-15",
@@ -3861,7 +4187,8 @@
       "title": "🔗 BIG BRICK: Bike 3.5-4h + Run 45' race pace",
       "source_event_id": "22frdj8fg8ri7eujahaso7lc10_20270515T060000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-05-15",
@@ -3873,7 +4200,8 @@
       "title": "🔗 BIG BRICK: Bike 3.5-4h + Run 45' race pace",
       "source_event_id": "22frdj8fg8ri7eujahaso7lc10_20270515T060000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-05-16",
@@ -3885,7 +4213,8 @@
       "title": "🏃 Long Run + Recovery Swim",
       "source_event_id": "k9klikjm309f8cels7bhr20ofs_20270516T073000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-05-16",
@@ -3897,7 +4226,8 @@
       "title": "🏃 Long Run + Recovery Swim",
       "source_event_id": "k9klikjm309f8cels7bhr20ofs_20270516T073000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-05-17",
@@ -3909,7 +4239,8 @@
       "title": "🏊 Swim: Threshold + Endurance (3k)",
       "source_event_id": "s8nlt2lc626g9t5c1gdl5qf2os_20270517T050000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "hard"
     },
     {
       "date": "2027-05-18",
@@ -3921,7 +4252,8 @@
       "title": "🚴 Bike Race Pace: 2x30' @ 70.3 watts",
       "source_event_id": "i33cf37p29t71ocrrodo4c46p0_20270518T050000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-05-18",
@@ -3933,7 +4265,8 @@
       "title": "🏃 Run Z2 (45')",
       "source_event_id": "bvdcmu2mj74cjfg81jfmr8ufdc_20270518T180000Z",
       "needs_review": false,
-      "note": "sum of the listed parts"
+      "note": "sum of the listed parts",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-05-19",
@@ -3945,7 +4278,8 @@
       "title": "🏊 Swim: Race Pace 1900m + Sighting",
       "source_event_id": "37o85e3dvmu6s2ri223eslphkk_20270519T050000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-05-19",
@@ -3957,7 +4291,8 @@
       "title": "🏃 Run Threshold: 5x1k @ threshold",
       "source_event_id": "tsessgvo886mrc35kq77idp8f8_20270519T180000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "hard"
     },
     {
       "date": "2027-05-20",
@@ -3969,7 +4304,8 @@
       "title": "🚴 Bike Z2 Endurance (outdoor, 75')",
       "source_event_id": "6qmos3mi4mugp8p20g5ofca7m4_20270520T050000Z",
       "needs_review": false,
-      "note": "sum of the listed parts"
+      "note": "sum of the listed parts",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-05-21",
@@ -3981,7 +4317,8 @@
       "title": "🏊 Swim: Open Water Sim / Tech (2.5-3k)",
       "source_event_id": "7mu81hpsullr4l2rpbiir8morc_20270521T050000Z",
       "needs_review": true,
-      "note": "the title gives a range, not one value"
+      "note": "the title gives a range, not one value",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-05-22",
@@ -3993,7 +4330,8 @@
       "title": "🔗 BIG BRICK: Bike 3.5-4h + Run 45' race pace",
       "source_event_id": "22frdj8fg8ri7eujahaso7lc10_20270522T060000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-05-22",
@@ -4005,7 +4343,8 @@
       "title": "🔗 BIG BRICK: Bike 3.5-4h + Run 45' race pace",
       "source_event_id": "22frdj8fg8ri7eujahaso7lc10_20270522T060000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-05-23",
@@ -4017,7 +4356,8 @@
       "title": "🏃 Long Run + Recovery Swim",
       "source_event_id": "k9klikjm309f8cels7bhr20ofs_20270523T073000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-05-23",
@@ -4029,7 +4369,8 @@
       "title": "🏃 Long Run + Recovery Swim",
       "source_event_id": "k9klikjm309f8cels7bhr20ofs_20270523T073000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-05-24",
@@ -4041,7 +4382,8 @@
       "title": "🏊 Swim: Threshold + Endurance (3k)",
       "source_event_id": "s8nlt2lc626g9t5c1gdl5qf2os_20270524T050000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "hard"
     },
     {
       "date": "2027-05-25",
@@ -4053,7 +4395,8 @@
       "title": "🚴 Bike Race Pace: 2x30' @ 70.3 watts",
       "source_event_id": "i33cf37p29t71ocrrodo4c46p0_20270525T050000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-05-25",
@@ -4065,7 +4408,8 @@
       "title": "🏃 Run Z2 (45')",
       "source_event_id": "bvdcmu2mj74cjfg81jfmr8ufdc_20270525T180000Z",
       "needs_review": false,
-      "note": "sum of the listed parts"
+      "note": "sum of the listed parts",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-05-26",
@@ -4077,7 +4421,8 @@
       "title": "🏊 Swim: Race Pace 1900m + Sighting",
       "source_event_id": "37o85e3dvmu6s2ri223eslphkk_20270526T050000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-05-26",
@@ -4089,7 +4434,8 @@
       "title": "🏃 Run Threshold: 5x1k @ threshold",
       "source_event_id": "tsessgvo886mrc35kq77idp8f8_20270526T180000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "hard"
     },
     {
       "date": "2027-05-27",
@@ -4101,7 +4447,8 @@
       "title": "🚴 Bike Z2 Endurance (outdoor, 75')",
       "source_event_id": "6qmos3mi4mugp8p20g5ofca7m4_20270527T050000Z",
       "needs_review": false,
-      "note": "sum of the listed parts"
+      "note": "sum of the listed parts",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-05-28",
@@ -4113,7 +4460,8 @@
       "title": "🏊 Swim: Open Water Sim / Tech (2.5-3k)",
       "source_event_id": "7mu81hpsullr4l2rpbiir8morc_20270528T050000Z",
       "needs_review": true,
-      "note": "the title gives a range, not one value"
+      "note": "the title gives a range, not one value",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-05-29",
@@ -4125,7 +4473,8 @@
       "title": "🔗 BIG BRICK: Bike 3.5-4h + Run 45' race pace",
       "source_event_id": "22frdj8fg8ri7eujahaso7lc10_20270529T060000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-05-29",
@@ -4137,7 +4486,8 @@
       "title": "🔗 BIG BRICK: Bike 3.5-4h + Run 45' race pace",
       "source_event_id": "22frdj8fg8ri7eujahaso7lc10_20270529T060000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-05-30",
@@ -4149,7 +4499,8 @@
       "title": "🏃 Long Run + Recovery Swim",
       "source_event_id": "k9klikjm309f8cels7bhr20ofs_20270530T073000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-05-30",
@@ -4161,7 +4512,8 @@
       "title": "🏃 Long Run + Recovery Swim",
       "source_event_id": "k9klikjm309f8cels7bhr20ofs_20270530T073000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-05-31",
@@ -4173,7 +4525,8 @@
       "title": "🏊 Swim: Threshold + Endurance (3k)",
       "source_event_id": "s8nlt2lc626g9t5c1gdl5qf2os_20270531T050000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "hard"
     },
     {
       "date": "2027-06-01",
@@ -4185,7 +4538,8 @@
       "title": "🚴 Bike Race Pace: 2x30' @ 70.3 watts",
       "source_event_id": "i33cf37p29t71ocrrodo4c46p0_20270601T050000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-06-01",
@@ -4197,7 +4551,8 @@
       "title": "🏃 Run Z2 (45')",
       "source_event_id": "bvdcmu2mj74cjfg81jfmr8ufdc_20270601T180000Z",
       "needs_review": false,
-      "note": "sum of the listed parts"
+      "note": "sum of the listed parts",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-06-02",
@@ -4209,7 +4564,8 @@
       "title": "🏊 Swim: Race Pace 1900m + Sighting",
       "source_event_id": "37o85e3dvmu6s2ri223eslphkk_20270602T050000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-06-02",
@@ -4221,7 +4577,8 @@
       "title": "🏃 Run Threshold: 5x1k @ threshold",
       "source_event_id": "tsessgvo886mrc35kq77idp8f8_20270602T180000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "hard"
     },
     {
       "date": "2027-06-03",
@@ -4233,7 +4590,8 @@
       "title": "🚴 Bike Z2 Endurance (outdoor, 75')",
       "source_event_id": "6qmos3mi4mugp8p20g5ofca7m4_20270603T050000Z",
       "needs_review": false,
-      "note": "sum of the listed parts"
+      "note": "sum of the listed parts",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-06-04",
@@ -4245,7 +4603,8 @@
       "title": "🏊 Swim: Open Water Sim / Tech (2.5-3k)",
       "source_event_id": "7mu81hpsullr4l2rpbiir8morc_20270604T050000Z",
       "needs_review": true,
-      "note": "the title gives a range, not one value"
+      "note": "the title gives a range, not one value",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-06-05",
@@ -4257,7 +4616,8 @@
       "title": "🔗 BIG BRICK: Bike 3.5-4h + Run 45' race pace",
       "source_event_id": "22frdj8fg8ri7eujahaso7lc10_20270605T060000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-06-05",
@@ -4269,7 +4629,8 @@
       "title": "🏁 DRESS REHEARSAL: 90k Bike + 21k Run",
       "source_event_id": "t7v72r7qmtca52iih9vnbdu4a4",
       "needs_review": true,
-      "note": "the line for this date gives no duration"
+      "note": "the line for this date gives no duration",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-06-05",
@@ -4281,7 +4642,8 @@
       "title": "🔗 BIG BRICK: Bike 3.5-4h + Run 45' race pace",
       "source_event_id": "22frdj8fg8ri7eujahaso7lc10_20270605T060000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-06-05",
@@ -4293,7 +4655,8 @@
       "title": "🏁 DRESS REHEARSAL: 90k Bike + 21k Run",
       "source_event_id": "t7v72r7qmtca52iih9vnbdu4a4",
       "needs_review": true,
-      "note": "the line for this date gives no duration"
+      "note": "the line for this date gives no duration",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-06-06",
@@ -4305,7 +4668,8 @@
       "title": "🏃 Long Run + Recovery Swim",
       "source_event_id": "k9klikjm309f8cels7bhr20ofs_20270606T073000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-06-06",
@@ -4317,7 +4681,8 @@
       "title": "🏃 Long Run + Recovery Swim",
       "source_event_id": "k9klikjm309f8cels7bhr20ofs_20270606T073000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-06-07",
@@ -4329,7 +4694,8 @@
       "title": "🏊 Swim: Threshold + Endurance (3k)",
       "source_event_id": "s8nlt2lc626g9t5c1gdl5qf2os_20270607T050000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "hard"
     },
     {
       "date": "2027-06-08",
@@ -4341,7 +4707,8 @@
       "title": "🚴 Bike Race Pace: 2x30' @ 70.3 watts",
       "source_event_id": "i33cf37p29t71ocrrodo4c46p0_20270608T050000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-06-08",
@@ -4353,7 +4720,8 @@
       "title": "🏃 Run Z2 (45')",
       "source_event_id": "bvdcmu2mj74cjfg81jfmr8ufdc_20270608T180000Z",
       "needs_review": false,
-      "note": "sum of the listed parts"
+      "note": "sum of the listed parts",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-06-09",
@@ -4365,7 +4733,8 @@
       "title": "🏊 Swim: Race Pace 1900m + Sighting",
       "source_event_id": "37o85e3dvmu6s2ri223eslphkk_20270609T050000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-06-09",
@@ -4377,7 +4746,8 @@
       "title": "🏃 Run Threshold: 5x1k @ threshold",
       "source_event_id": "tsessgvo886mrc35kq77idp8f8_20270609T180000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "hard"
     },
     {
       "date": "2027-06-10",
@@ -4389,7 +4759,8 @@
       "title": "🚴 Bike Z2 Endurance (outdoor, 75')",
       "source_event_id": "6qmos3mi4mugp8p20g5ofca7m4_20270610T050000Z",
       "needs_review": false,
-      "note": "sum of the listed parts"
+      "note": "sum of the listed parts",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-06-11",
@@ -4401,7 +4772,8 @@
       "title": "🏊 Swim: Open Water Sim / Tech (2.5-3k)",
       "source_event_id": "7mu81hpsullr4l2rpbiir8morc_20270611T050000Z",
       "needs_review": true,
-      "note": "the title gives a range, not one value"
+      "note": "the title gives a range, not one value",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-06-12",
@@ -4413,7 +4785,8 @@
       "title": "🔗 BIG BRICK: Bike 3.5-4h + Run 45' race pace",
       "source_event_id": "22frdj8fg8ri7eujahaso7lc10_20270612T060000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-06-12",
@@ -4425,7 +4798,8 @@
       "title": "🔗 BIG BRICK: Bike 3.5-4h + Run 45' race pace",
       "source_event_id": "22frdj8fg8ri7eujahaso7lc10_20270612T060000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-06-13",
@@ -4437,7 +4811,8 @@
       "title": "🏃 Long Run + Recovery Swim",
       "source_event_id": "k9klikjm309f8cels7bhr20ofs_20270613T073000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-06-13",
@@ -4449,7 +4824,8 @@
       "title": "🏃 Long Run + Recovery Swim",
       "source_event_id": "k9klikjm309f8cels7bhr20ofs_20270613T073000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-06-14",
@@ -4461,7 +4837,8 @@
       "title": "🏊 Swim: Threshold + Endurance (3k)",
       "source_event_id": "s8nlt2lc626g9t5c1gdl5qf2os_20270614T050000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "hard"
     },
     {
       "date": "2027-06-15",
@@ -4473,7 +4850,8 @@
       "title": "🚴 Bike Race Pace: 2x30' @ 70.3 watts",
       "source_event_id": "i33cf37p29t71ocrrodo4c46p0_20270615T050000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-06-15",
@@ -4485,7 +4863,8 @@
       "title": "🏃 Run Z2 (45')",
       "source_event_id": "bvdcmu2mj74cjfg81jfmr8ufdc_20270615T180000Z",
       "needs_review": false,
-      "note": "sum of the listed parts"
+      "note": "sum of the listed parts",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-06-16",
@@ -4497,7 +4876,8 @@
       "title": "🏊 Swim: Race Pace 1900m + Sighting",
       "source_event_id": "37o85e3dvmu6s2ri223eslphkk_20270616T050000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-06-16",
@@ -4509,7 +4889,8 @@
       "title": "🏃 Run Threshold: 5x1k @ threshold",
       "source_event_id": "tsessgvo886mrc35kq77idp8f8_20270616T180000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "hard"
     },
     {
       "date": "2027-06-17",
@@ -4521,7 +4902,8 @@
       "title": "🚴 Bike Z2 Endurance (outdoor, 75')",
       "source_event_id": "6qmos3mi4mugp8p20g5ofca7m4_20270617T050000Z",
       "needs_review": false,
-      "note": "sum of the listed parts"
+      "note": "sum of the listed parts",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-06-18",
@@ -4533,7 +4915,8 @@
       "title": "🏊 Swim: Open Water Sim / Tech (2.5-3k)",
       "source_event_id": "7mu81hpsullr4l2rpbiir8morc_20270618T050000Z",
       "needs_review": true,
-      "note": "the title gives a range, not one value"
+      "note": "the title gives a range, not one value",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-06-19",
@@ -4545,7 +4928,8 @@
       "title": "🔗 BIG BRICK: Bike 3.5-4h + Run 45' race pace",
       "source_event_id": "22frdj8fg8ri7eujahaso7lc10_20270619T060000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-06-19",
@@ -4557,7 +4941,8 @@
       "title": "🔗 BIG BRICK: Bike 3.5-4h + Run 45' race pace",
       "source_event_id": "22frdj8fg8ri7eujahaso7lc10_20270619T060000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-06-20",
@@ -4569,7 +4954,8 @@
       "title": "🏃 Long Run + Recovery Swim",
       "source_event_id": "k9klikjm309f8cels7bhr20ofs_20270620T073000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-06-20",
@@ -4581,7 +4967,8 @@
       "title": "🏃 Long Run + Recovery Swim",
       "source_event_id": "k9klikjm309f8cels7bhr20ofs_20270620T073000Z",
       "needs_review": true,
-      "note": "varies by week number or rotation, with no dates"
+      "note": "varies by week number or rotation, with no dates",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-06-22",
@@ -4593,7 +4980,8 @@
       "title": "🏃 Run Z2 (40') [TAPER W1]",
       "source_event_id": "i77hh18oa87qp2o175a91l7j0k",
       "needs_review": false,
-      "note": "sum of the listed parts"
+      "note": "sum of the listed parts",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-06-23",
@@ -4605,7 +4993,8 @@
       "title": "🏊 Swim: Race Pace 1000m (1.7k) [TAPER W1]",
       "source_event_id": "cod3kl16rfht3fasua5j0gv5o8",
       "needs_review": false,
-      "note": "stated total"
+      "note": "stated total",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-06-24",
@@ -4617,7 +5006,8 @@
       "title": "🚴 Bike Z2 (60') [TAPER W1]",
       "source_event_id": "vmetq69jk284fu9lelrmu3ktk0",
       "needs_review": false,
-      "note": "sum of the listed parts"
+      "note": "sum of the listed parts",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-06-25",
@@ -4629,7 +5019,8 @@
       "title": "🏊 Swim: Tech + Speed (1.8k) [TAPER W1]",
       "source_event_id": "ljfb8p66umaukjv6mct8m625i4",
       "needs_review": true,
-      "note": "parts add up to 1,700 m but the stated total is 1,800 m"
+      "note": "parts add up to 1,700 m but the stated total is 1,800 m",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-06-26",
@@ -4641,7 +5032,8 @@
       "title": "🔗 Brick: Bike 2.5h + Run 30' race pace [TAPER W1]",
       "source_event_id": "umn3qj39qcsgs1cqmte39m39mk",
       "needs_review": false,
-      "note": "the bike leg line"
+      "note": "the bike leg line",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-06-26",
@@ -4653,7 +5045,8 @@
       "title": "🔗 Brick: Bike 2.5h + Run 30' race pace [TAPER W1]",
       "source_event_id": "umn3qj39qcsgs1cqmte39m39mk",
       "needs_review": false,
-      "note": "the run leg line"
+      "note": "the run leg line",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-06-27",
@@ -4665,7 +5058,8 @@
       "title": "🏃 Long Run Z2 (75') [TAPER W1]",
       "source_event_id": "dl7s23b7refi20ke95ilq3ntag",
       "needs_review": false,
-      "note": "sum of the listed parts"
+      "note": "sum of the listed parts",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-06-28",
@@ -4677,7 +5071,8 @@
       "title": "🏊 Swim: Aerobic (1.6k) [TAPER W2]",
       "source_event_id": "mblm95as5k3khmaouvuli65gp4",
       "needs_review": true,
-      "note": "parts add up to 1,400 m but the stated total is 1,600 m"
+      "note": "parts add up to 1,400 m but the stated total is 1,600 m",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-06-29",
@@ -4689,7 +5084,8 @@
       "title": "🚴 Bike: 2x8' @ race power (60') [TAPER W2]",
       "source_event_id": "ljensv077k1qevmojb4iq6d9kg",
       "needs_review": false,
-      "note": "sum of the listed parts"
+      "note": "sum of the listed parts",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-06-29",
@@ -4701,7 +5097,8 @@
       "title": "🏃 Run Z2 + Strides (30') [TAPER W2]",
       "source_event_id": "sapf37k8ftp0fc86g5i2jps6g8",
       "needs_review": true,
-      "note": "no total duration, and the parts cannot all be added up"
+      "note": "no total duration, and the parts cannot all be added up",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-06-30",
@@ -4713,7 +5110,8 @@
       "title": "🏊 Swim: Race Pace Short (1.4k) [TAPER W2]",
       "source_event_id": "hf8orkrb96o2d2pmfpaqemdehc",
       "needs_review": true,
-      "note": "parts add up to 1,300 m but the stated total is 1,400 m"
+      "note": "parts add up to 1,300 m but the stated total is 1,400 m",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-07-01",
@@ -4725,7 +5123,8 @@
       "title": "🚴 Bike: 3x3' race pace primers (45') [TAPER W2]",
       "source_event_id": "ctvaobos752csk3u8ouedhbnic",
       "needs_review": false,
-      "note": "duration in the title and first line"
+      "note": "duration in the title and first line",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-07-01",
@@ -4737,7 +5136,8 @@
       "title": "🏃 Run Z2 + Strides (30') [TAPER W2]",
       "source_event_id": "nk60eh91t18jkv6h1tn8neqtqo",
       "needs_review": true,
-      "note": "no total duration, and the parts cannot all be added up"
+      "note": "no total duration, and the parts cannot all be added up",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-07-02",
@@ -4749,7 +5149,8 @@
       "title": "🏊 Swim: Openers (800m) [TAPER W2]",
       "source_event_id": "80h8s5jcqdmkcq623gl42d9vh0",
       "needs_review": true,
-      "note": "parts add up to 1,000 m but the stated total is 800 m"
+      "note": "parts add up to 1,000 m but the stated total is 800 m",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-07-03",
@@ -4761,7 +5162,8 @@
       "title": "🔗 Brick: Bike 90' + Run 20' race pace [TAPER W2]",
       "source_event_id": "q7mcqro6vd995k9m67fcv4qr6s",
       "needs_review": false,
-      "note": "the bike leg line"
+      "note": "the bike leg line",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-07-03",
@@ -4773,7 +5175,8 @@
       "title": "🔗 Brick: Bike 90' + Run 20' race pace [TAPER W2]",
       "source_event_id": "q7mcqro6vd995k9m67fcv4qr6s",
       "needs_review": false,
-      "note": "the run leg line"
+      "note": "the run leg line",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-07-04",
@@ -4785,7 +5188,8 @@
       "title": "🏃 Run Easy (45') [TAPER W2]",
       "source_event_id": "v4oc87qlu7sddnv5hfvdc766es",
       "needs_review": false,
-      "note": "duration in the title and first line"
+      "note": "duration in the title and first line",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-07-05",
@@ -4797,7 +5201,8 @@
       "title": "🚴🏊 Bike 45' + Swim 30' easy [RACE WEEK]",
       "source_event_id": "75i80ss3f08aeedomej5vs0jjk",
       "needs_review": false,
-      "note": "the bike leg line"
+      "note": "the bike leg line",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-07-05",
@@ -4809,7 +5214,8 @@
       "title": "🚴🏊 Bike 45' + Swim 30' easy [RACE WEEK]",
       "source_event_id": "75i80ss3f08aeedomej5vs0jjk",
       "needs_review": false,
-      "note": "sum of the listed swim parts"
+      "note": "sum of the listed swim parts",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-07-06",
@@ -4821,7 +5227,8 @@
       "title": "🏃 Run: 30' + 4 strides [RACE WEEK]",
       "source_event_id": "0sdesjqlk2r5trg1ripjlgah1c",
       "needs_review": true,
-      "note": "no total duration, and the parts cannot all be added up"
+      "note": "no total duration, and the parts cannot all be added up",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-07-07",
@@ -4833,7 +5240,8 @@
       "title": "🏊 Swim: Openers (700m) [RACE WEEK]",
       "source_event_id": "38vp5vo6k3v0eie792mjb1pqgo",
       "needs_review": true,
-      "note": "parts add up to 600 m but the stated total is 700 m"
+      "note": "parts add up to 600 m but the stated total is 700 m",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-07-09",
@@ -4845,7 +5253,8 @@
       "title": "🏊🚴 Check-in + Course Recon [RACE WEEK]",
       "source_event_id": "ff9fibblpdvtrcooqe5pg4ouvc",
       "needs_review": true,
-      "note": "no bike leg line"
+      "note": "no bike leg line",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-07-09",
@@ -4857,7 +5266,8 @@
       "title": "🏊🚴 Check-in + Course Recon [RACE WEEK]",
       "source_event_id": "ff9fibblpdvtrcooqe5pg4ouvc",
       "needs_review": true,
-      "note": "no swim leg line"
+      "note": "no swim leg line",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-07-10",
@@ -4869,7 +5279,8 @@
       "title": "🏊🚴🏃 Openers 40' (Race -1) [RACE WEEK]",
       "source_event_id": "eg9khop8f7nequqa386m0pcol8",
       "needs_review": true,
-      "note": "no bike leg line"
+      "note": "no bike leg line",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-07-10",
@@ -4881,7 +5292,8 @@
       "title": "🏊🚴🏃 Openers 40' (Race -1) [RACE WEEK]",
       "source_event_id": "eg9khop8f7nequqa386m0pcol8",
       "needs_review": true,
-      "note": "no run leg line"
+      "note": "no run leg line",
+      "intensity_class": "easy"
     },
     {
       "date": "2027-07-10",
@@ -4893,7 +5305,8 @@
       "title": "🏊🚴🏃 Openers 40' (Race -1) [RACE WEEK]",
       "source_event_id": "eg9khop8f7nequqa386m0pcol8",
       "needs_review": true,
-      "note": "no swim leg line"
+      "note": "no swim leg line",
+      "intensity_class": "easy"
     }
   ]
 }

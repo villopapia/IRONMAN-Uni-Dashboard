@@ -54,18 +54,25 @@ function TrainingLoadTooltip({ active, payload, volume }: TooltipProps<number, s
         {fmtWeekRange(w.week_start)}
         {w.state === "current" ? " (this week)" : ""}
       </div>
-      {isFuture ? (
+      {w.plan_incomplete && (
         <div style={{ color: ink.secondary }}>
-          Hasn't happened yet - planned load: <strong style={{ color: ink.primary }}>{Math.round(w.projected_load ?? 0)}</strong>
+          Plan values missing for {w.plan_missing_sessions} session{w.plan_missing_sessions === 1 ? "" : "s"}
         </div>
+      )}
+      {isFuture ? (
+        !w.plan_incomplete && (
+          <div style={{ color: ink.secondary }}>
+            Hasn't happened yet. Planned (est.): <strong style={{ color: ink.primary }}>{Math.round(w.projected_load ?? 0)}</strong>
+          </div>
+        )
       ) : (
         <div style={{ color: ink.secondary }}>
           {isCurrent ? "Actual load so far" : "Actual load"}: <strong style={{ color: ink.primary }}>{Math.round(w.actual_load)}</strong>
         </div>
       )}
-      {isCurrent && w.planned_load > 0 && (
+      {isCurrent && w.planned_load != null && w.planned_load > 0 && (
         <div style={{ color: ink.secondary }}>
-          Planned for the week: <strong style={{ color: ink.primary }}>{Math.round(w.planned_load)}</strong> · done{" "}
+          Planned for the week (est.): <strong style={{ color: ink.primary }}>{Math.round(w.planned_load)}</strong> · done{" "}
           {pct(w.actual_load, w.planned_load)}
         </div>
       )}
@@ -97,7 +104,7 @@ function headline(weeks: OverlayWeek[]): string {
   const cur = weeks.find((w) => w.state === "current");
   let thisWeek = "";
   // "X done of Y planned" only once the week has a completed session; before that it reads as a failure.
-  if (cur && cur.planned_load > 0 && cur.actual_load > 0) {
+  if (cur && cur.planned_load != null && cur.planned_load > 0 && cur.actual_load > 0) {
     const gap = Math.round(cur.planned_to_date - cur.actual_load);
     const tol = 0.02 * cur.planned_load; // relative, so it reads the same on either load scale
     const pace =
@@ -108,9 +115,9 @@ function headline(weeks: OverlayWeek[]): string {
           : gap < -tol
             ? ` — about ${-gap} ahead of the plan so far`
             : " — on plan so far";
-    thisWeek = `This week: ${Math.round(cur.actual_load)} done of ${Math.round(cur.planned_load)} planned (${pct(cur.actual_load, cur.planned_load)})${pace}. `;
+    thisWeek = `This week: ${Math.round(cur.actual_load)} done of ${Math.round(cur.planned_load)} planned (est.) (${pct(cur.actual_load, cur.planned_load)})${pace}. `;
   }
-  return `${thisWeek}Your biggest completed week is ${Math.round(biggest)}; the plan peaks at ${Math.round(peak.total_load!)} (w/c ${fmtShortDate(peak.week_start)}), ${(peak.total_load! / biggest).toFixed(1)}× that, with ${rest}.`;
+  return `${thisWeek}Your biggest completed week is ${Math.round(biggest)}; the plan peaks at an estimated ${Math.round(peak.total_load!)} (w/c ${fmtShortDate(peak.week_start)}), ${(peak.total_load! / biggest).toFixed(1)}× that, with ${rest}.`;
 }
 
 export default function LoadDeadlineOverlay() {
@@ -123,10 +130,12 @@ export default function LoadDeadlineOverlay() {
       label: fmtWeekRange(w.week_start),
       actual: w.actual_load,
       projected: w.projected_load ?? 0,
+      // A week with sessions missing their plan value: an outline at what is known, never a filled bar.
+      incomplete: w.plan_incomplete ? Math.max(w.planned_known_load, 1) : 0,
       threshold: w.chronic_weekly_load,
       // Current week only: earlier weeks had little or nothing in the calendar
       // (summer), so "vs plan" there would read as a huge overshoot.
-      planned: w.state === "current" && w.planned_load > 0 ? w.planned_load : null,
+      planned: w.state === "current" && w.planned_load != null && w.planned_load > 0 ? w.planned_load : null,
       deadlines: w.deadline_count,
       w,
     })) ?? [];
@@ -136,14 +145,14 @@ export default function LoadDeadlineOverlay() {
   const noDeadlines = !!data && data.weeks.every((w) => w.deadline_count === 0);
   // Optional on purpose: a backend older than the frontend omits these, and a
   // missing field must not take the whole page down.
-  const rateFallback = data?.load_per_hour_fallback ?? [];
-  const rates = Object.entries(data?.load_per_hour_by_discipline ?? {}).filter(([k]) => ["swim", "bike", "run", "gym"].includes(k));
+  const rates = data?.planned_rates ?? [];
+  const pace = data?.swim_pace_s_per_100m;
   // The pill is about whether deadlines have been entered at all, not whether this window happens to hold one.
   const anyDeadlines = data?.any_deadlines ?? !noDeadlines;
   const info = data
-    ? `${data.note} Load/hour used for projection: ${rates.map(([k, v]) => `${k} ${v}${rateFallback.includes(k) ? "*" : ""}`).join(", ")} load/h.${
-        rates.some(([k]) => rateFallback.includes(k)) ? " * all-history fallback." : ""
-      }`
+    ? `${data.note} Rates used (load/h): ${rates
+        .map((r) => `${r.sport} ${r.intensity} ${r.rate ?? "n/a"} (${r.source}, ${r.activities} in bucket)`)
+        .join("; ")}.${pace ? ` Swim metres are converted at ${Math.floor(pace / 60)}:${String(pace % 60).padStart(2, "0")} per 100 m.` : ""}`
     : undefined;
 
   // Amber only on risk weeks, so the bars say the same thing as the flag row beneath them.
@@ -182,8 +191,8 @@ export default function LoadDeadlineOverlay() {
           <div className="mb-1 flex flex-wrap items-center gap-3">
             <span className="text-xs font-medium text-neutral-300">Training load / week{data.load_source ? ` (${data.load_source})` : ""}</span>
             <LegendChip color={ink.secondary} label="Actual" />
-            <LegendChip color={ink.muted} label="Planned (projected)" />
-            <LegendChip color={ink.primary} label="Plan for that week" />
+            <LegendChip color={ink.muted} label="Planned (est.)" />
+            <LegendChip color={ink.primary} label="Plan for that week (est.)" />
             <LegendChip color={status.warning} label="Risk week" />
             <LegendChip color={ink.muted} label="Your usual week" line />
           </div>
@@ -200,15 +209,28 @@ export default function LoadDeadlineOverlay() {
                     <Cell key={r.label} fill={trainingFill(r.w, false)} />
                   ))}
                 </Bar>
-                <Bar dataKey="projected" name="Planned (projected)" stackId="t" maxBarSize={22} radius={[4, 4, 0, 0]} isAnimationActive={false}>
+                <Bar dataKey="projected" name="Planned (est.)" stackId="t" maxBarSize={22} radius={[4, 4, 0, 0]} isAnimationActive={false}>
                   {rows.map((r) => (
                     <Cell key={r.label} fill={trainingFill(r.w, true)} />
                   ))}
                 </Bar>
+                {/* Plan incomplete: outline only, no fill. */}
+                <Bar
+                  dataKey="incomplete"
+                  name="Plan incomplete"
+                  stackId="t"
+                  maxBarSize={22}
+                  radius={[4, 4, 0, 0]}
+                  fill="transparent"
+                  stroke={ink.muted}
+                  strokeWidth={1}
+                  strokeDasharray="3 3"
+                  isAnimationActive={false}
+                />
                 {/* Past/current weeks: where the plan said the week should land. */}
                 <Line
                   dataKey="planned"
-                  name="Planned for the week"
+                  name="Planned for the week (est.)"
                   stroke="none"
                   dot={{ r: 4, fill: ink.primary, stroke: surface.card, strokeWidth: 2 }}
                   activeDot={false}
@@ -298,11 +320,15 @@ export default function LoadDeadlineOverlay() {
           </div>
 
           <ChartTable
-            columns={["Week", "Load", "Plan", "Usual week", "Planned h", "Deadlines", "Flag"]}
+            columns={["Week", "Load", "Plan (est.)", "Usual week", "Prescribed h", "Deadlines", "Flag"]}
             rows={rows.map((r) => [
               `${r.label}${r.w.state === "current" ? " (now)" : ""}`,
-              r.w.total_load != null ? `${Math.round(r.w.total_load)}${r.w.state !== "past" && r.w.projected_load ? " (proj.)" : ""}` : "—",
-              r.w.planned_load > 0 ? Math.round(r.w.planned_load) : "—",
+              r.w.total_load != null ? `${Math.round(r.w.total_load)}${r.w.state !== "past" && r.w.projected_load ? " (est.)" : ""}` : "—",
+              r.w.plan_incomplete
+                ? `incomplete (${r.w.plan_missing_sessions} missing)`
+                : r.w.planned_load != null && r.w.planned_load > 0
+                  ? Math.round(r.w.planned_load)
+                  : "—",
               Math.round(r.w.chronic_weekly_load),
               r.w.planned_hours || "—",
               r.w.deadlines.length ? r.w.deadlines.map((d) => d.title).join(", ") : "—",

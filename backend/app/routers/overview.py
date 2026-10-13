@@ -28,7 +28,10 @@ class OverlayWeek(BaseModel):
     chronic_weekly_load: float
     elevated_above: float | None
     load_ratio: float | None
-    planned_load: float
+    planned_load: float | None  # estimated; None when a session has no plan value
+    planned_known_load: float
+    plan_incomplete: bool
+    plan_missing_sessions: int
     planned_to_date: float
     planned_sessions: int
     planned_hours: float
@@ -43,12 +46,21 @@ class OverlayWeek(BaseModel):
     risk: bool
 
 
+class PlannedRate(BaseModel):
+    sport: str
+    intensity: str  # easy / hard
+    rate: float | None  # load per moving hour
+    activities: int  # in this sport x intensity bucket over the window
+    source: str  # own bucket / sport overall / all sports
+
+
 class Overlay(BaseModel):
     weeks: list[OverlayWeek]
     load_source: str
     any_deadlines: bool
-    load_per_hour_by_discipline: dict[str, float]
-    load_per_hour_fallback: list[str]
+    planned_rates: list[PlannedRate]
+    swim_pace_s_per_100m: int | None
+    rate_races_excluded: int
     current_ctl: float
     acwr_threshold: float
     deadline_count_threshold: int
